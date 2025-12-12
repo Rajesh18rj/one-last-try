@@ -75,11 +75,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
             selectedMode = btn.dataset.mode;
             updateBookingButton();
+
+            //  SHOW ADDRESS FIELDS IF IN-PERSON
+            const addressSection = document.getElementById("addressFields");
+            if (selectedMode === "in_person") {
+                addressSection.classList.remove("hidden");
+            } else {
+                addressSection.classList.add("hidden");
+            }
         });
     });
 
     // ✅ Set default selected mode
-    document.querySelector('[data-mode="online"]')?.click();
+    // Auto-select based on availability
+        const onlineBtn = document.querySelector('[data-mode="online"]');
+        const inPersonBtn = document.querySelector('[data-mode="in_person"]');
+
+    // CASE 1: Online is available -> select Online
+        if (onlineBtn && !onlineBtn.hidden && !onlineBtn.disabled) {
+            onlineBtn.click();
+        }
+    // CASE 2: Only In-Person available -> select In-Person
+        else if (inPersonBtn && !inPersonBtn.hidden && !inPersonBtn.disabled) {
+            inPersonBtn.click();
+        }
 
 
     /* ---------------- Date Selection ---------------- */

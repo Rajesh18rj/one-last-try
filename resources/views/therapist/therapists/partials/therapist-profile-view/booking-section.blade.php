@@ -1,7 +1,7 @@
 <aside id="booking"  class="bg-white/90 backdrop-blur-2xl rounded-3xl p-6 shadow-2xl border border-white/60 lg:sticky lg:top-28 h-fit hover:shadow-3xl transition-all duration-500 lg:max-h-[calc(140vh-12rem)] overflow-y-auto">
 
     <div class="text-center mb-4">
-        <div class="w-12 h-12 bg-gradient-to-br from-[#F79C23] to-[#FF9F40] rounded-3xl flex items-center justify-center mx-auto mb-2 shadow-xl">
+        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-3xl flex items-center justify-center mx-auto mb-2 shadow-xl">
             <i class="fa-solid fa-calendar-check text-xl text-white"></i>
         </div>
         <h3 class="text-2xl font-black bg-gradient-to-r from-[#2A2418] to-[#4A3B26] bg-clip-text text-transparent mb-0">Book Your Slot</h3>
@@ -21,7 +21,7 @@
         $isInPersonAvailable = in_array($sessionMode, ['in_person', 'both']);
 
         // ================================================================
-        // 🔥 Generate next 14 days based on stored days ("Sunday", "Monday"...)
+        // Generate next 14 days based on stored days ("Sunday", "Monday"...)
         // ================================================================
         $dateOptions = [];
         $today = \Carbon\Carbon::today();
@@ -42,17 +42,54 @@
                 class="mode-btn flex-1 px-3 py-3 rounded-lg text-sm font-semibold transition-all duration-300
             {{ $isOnlineAvailable ? 'bg-gradient-to-r from-[#F79C23] to-[#FF9F40] border border-[#FFCE7A] text-white shadow-md' : 'bg-gray-100 text-gray-400 cursor-not-allowed' }}"
             {{ !$isOnlineAvailable ? 'hidden' : '' }}>
-            <i class="fa-solid fa-video mr-1 text-xs"></i>Online
+            <i class="fa-solid fa-video mr-2 text-xs"></i>Online
         </button>
 
         <button data-mode="in_person"
                 class="mode-btn flex-1 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300
             {{ $isInPersonAvailable ? 'bg-gradient-to-r from-orange-400 to-orange-500 border border-[#FFCE7A] text-white shadow-md' : 'bg-gray-100 text-gray-400 cursor-not-allowed' }}"
             {{ !$isInPersonAvailable ? 'hidden' : '' }}>
-            <i class="fa-solid fa-location-dot mr-1 text-xs"></i>In-Person
+            <i class="fa-solid fa-location-dot mr-2 text-xs"></i>In-Person
         </button>
 
     </div>
+
+    {{-- IN-PERSON ADDRESS DISPLAY --}}
+    <div id="addressFields"
+         class="hidden mb-6 p-4 bg-white shadow-sm border border-[#F79C23]/30 rounded-2xl">
+
+        <div class="flex items-center gap-2 mb-2">
+            <div class="w-7 h-7 bg-gradient-to-br from-red-400 to-red-500
+                    rounded-xl flex items-center justify-center shadow">
+                <i class="fa-solid fa-location-dot text-white text-sm"></i>
+            </div>
+            <h4 class="text-base font-extrabold text-[#4A3B26]"> Address</h4>
+        </div>
+
+        <p class="text-sm font-semibold text-[#4A3B26] leading-tight mb-1">
+            {{ $therapist->address ?? 'Address not provided' }}
+        </p>
+
+        {{-- City + Pincode on Same Line --}}
+        <p class="text-sm font-semibold text-[#4A3B26] leading-tight mb-1">
+            {{ $therapist->city ?? '' }}
+            @if($therapist->pin_code)
+                – {{ $therapist->pin_code }}
+            @endif
+        </p>
+
+        {{-- State + Country on the same line --}}
+        @if($therapist->state || $therapist->country)
+            <p class="text-sm text-[#4A3B26] leading-tight">
+                {{ $therapist->state ?? '' }}
+                @if($therapist->state && $therapist->country), @endif
+                {{ $therapist->country ?? '' }}.
+            </p>
+        @endif
+
+    </div>
+
+
 
 
     {{-- DATE SELECTOR --}}

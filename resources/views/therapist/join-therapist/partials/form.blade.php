@@ -412,6 +412,18 @@
                 </div>
             </template>
 
+            <!-- Address -->
+            <div class="grid grid-cols-1 mb-6">
+                <div>
+                    <label class="text-sm font-medium text-[#4B4B4B]">Address*</label>
+                    <x-text-input name="address"
+                                  value="{{ old('address') }}"
+                                  class="block w-full mt-1 border-[#D7DCC8] bg-[#FFFCF4] placeholder-gray-300" placeholder="e.g. Building name, Street name, Door no, etc.." />
+                    @error('address')
+                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
 
             <!-- City,  Pin Code -->
             <div class="grid grid-cols-2 gap-6 mb-6">
@@ -419,7 +431,7 @@
                     <label class="text-sm font-medium text-[#4B4B4B]">City*</label>
                     <x-text-input name="city"
                                   value="{{ old('city') }}"
-                                  class="block w-full mt-1 border-[#D7DCC8] bg-[#FAFBF7]" />
+                                  class="block w-full mt-1 border-[#D7DCC8] bg-[#FFFCF4]" />
                     @error('city')
                     <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
@@ -429,7 +441,7 @@
                     <label class="text-sm font-medium text-[#4B4B4B]">Pin Code*</label>
                     <x-text-input name="pin_code"
                                   value="{{ old('pin_code') }}"
-                                  class="block w-full mt-1 border-[#D7DCC8] bg-[#FAFBF7]" />
+                                  class="block w-full mt-1 border-[#D7DCC8] bg-[#FFFCF4]" />
                     @error('pin_code')
                     <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                     @enderror
@@ -445,7 +457,7 @@
                 <label class="text-sm font-medium text-[#4B4B4B]">State*</label>
                 <x-text-input name="state"
                               value="{{ old('state') }}"
-                              class="block w-full mt-1 border-[#D7DCC8] bg-[#FAFBF7]" />
+                              class="block w-full mt-1 border-[#D7DCC8] bg-[#FFFCF4]" />
                 @error('state')
                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                 @enderror
@@ -456,7 +468,7 @@
                 <label class="text-sm font-medium text-[#4B4B4B]">Country*</label>
                 <x-text-input name="country"
                               value="{{ old('country') }}"
-                              class="block w-full mt-1 border-[#D7DCC8] bg-[#FAFBF7]" />
+                              class="block w-full mt-1 border-[#D7DCC8] bg-[#FFFCF4]" />
                 @error('country')
                 <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                 @enderror

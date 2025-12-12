@@ -45,6 +45,8 @@ class TherapistRegisterController extends Controller
             'available_time_slots.*.*.start' => 'required|string|date_format:H:i',
             'available_time_slots.*.*.end'   => 'required|string|date_format:H:i',
 
+            'address'  => 'required|text',
+
             'city'     => 'required|string',
             'state'    => 'required|string',
             'pin_code' => 'required|string',
@@ -95,6 +97,8 @@ class TherapistRegisterController extends Controller
 
             'available_days'       => json_encode($validated['available_days']),
             'available_time_slots' => json_encode($validated['available_time_slots'] ?? []),
+
+            'address'              => $validated['address'],
 
             'city'                 => $validated['city'],
             'state'                => $validated['state'],

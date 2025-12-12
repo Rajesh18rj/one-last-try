@@ -80,10 +80,10 @@
         {{-- Enhanced Actions --}}
         <div class="flex flex-col sm:flex-row gap-4 mt-10">
             <button class="flex-1 border-2 border-[#F7A531]/70 text-[#F79C23] px-8 py-4 rounded-3xl font-semibold hover:bg-[#FFF1D6]/80 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02] group">
-                <i class="fa-solid fa-share-nodes mr-2 group-hover:translate-x-1 transition-transform"></i>Share Profile
+                <i class="fa-solid fa-share-nodes mr-3 group-hover:translate-x-1 transition-transform"></i>Share Profile
             </button>
             <a href="#booking" class="flex-1 px-8 py-4 bg-gradient-to-r from-[#F79C23] to-[#FF9F40] text-white font-bold rounded-3xl shadow-2xl hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 text-center flex items-center justify-center">
-                <i class="fa-solid fa-calendar-check mr-2"></i>Book Now
+                <i class="fa-solid fa-calendar-check mr-3"></i>Book Now
             </a>
         </div>
     </div>
