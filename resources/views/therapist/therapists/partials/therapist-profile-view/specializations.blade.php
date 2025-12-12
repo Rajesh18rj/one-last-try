@@ -15,8 +15,8 @@
     @if(!empty($specializations))
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 text-center">
             @foreach($specializations as $spec)
-                <div class="group p-4 bg-gradient-to-br from-[#FFF4DD] to-[#FFFBF0] border-2 border-[#FFCE7A]/50 rounded-2xl hover:bg-gradient-to-br hover:from-[#F79C23]/10 hover:to-[#FF9F40]/10 hover:border-[#F79C23]/70 hover:shadow-xl hover:scale-105 transition-all duration-400 cursor-pointer">
-                    <span class="text-lg font-bold text-[#4A3B26] group-hover:text-[#F79C23] transition-colors">{{ $spec }}</span>
+                <div class="group px-3 py-2 bg-gradient-to-br from-[#FFF4DD] to-[#FFFBF0] border-2 border-[#FFCE7A]/50 rounded-2xl hover:bg-gradient-to-br hover:from-[#F79C23]/10 hover:to-[#FF9F40]/10 hover:border-[#F79C23]/70 hover:shadow-xl hover:scale-105 transition-all duration-400 cursor-pointer">
+                    <span class="text-md font-bold text-[#4A3B26] group-hover:text-[#F79C23] transition-colors">{{ $spec }}</span>
                 </div>
             @endforeach
         </div>

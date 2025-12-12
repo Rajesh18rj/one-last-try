@@ -7,7 +7,7 @@
     </h3>
 
     <div class="space-y-4">
-        <p class="text-lg text-[#5A4C34]/90 leading-relaxed max-h-[10rem] lg:max-h-[8rem] overflow-hidden transition-all duration-500 ease-in-out relative" id="bioText">
+        <p class="text-md text-[#5A4C34]/90 leading-relaxed max-h-[10rem] lg:max-h-[8rem] overflow-hidden transition-all duration-500 ease-in-out relative" id="bioText">
         {{ $therapist->bio ?: 'No biography available.' }}
         <div id="bioGradient" class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FFF8ED] to-transparent pointer-events-none opacity-0 transition-all duration-500"></div>
         </p>

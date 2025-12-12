@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // ✅ Set default selected mode
+    document.querySelector('[data-mode="online"]')?.click();
+
+
     /* ---------------- Date Selection ---------------- */
     document.querySelectorAll(".date-btn").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -116,45 +120,72 @@ document.addEventListener("DOMContentLoaded", () => {
         slots.forEach(slot => {
 
             const slotStart = slot.start;
-
             let show = true;
 
             if (isToday) {
                 const currentMin = now.getHours() * 60 + now.getMinutes();
                 const slotMin = parseInt(slotStart.split(":")[0]) * 60 + parseInt(slotStart.split(":")[1]);
-
-                if (slotMin <= currentMin) show = false; // HIDE PAST SLOTS
+                if (slotMin <= currentMin) show = false;
             }
 
             if (show) {
                 const formattedStart = to12Hour(slot.start);
-                const formattedEnd = to12Hour(slot.end);
-                const fullLabel = `${formattedStart} - ${formattedEnd}`;
+
+                // ✔ Show only START TIME
+                const fullLabel = formattedStart;
 
                 const btn = document.createElement("button");
                 btn.dataset.slot = fullLabel;
                 btn.className =
-                    "slot-btn px-4 py-3 rounded-xl bg-gradient-to-r from-[#FFF4DD] to-[#FFFBF0] " +
+                    "slot-btn px-2 py-2 rounded-xl bg-gradient-to-r from-[#FFF4DD] to-[#FFFBF0] " +
                     "border border-[#FFCE7A] text-sm font-bold text-[#4A3B26] hover:bg-[#F79C23]/20 transition";
                 btn.textContent = fullLabel;
 
                 btn.addEventListener("click", () => {
-                    document.querySelectorAll(".slot-btn").forEach(b =>
-                        b.classList.remove("ring-2", "ring-[#F79C23]", "bg-[#F79C23]/20")
-                    );
+                    // Remove active state from all buttons
+                    document.querySelectorAll(".slot-btn").forEach(b => {
+                        b.classList.remove(
+                            "ring-2",
+                            "ring-[#F79C23]",
+                            "bg-[#F79C23]/20",
+                            "text-white",
+                            "bg-gradient-to-r",
+                            "from-[#F79C23]",
+                            "to-[#FF9F40]"
+                        );
 
-                    btn.classList.add("ring-2", "ring-[#F79C23]", "bg-[#F79C23]/20");
+                        // Restore original style
+                        b.classList.add(
+                            "bg-gradient-to-r",
+                            "from-[#FFF4DD]",
+                            "to-[#FFFBF0]",
+                            "text-[#4A3B26]"
+                        );
+                    });
+
+                    // Apply highlight to selected
+                    btn.classList.remove("from-[#FFF4DD]", "to-[#FFFBF0]", "text-[#4A3B26]");
+                    btn.classList.add(
+                        "ring-2",
+                        "ring-[#F79C23]",
+                        "bg-[#F79C23]/20",
+                        "text-white",
+                        "bg-gradient-to-r",
+                        "from-[#F79C23]",
+                        "to-[#FF9F40]"
+                    );
 
                     selectedSlot = fullLabel;
                     updateBookingButton();
                 });
+
 
                 grid.appendChild(btn);
             }
         });
 
         if (!grid.innerHTML.trim()) {
-            grid.innerHTML = `<p class="text-center text-[#A8916C] py-4">No available slots for this time</p>`;
+            grid.innerHTML = `<p class="text-center text-sm text-[#A8916C] py-3">No available slots for this time</p>`;
         }
     }
 

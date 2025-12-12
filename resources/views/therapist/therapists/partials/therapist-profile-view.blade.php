@@ -13,7 +13,7 @@
             {{-- HEADER PROFILE --}}
                 @include('therapist.therapists.partials.therapist-profile-view.profile-section')
 
-            <div class="mt-16 lg:mt-24 grid lg:grid-cols-3 gap-8 lg:gap-12">
+            <div class="mt-16 lg:mt-10 grid lg:grid-cols-3 gap-8 lg:gap-12">
                 {{-- LEFT SECTION --}}
                 <div class="lg:col-span-2 flex flex-col gap-8 lg:gap-12">
 
@@ -39,9 +39,9 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .scrollbar-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar { height: 16px; width: 12px; }
         .scrollbar-thin::-webkit-scrollbar-track { background: #FFF4DD; }
-        .scrollbar-thin::-webkit-scrollbar-thumb { background: #F79C2380; border-radius: 3px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #F79C2380; border-radius: 2px; }
         .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #F79C23; }
     </style>
 
