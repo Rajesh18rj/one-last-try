@@ -65,6 +65,17 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <!-- Register link -->
+        <div class="text-center mt-4">
+            <span class="text-sm text-gray-600">
+                Don’t have an account?
+            </span>
+            <a href="{{ route('register') }}"
+               class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 hover:underline">
+                Register here
+            </a>
+        </div>
     </form>
 
     <script>

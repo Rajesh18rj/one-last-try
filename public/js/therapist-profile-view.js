@@ -240,14 +240,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------- Booking Action ---------------- */
     document.getElementById("bookButton").addEventListener("click", () => {
+
         if (!selectedDate || !selectedSlot) return;
 
-        alert(
-            `Booking Details:\n\n` +
-            `📅 ${formatDate(selectedDate)}\n` +
-            `⏰ ${selectedSlot}\n` +
-            `📱 Mode: ${selectedMode.toUpperCase()}\n`
-        );
+        const therapistSlug = document.getElementById("therapistSlug").value;
+
+        // Store booking data in session BEFORE redirecting
+        sessionStorage.setItem('booking_date', selectedDate);
+        sessionStorage.setItem('booking_slot', selectedSlot);
+        sessionStorage.setItem('booking_mode', selectedMode);
+
+        window.location.href = `/booking/${therapistSlug}`;
     });
+
+
 
 });

@@ -15,9 +15,18 @@ class TherapistsController extends Controller
         return view('therapist.therapists.index', compact('therapists'));
     }
 
-    public function show($id)
+//    public function show($id)
+//    {
+//        $therapist = TherapistProfile::with('user')->findOrFail($id);
+//
+//        return view('therapist.therapists.partials.therapist-profile-view', compact('therapist'));
+//    }
+
+    public function show($slug)
     {
-        $therapist = TherapistProfile::with('user')->findOrFail($id);
+        $therapist = TherapistProfile::with('user')
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         return view('therapist.therapists.partials.therapist-profile-view', compact('therapist'));
     }

@@ -89,9 +89,6 @@
 
     </div>
 
-
-
-
     {{-- DATE SELECTOR --}}
     <div class="mb-6">
         <label class="block text-sm font-bold text-[#7A6E54] mb-2">Select Date</label>
@@ -132,6 +129,9 @@
     <div id="selectedInfo" class="hidden mb-4 p-2 bg-[#F79C23]/10 rounded-2xl border border-[#F79C23]/30 text-center">
         <p id="selectedDetails" class="text-sm font-bold text-[#F79C23]"></p>
     </div>
+
+    {{-- Hidden slug for JS --}}
+    <input type="hidden" id="therapistSlug" value="{{ $therapist->slug }}">
 
     {{-- BOOKING BUTTON --}}
     <button id="bookButton"

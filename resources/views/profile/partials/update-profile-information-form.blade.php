@@ -1,4 +1,15 @@
 <section>
+    <a href="{{ route('welcome') }}"
+       class="inline-flex items-center gap-2 mb-4 px-4 py-2
+          -mt-16   {{-- ≈ 1 inch upward --}}
+          rounded-full bg-[#FFF3D6] text-[#F79C23] font-semibold text-sm
+          hover:bg-[#FFE2A8] hover:text-[#DF7D0E]
+          transition-all duration-300 shadow-sm hover:shadow">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        <span>Back to Home</span>
+    </a>
+
+
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}

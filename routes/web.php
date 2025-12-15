@@ -18,8 +18,16 @@ Route::get('/therapist/submitted', function () {
 Route::get('/therapists', [\App\Http\Controllers\TherapistsController::class, 'index'])
     ->name('therapists.index');
 
-Route::get('/therapists/{id}', [\App\Http\Controllers\TherapistsController::class, 'show'])
+Route::get('/therapists/{slug}', [\App\Http\Controllers\TherapistsController::class, 'show'])
     ->name('therapists.show');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/booking/{therapist}', [\App\Http\Controllers\BookingController::class, 'confirm'])
+        ->name('booking.confirm')
+        ->middleware('auth');
+
+});
+
 
 
 Route::get('/dashboard', function () {

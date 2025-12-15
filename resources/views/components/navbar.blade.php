@@ -41,29 +41,65 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/resources"
+                    <a href="#"
                        class="{{ request()->is('resources') ? $activeClasses : '' }} {{ $linkClasses }}">
                         Resources
                     </a>
                 </li>
                 <li>
-                    <a href="/about"
+                    <a href="#"
                        class="{{ request()->is('about') ? $activeClasses : '' }} {{ $linkClasses }}">
                         About Us
                     </a>
                 </li>
                 <li>
-                    <a href="/contact"
+                    <a href="#"
                        class="{{ request()->is('contact') ? $activeClasses : '' }} {{ $linkClasses }}">
                         Contact Us
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('login') }}"
-                       class="{{ request()->is('login') ? $activeClasses : '' }} {{ $linkClasses }}">
-                        Sign In
-                    </a>
-                </li>
+
+                @auth
+                    <li class="relative">
+                        <!-- Trigger -->
+                        <button id="profileMenuBtn"
+                                class="{{ $linkClasses }} flex items-center gap-1">
+                            Manage Profile
+                            <i class="ml-1 fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div id="profileMenu"
+                             class="hidden absolute right-0 mt-2 w-44 bg-white border border-gray-200
+                    rounded-xl shadow-lg overflow-hidden z-50">
+
+                            <!-- Profile -->
+                            <a href="{{ route('profile.edit') }}"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Edit Profile
+                            </a>
+
+                            <!-- Logout -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('login') }}"
+                           class="{{ request()->is('login') ? $activeClasses : '' }} {{ $linkClasses }}">
+                            Sign In
+                        </a>
+                    </li>
+                @endauth
+
+
+
             </ul>
 
             <!-- Desktop CTA - Now only lg and up -->
@@ -101,12 +137,44 @@
     </div>
     <div class="px-8 py-2 flex flex-col space-y-6">
         <a href="/" class="font-semibold text-gray-900 {{ request()->is('/') ? 'text-yellow-600' : '' }}">Home</a>
-        <a href="/specialties" class="text-gray-700 {{ request()->is('specialties') ? 'text-yellow-600' : '' }}">Specialties</a>
+        <a href="#" class="text-gray-700 {{ request()->is('specialties') ? 'text-yellow-600' : '' }}">Specialties</a>
         <a href="/therapists" class="text-gray-700 {{ request()->is('therapists') ? 'text-yellow-600' : '' }}">Find a Therapist</a>
         <a href="/resources" class="text-gray-700 {{ request()->is('resources') ? 'text-yellow-600' : '' }}">Resources</a>
-        <a href="/about" class="text-gray-700 {{ request()->is('about') ? 'text-yellow-600' : '' }}">About Us</a>
-        <a href="/contact" class="text-gray-700 {{ request()->is('contact') ? 'text-yellow-600' : '' }}">Contact Us</a>
-        <a href="{{ route('login') }}" class="text-gray-700 {{ request()->is('login') ? 'text-yellow-600' : '' }}">Sign In</a>
+        <a href="#" class="text-gray-700 {{ request()->is('about') ? 'text-yellow-600' : '' }}">About Us</a>
+        <a href="#" class="text-gray-700 {{ request()->is('contact') ? 'text-yellow-600' : '' }}">Contact Us</a>
+        @auth
+            <div class="relative">
+                <!-- Trigger -->
+                <button id="mobileProfileMenuBtn"
+                        class="w-full text-left text-gray-700 flex items-center justify-between py-2">
+                    Manage Profile
+                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+
+                <!-- Dropdown -->
+                <div id="mobileProfileMenu"
+                     class="hidden mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+
+                    <a href="{{ route('profile.edit') }}"
+                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Profile
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <a href="{{ route('login') }}"
+               class="block py-2 text-gray-700 {{ request()->is('login') ? 'text-yellow-600' : '' }}">
+                Sign In
+            </a>
+        @endauth
         <a
             href="#"
             class="mt-2 px-6 py-2 rounded-full text-center bg-[#f7921e] text-white font-bold shadow hover:bg-[#df7d0e] transition-colors"
@@ -141,3 +209,47 @@
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
     overlay.addEventListener('click', closeDrawer);
 </script>
+
+
+<!-- Manage Profile--->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        function setupDropdown(btnId, menuId) {
+            const btn = document.getElementById(btnId);
+            const menu = document.getElementById(menuId);
+
+            if (!btn || !menu) return;
+
+            btn.addEventListener("click", function (e) {
+                e.stopPropagation();
+
+                // Close all other dropdowns first
+                document.querySelectorAll('[data-dropdown]').forEach(d => {
+                    if (d !== menu) d.classList.add('hidden');
+                });
+
+                menu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
+        }
+
+        // Mark dropdowns
+        document.getElementById("profileMenu")?.setAttribute("data-dropdown", "true");
+        document.getElementById("mobileProfileMenu")?.setAttribute("data-dropdown", "true");
+
+        // Desktop dropdown
+        setupDropdown("profileMenuBtn", "profileMenu");
+
+        // Mobile dropdown
+        setupDropdown("mobileProfileMenuBtn", "mobileProfileMenu");
+    });
+</script>
+
+
+

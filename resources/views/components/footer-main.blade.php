@@ -65,19 +65,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/about" class="flex items-center gap-2 hover:text-[#f7921e]">
+                        <a href="#" class="flex items-center gap-2 hover:text-[#f7921e]">
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             <span>About</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/contact" class="flex items-center gap-2 hover:text-[#f7921e]">
+                        <a href="#" class="flex items-center gap-2 hover:text-[#f7921e]">
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             <span>Contact</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/join" class="flex items-center gap-2 hover:text-[#f7921e]">
+                        <a href="{{ route('therapist.register') }}" class="flex items-center gap-2 hover:text-[#f7921e]">
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             <span>Join as Therapist</span>
                         </a>

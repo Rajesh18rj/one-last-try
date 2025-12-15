@@ -116,7 +116,7 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('therapists.show', $therapist->id) }}"
+                        <a href="{{ route('therapists.show', $therapist->slug) }}"
                            class="w-full sm:w-auto text-center bg-blue-600 text-white text-[14px] font-semibold px-5 py-2.5 rounded-full
               shadow hover:bg-blue-700 hover:shadow-lg transition">
                             Book Now

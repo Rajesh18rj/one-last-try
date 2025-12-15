@@ -45,7 +45,7 @@ class TherapistRegisterController extends Controller
             'available_time_slots.*.*.start' => 'required|string|date_format:H:i',
             'available_time_slots.*.*.end'   => 'required|string|date_format:H:i',
 
-            'address'  => 'required|text',
+            'address'  => 'required|string',
 
             'city'     => 'required|string',
             'state'    => 'required|string',
