@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('therapist_id')->nullable()->constrained('users')->onDelete('set null')->nullable();
+//            $table->foreignId('therapist_id')->nullable()->constrained('users')->onDelete('set null')->nullable();
             $table->json('answers')->nullable();
             $table->integer('overall_score')->nullable();
             $table->string('severity_level')->nullable();

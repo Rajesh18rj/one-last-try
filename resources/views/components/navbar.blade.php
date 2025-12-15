@@ -73,6 +73,13 @@
                              class="hidden absolute right-0 mt-2 w-44 bg-white border border-gray-200
                     rounded-xl shadow-lg overflow-hidden z-50">
 
+                            @if(auth()->user()->role === 'therapist')
+                                <a href="{{ route('therapist.dashboard') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Dashboard
+                                </a>
+                            @endif
+
                             <!-- Profile -->
                             <a href="{{ route('profile.edit') }}"
                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">

@@ -2,6 +2,17 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <div class="mb-6 text-center">
+        <span class="text-[#F79C23] hover:text-[#d88410]"><i class="fa-solid fa-user-doctor"></i></span>
+        <span class="ml-1 text-sm text-gray-600">Are you a therapist?</span>
+
+        <a href="{{ route('therapist.login') }}"
+           class="ml-1 inline-flex items-center gap-2 text-sm font-semibold text-[#F79C23]
+              hover:text-[#d88410] transition">
+            Login here
+        </a>
+    </div>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

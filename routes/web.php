@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TherapistLoginController;
 use App\Http\Controllers\TherapistRegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,14 +22,22 @@ Route::get('/therapists', [\App\Http\Controllers\TherapistsController::class, 'i
 Route::get('/therapists/{slug}', [\App\Http\Controllers\TherapistsController::class, 'show'])
     ->name('therapists.show');
 
+Route::get('/therapist/login', [TherapistLoginController::class, 'showLoginForm'])
+    ->name('therapist.login');
+
+Route::post('/therapist/login', [TherapistLoginController::class, 'login'])
+    ->name('therapist.login.submit');
+
+Route::middleware(['auth', 'therapist'])->group(function () {
+    Route::get('/therapist/dashboard', fn () => view('therapist.therapist-dashboard.index'))
+        ->name('therapist.dashboard');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/booking/{therapist}', [\App\Http\Controllers\BookingController::class, 'confirm'])
         ->name('booking.confirm')
         ->middleware('auth');
-
 });
-
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
