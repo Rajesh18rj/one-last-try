@@ -1,4 +1,4 @@
-<footer class="bg-[#fae9c0] text-[#385333] pt-10 pb-6">
+<footer class="bg-[#fae9c0] text-[#385333] pt-12 pb-6">
     <div class="max-w-6xl mx-auto px-4">
         <!-- Top part -->
         <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">

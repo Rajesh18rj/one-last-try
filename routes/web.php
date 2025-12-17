@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TherapistLoginController;
 use App\Http\Controllers\TherapistRegisterController;
@@ -38,6 +39,21 @@ Route::middleware('auth')->group(function () {
         ->name('booking.confirm')
         ->middleware('auth');
 });
+
+Route::get('/assessments', function () {
+    return view('assessment.index');
+})->name('assessments.index');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('assessment', [AssessmentController::class, 'create'])->name('assessment.create');
+    Route::post('assessment', [AssessmentController::class, 'store'])->name('assessment.store');
+
+    Route::get('/assessment/result', function () {
+        return view('assessment.result');
+    })->name('assessment.result')->middleware('auth');
+
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
