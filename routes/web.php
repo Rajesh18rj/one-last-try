@@ -54,6 +54,11 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', fn () => view('admin.admin-dashboard.index'))
+        ->name('admin.dashboard');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
