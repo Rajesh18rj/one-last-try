@@ -18,45 +18,70 @@ class AssessmentController extends Controller
         $data = $request->validate([
             'answers' => 'required|array',
             'answers.*' => 'required|array',
-            'answers.*.*' => 'required|integer|min:0|max:3',
+            'answers.*.*' => 'required|integer|min:0|max:4',
         ]);
 
         $answers = $data['answers'];
 
-        $topicScores = [];
+        $topicResults = [];
         $totalScore = 0;
+        $totalMaxScore = 0;
 
         foreach ($answers as $topic => $values) {
-            $score = array_sum($values);
-            $topicScores[$topic] = $score;
-            $totalScore += $score;
+
+            // Convert values to integers
+            $numericValues = array_map('intval', $values);
+
+            $topicScore = array_sum($numericValues);
+            $questionCount = count($numericValues);
+            $topicMax = $questionCount * 4;
+
+            $percentage = $topicMax > 0
+                ? round(($topicScore / $topicMax) * 100)
+                : 0;
+
+            $level = match (true) {
+                $percentage >= 80 => 'Excellent',
+                $percentage >= 60 => 'Good',
+                $percentage >= 40 => 'Moderate',
+                default           => 'Needs Attention',
+            };
+
+            $topicResults[$topic] = [
+                'score'      => $topicScore,
+                'max_score'  => $topicMax,
+                'percentage' => $percentage,
+                'level'      => $level,
+            ];
+
+            $totalScore += $topicScore;
+            $totalMaxScore += $topicMax;
         }
 
-        // Overall severity (simple & understandable)
-        $severity = match (true) {
-            $totalScore <= 10 => 'minimal',
-            $totalScore <= 20 => 'mild',
-            $totalScore <= 30 => 'moderate',
-            $totalScore <= 40 => 'severe',
-            default => 'critical',
+        $overallPercentage = $totalMaxScore > 0
+            ? round(($totalScore / $totalMaxScore) * 100)
+            : 0;
+
+        $overallLevel = match (true) {
+            $overallPercentage >= 80 => 'Excellent',
+            $overallPercentage >= 60 => 'Good',
+            $overallPercentage >= 40 => 'Moderate',
+            default                  => 'Needs Attention',
         };
 
-        // 🚨 Emergency override (self-harm thoughts)
-        if (($answers['depression']['q3'] ?? 0) > 0) {
-            $severity = 'critical';
-        }
-
         Assessment::create([
-            'customer_id'    => Auth::id(),
-            'answers'        => $answers,
-            'overall_score'  => $totalScore,
-            'severity_level' => $severity,
-            'status'         => 'completed',
-            'taken_at'       => now(),
+            'customer_id'   => auth()->id(),
+            'answers'       => $answers,
+            'topic_scores'  => $topicResults,   // ✅ FIX
+            'overall_score' => $totalScore,
+            'overall_level' => $overallLevel,   // ✅ FIX
+            'status'        => 'completed',
+            'taken_at'      => now(),
         ]);
 
         return redirect()
             ->route('assessment.result')
             ->with('success', 'Assessment submitted successfully.');
     }
+
 }

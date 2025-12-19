@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/assessment/result', function () {
         return view('assessment.result');
-    })->name('assessment.result')->middleware('auth');
+    })->name('assessment.result');
 
 });
 

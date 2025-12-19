@@ -29,13 +29,11 @@
 
             <!-- Sidebar (Desktop only) -->
             <aside class="hidden lg:flex">
-
                 @include('admin.admin-dashboard.partials.sidebar')
             </aside>
 
             <!-- Main Content -->
-                @include('admin.admin-dashboard.partials.dashboard-main-content')
-
+                @include('admin.admin-dashboard.main-content.dashboard-main-content')
 
         </div>
     </div>

@@ -1,8 +1,8 @@
-@extends('layouts.guest-new')
+@extends('layouts.assessment-layout')
 
 @section('content')
 
-    <div class="min-h-[100vh] flex items-center justify-center pt-28 pb-12 relative overflow-hidden
+    <div class="min-h-[100vh] flex items-center justify-center pt-14 pb-0 relative overflow-hidden
                 bg-[radial-gradient(circle_at_top,_#fed7aa55,_#fff7ed),radial-gradient(circle_at_bottom,_#fecaca55,_#fff7ed)]">
 
         {{-- soft blobs --}}
@@ -78,70 +78,132 @@
                     </div>
                 </div>
 
+
                 @php
+                    /* =========================================================
+                     |  5-POINT REACTION EMOJI SCALE
+                     |=========================================================*/
                     $options = [
-                        0 => '🟢  Not at all',
-                        1 => '🟡  Sometimes',
-                        2 => '🟠 Often',
-                        3 => '🔴 Almost every day',
+                        4 => 'very-happy',
+                        3 => 'happy',
+                        2 => 'neutral',
+                        1 => 'sad',
+                        0 => 'very-sad',
                     ];
 
-
+                    /* =========================================================
+                     |  ASSESSMENT SECTIONS – 9 TOPICS, 5 QUESTIONS EACH
+                     |=========================================================*/
                     $sections = [
-                        'depression' => [
-                            'title' => 'Depression & Mood',
-                            'description' => 'Low mood, loss of interest, or feeling hopeless.',
+
+                        'emotional_intelligence' => [
+                            'title' => 'Emotional Intelligence',
+                            'description' => 'Understanding, managing, and expressing emotions.',
                             'questions' => [
-                                'q1' => 'I feel little interest or pleasure in doing things.',
-                                'q2' => 'I feel down, depressed, or hopeless.',
-                                'q3' => 'I have thoughts of harming myself.',
+                                'q1' => 'I am aware of my emotions as they occur.',
+                                'q2' => 'I can manage my emotions during stress.',
+                                'q3' => 'I understand how my emotions affect others.',
+                                'q4' => 'I respond calmly in emotional situations.',
+                                'q5' => 'I reflect on my emotional reactions.',
                             ],
                         ],
-                        'anxiety' => [
-                            'title' => 'Anxiety & Fear',
-                            'description' => 'Worry, fear, and feeling on edge.',
+
+                        'personality' => [
+                            'title' => 'Personality Assessment',
+                            'description' => 'Behavior patterns, traits, and preferences.',
                             'questions' => [
-                                'q1' => 'I feel nervous, anxious, or on edge.',
-                                'q2' => 'I find it hard to stop worrying.',
-                                'q3' => 'I feel something bad may happen.',
+                                'q1' => 'I adapt easily to change.',
+                                'q2' => 'I feel confident expressing my opinions.',
+                                'q3' => 'I enjoy social interactions.',
+                                'q4' => 'I stay organized in daily activities.',
+                                'q5' => 'I remain consistent in my behavior.',
                             ],
                         ],
-                        'stress' => [
-                            'title' => 'Stress & Burnout',
-                            'description' => 'Pressure, overwhelm, and exhaustion.',
+
+                        'slumber_score' => [
+                            'title' => 'Slumber Score',
+                            'description' => 'Sleep quality, restfulness, and energy.',
                             'questions' => [
-                                'q1' => 'I feel overwhelmed by responsibilities.',
-                                'q2' => 'I struggle to relax.',
-                                'q3' => 'I feel mentally exhausted.',
+                                'q1' => 'I fall asleep without difficulty.',
+                                'q2' => 'I stay asleep through the night.',
+                                'q3' => 'I wake up feeling refreshed.',
+                                'q4' => 'I maintain a regular sleep schedule.',
+                                'q5' => 'My sleep supports my daily performance.',
                             ],
                         ],
-                        'relationships' => [
-                            'title' => 'Relationships & Social Life',
-                            'description' => 'Connection, conflict, and feeling understood.',
+
+                        'emotional_eating' => [
+                            'title' => 'Emotional Eating Behaviour',
+                            'description' => 'Eating patterns influenced by emotions.',
                             'questions' => [
-                                'q1' => 'I feel misunderstood by people close to me.',
-                                'q2' => 'I struggle to maintain relationships.',
-                                'q3' => 'I often feel lonely.',
+                                'q1' => 'I eat when I feel stressed or anxious.',
+                                'q2' => 'My mood affects my food choices.',
+                                'q3' => 'I snack when I feel bored or lonely.',
+                                'q4' => 'I crave food during emotional moments.',
+                                'q5' => 'I feel guilty after emotional eating.',
                             ],
                         ],
-                        'self_esteem' => [
-                            'title' => 'Self-Esteem & Confidence',
-                            'description' => 'Self-worth and belief in your abilities.',
+
+                        'entrepreneur_employee' => [
+                            'title' => 'Entrepreneur or Employee',
+                            'description' => 'Mindset, risk tolerance, and work style.',
                             'questions' => [
-                                'q1' => 'I feel bad about myself.',
-                                'q2' => 'I doubt my abilities.',
-                                'q3' => 'I feel like a failure.',
+                                'q1' => 'I enjoy taking initiative.',
+                                'q2' => 'I am comfortable taking risks.',
+                                'q3' => 'I prefer stability over uncertainty.',
+                                'q4' => 'I like making independent decisions.',
+                                'q5' => 'I take ownership of outcomes.',
                             ],
                         ],
-                        'sleep' => [
-                            'title' => 'Sleep & Energy',
-                            'description' => 'Sleep quality and daily energy.',
+
+                        'swot' => [
+                            'title' => 'SWOT Analysis',
+                            'description' => 'Self-awareness of strengths and weaknesses.',
                             'questions' => [
-                                'q1' => 'I have trouble falling or staying asleep.',
-                                'q2' => 'I feel tired even after sleeping.',
-                                'q3' => 'My sleep affects my daily life.',
+                                'q1' => 'I clearly understand my strengths.',
+                                'q2' => 'I am aware of my weaknesses.',
+                                'q3' => 'I look for opportunities to grow.',
+                                'q4' => 'I prepare for possible challenges.',
+                                'q5' => 'I actively work on self-improvement.',
                             ],
                         ],
+
+                        'interpersonal_skills' => [
+                            'title' => 'Interpersonal Skills',
+                            'description' => 'Communication, empathy, and relationships.',
+                            'questions' => [
+                                'q1' => 'I communicate my thoughts clearly.',
+                                'q2' => 'I listen carefully to others.',
+                                'q3' => 'I respect different viewpoints.',
+                                'q4' => 'I manage conflicts calmly.',
+                                'q5' => 'I build healthy relationships.',
+                            ],
+                        ],
+
+                        'emotional_stability' => [
+                            'title' => 'Emotional Stability',
+                            'description' => 'Emotional balance and stress handling.',
+                            'questions' => [
+                                'q1' => 'My mood remains stable.',
+                                'q2' => 'I recover quickly from emotional setbacks.',
+                                'q3' => 'I stay calm under pressure.',
+                                'q4' => 'I control emotional impulses.',
+                                'q5' => 'I handle difficult situations well.',
+                            ],
+                        ],
+
+                        'ikigai' => [
+                            'title' => 'Ikigai',
+                            'description' => 'Purpose, meaning, and life satisfaction.',
+                            'questions' => [
+                                'q1' => 'I feel my life has a clear purpose.',
+                                'q2' => 'My daily activities feel meaningful.',
+                                'q3' => 'I feel motivated about my future.',
+                                'q4' => 'I enjoy what I do each day.',
+                                'q5' => 'I feel fulfilled by my roles.',
+                            ],
+                        ],
+
                     ];
                 @endphp
 
@@ -294,21 +356,59 @@
                                             </div>
                                         </div>
 
+                                        <div class="flex justify-between px-4 mb-4 text-sm font-semibold text-cyan-600">
+                                            <span>Feels Like Me</span>
+                                            <span>Doesn't Feel Like Me</span>
+                                        </div>
+
+
                                         @foreach($section['questions'] as $qKey => $question)
-                                            <div class="rounded-2xl bg-amber-50/60 border border-amber-100 p-4 md:p-5 mb-3">
-                                                <p class="font-medium text-sm md:text-base text-amber-900 mb-3">
-                                                    {{ $question }}
+                                            <div class="py-6 border-b last:border-b-0">
+
+                                                <!-- Question -->
+                                                <p class="text-center font-semibold text-gray-800 mb-6">
+                                                    {{ $loop->iteration }}. {{ $question }}
                                                 </p>
-                                                <div class="grid sm:grid-cols-2 gap-3">
-                                                    @foreach($options as $value => $label)
-                                                        <label class="flex items-center gap-2 text-sm text-amber-900 cursor-pointer">
+
+                                                <!-- Reactions -->
+                                                <div class="flex justify-between max-w-xl mx-auto px-4">
+                                                    @foreach($options as $value => $type)
+                                                        <label class="reaction-label cursor-pointer relative">
+
                                                             <input type="radio"
                                                                    name="answers[{{ $sectionKey }}][{{ $qKey }}]"
                                                                    value="{{ $value }}"
                                                                    required
-                                                                   class="question-input h-4 w-4 rounded-full border-amber-300 text-amber-500 focus:ring-amber-400 bg-white accent-amber-500"
-                                                                   data-section="{{ $sectionKey }}">
-                                                            <span>{{ $label }}</span>
+                                                                   class="peer absolute opacity-0 pointer-events-none question-input"
+                                                                   data-section="{{ $sectionKey }}"
+                                                                   data-reaction="{{ $type }}">
+
+                                                            <svg class="reaction-svg"
+                                                                 data-reaction="{{ $type }}"
+                                                                 viewBox="0 0 24 24"
+                                                                 fill="none"
+                                                                 stroke="currentColor"
+                                                                 stroke-width="1.8"
+                                                                 stroke-linecap="round"
+                                                                 stroke-linejoin="round">
+
+                                                                <circle cx="12" cy="12" r="9"/>
+                                                                <circle class="eye" cx="9" cy="10" r="1"/>
+                                                                <circle class="eye" cx="15" cy="10" r="1"/>
+
+                                                                @if($type === 'very-happy')
+                                                                    <path class="mouth" d="M8 14c1.5 2 6.5 2 8 0"/>
+                                                                @elseif($type === 'happy')
+                                                                    <path class="mouth" d="M9 14c1 1 5 1 6 0"/>
+                                                                @elseif($type === 'neutral')
+                                                                    <line class="mouth" x1="9" y1="14" x2="15" y2="14"/>
+                                                                @elseif($type === 'sad')
+                                                                    <path class="mouth" d="M9 16c1-1 5-1 6 0"/>
+                                                                @else
+                                                                    <path class="mouth" d="M8 17c2-2 6-2 8 0"/>
+                                                                @endif
+
+                                                            </svg>
                                                         </label>
                                                     @endforeach
                                                 </div>
@@ -519,5 +619,92 @@
             setMainTab('#tab-overview');
         });
     </script>
+
+    <style>
+        /* ================= BASE ================= */
+        .reaction-svg {
+            width: 48px;
+            height: 48px;
+            color: #cbd5e1; /* default gray */
+            transition:
+                transform 0.25s ease,
+                color 0.3s ease,
+                filter 0.3s ease;
+        }
+
+        /* Hover */
+        .reaction-label:hover .reaction-svg {
+            transform: scale(1.12);
+        }
+
+        /* Transform fix for SVG parts */
+        .eye,
+        .mouth {
+            transform-origin: center;
+            transform-box: fill-box;
+        }
+
+        /* ================= COLOR STATES ================= */
+
+        /* Very Happy – Green */
+        .peer:checked + .reaction-svg[data-reaction="very-happy"] {
+            color: #22c55e;
+            filter: drop-shadow(0 0 6px rgba(34,197,94,0.6));
+        }
+
+        /* Happy – Lime */
+        .peer:checked + .reaction-svg[data-reaction="happy"] {
+            color: #84cc16;
+            filter: drop-shadow(0 0 6px rgba(132,204,22,0.6));
+        }
+
+        /* Neutral – Gray */
+        .peer:checked + .reaction-svg[data-reaction="neutral"] {
+            color: #94a3b8;
+        }
+
+        /* Sad – Orange */
+        .peer:checked + .reaction-svg[data-reaction="sad"] {
+            color: #fb923c;
+            filter: drop-shadow(0 0 6px rgba(251,146,60,0.6));
+        }
+
+        /* Very Sad – Red */
+        .peer:checked + .reaction-svg[data-reaction="very-sad"] {
+            color: #ef4444;
+            filter: drop-shadow(0 0 6px rgba(239,68,68,0.6));
+        }
+
+        /* Scale on select */
+        .peer:checked + .reaction-svg {
+            transform: scale(1.3);
+        }
+
+        /* ================= ANIMATIONS ================= */
+
+        /* Eye blink */
+        .peer:checked + .reaction-svg .eye {
+            animation: blink 0.35s ease-in-out;
+        }
+
+        /* Mouth bounce */
+        .peer:checked + .reaction-svg .mouth {
+            animation: mouthBounce 0.35s ease-out;
+        }
+
+        @keyframes blink {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+            100% { transform: scaleY(1); }
+        }
+
+        @keyframes mouthBounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-1.5px); }
+            100% { transform: translateY(0); }
+        }
+
+    </style>
+
 
 @endsection

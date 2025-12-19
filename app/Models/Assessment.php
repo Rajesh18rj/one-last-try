@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Assessment extends Model
 {
     protected $fillable = [
-        'customer_id','answers','overall_score',
+        'customer_id','answers','overall_score', 'topic_scores', 'overall_level',
         'severity_level','status','taken_at'
     ];
 
     protected $casts = [
         'answers' => 'array',
+        'topic_scores' => 'array',
         'taken_at' => 'datetime',
     ];
 
