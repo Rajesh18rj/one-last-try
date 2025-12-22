@@ -31,6 +31,8 @@
                  data-question-count="{{ count($section['questions']) }}"
                  class="section-panel @if(!$loop->first) hidden @endif bg-white border border-amber-100 rounded-3xl p-5 md:p-6 space-y-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
+
+                    {{-- Header --}}
                     <div>
                         <h3 class="text-lg font-semibold text-amber-900">
                             {{ $section['title'] }}
@@ -45,7 +47,8 @@
                     </div>
                 </div>
 
-                @foreach($section['questions'] as $qKey => $question)
+            {{-- Questions --}}
+            @foreach($section['questions'] as $qKey => $question)
                     <div class="py-6 border-b last:border-b-0">
 
                         <!-- Question -->
@@ -102,7 +105,71 @@
                         </div>
                     </div>
                 @endforeach
+
+                <!-- ✅ SECTION RESULT (PER SECTION) -->
+                <div class="section-result hidden mt-10 relative overflow-hidden
+            rounded-[3rem]
+            bg-gradient-to-r from-pink-100 via-sky-100 to-violet-100
+            border border-white/70
+            shadow-[0_25px_60px_rgba(168,85,247,0.35)]
+            p-8">
+
+                    <!-- Background glow -->
+                    <div class="absolute -top-24 -left-24 w-80 h-80
+                bg-pink-400/30 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-24 -right-24 w-96 h-96
+                bg-indigo-400/30 rounded-full blur-3xl"></div>
+
+                    <div class="relative flex items-center gap-6">
+
+                        <!-- 🎯 ICON BADGE -->
+                        <div class="icon-badge relative flex-shrink-0 w-16 h-16 rounded-3xl
+                    flex items-center justify-center
+                    shadow-[0_12px_30px_rgba(0,0,0,0.25)]">
+
+                            <div class="absolute inset-0 rounded-3xl bg-white/20 blur-xl"></div>
+
+                            <i class="result-icon fa-solid fa-star
+                      text-white text-xl leading-none relative"></i>
+                        </div>
+
+                        <!-- Text -->
+                        <div class="flex-1">
+                            <p class="section-result-title text-2xl font-extrabold"></p>
+                            <p class="section-result-message mt-1 text-base text-slate-700"></p>
+
+                            <div class="mt-4 inline-flex items-center gap-2
+                        text-xs font-bold tracking-wide
+                        bg-white/80 backdrop-blur
+                        border border-purple-200
+                        px-4 py-1.5 rounded-full shadow-sm">
+                                <i class="fa-solid fa-circle-check text-[11px]"></i>
+                                Section completed 🎉
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {{-- ✅ NEXT BUTTON (PER SECTION) --}}
+                <div class="section-next hidden mt-4 flex justify-end">
+                    <button type="button"
+                            class="next-section-btn inline-flex items-center gap-2
+                   px-5 py-2 rounded-xl
+                   bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-600
+                   text-white text-sm font-semibold
+                   shadow-[0_10px_25px_rgba(59,130,246,0.45)]
+                   hover:from-sky-600 hover:via-blue-600 hover:to-indigo-700
+                   hover:shadow-[0_14px_30px_rgba(59,130,246,0.6)]
+                   transition-all duration-300">
+                        Next Section
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
             </div>
         @endforeach
     </div>
+
 </div>

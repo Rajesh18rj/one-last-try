@@ -31,15 +31,16 @@
                 <button type="button"
                         id="start-assessment-btn"
                         class="w-full py-4 px-6 rounded-2xl font-bold text-lg text-white
-                                                       bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400
-                                                       shadow-[0_14px_30px_rgba(249,115,22,0.75)]
-                                                       hover:shadow-[0_18px_40px_rgba(249,115,22,0.85)]
-                                                       hover:scale-[1.02] active:scale-[0.98]
-                                                       transition-all duration-300 ease-out
-                                                       flex items-center justify-center gap-3">
+               bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600
+               shadow-[0_14px_30px_rgba(59,130,246,0.55)]
+               hover:shadow-[0_18px_40px_rgba(59,130,246,0.75)]
+               hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-300 ease-out
+               flex items-center justify-center gap-3">
                     <i class="fa-solid fa-rocket text-lg"></i>
                     <span>Start Assessment</span>
                 </button>
+
 
                 <p class="mt-8 text-[11px] text-amber-800/80 text-center">
                     When ready, click above to begin answering questions.

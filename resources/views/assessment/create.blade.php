@@ -388,39 +388,132 @@
             questionInputs.forEach(input => {
                 input.addEventListener('change', () => {
                     const sectionKey = input.getAttribute('data-section');
-                    const panel = document.querySelector(`.section-panel[data-section-key="${sectionKey}"]`);
+                    const panel = document.querySelector(
+                        `.section-panel[data-section-key="${sectionKey}"]`
+                    );
                     if (!panel) return;
 
-                    const total = parseInt(panel.getAttribute('data-question-count') || '0', 10);
-                    const answered = document.querySelectorAll(
+                    const total = parseInt(panel.getAttribute('data-question-count'), 10);
+                    const answered = panel.querySelectorAll(
                         `.question-input[data-section="${sectionKey}"]:checked`
                     ).length;
 
+                    // Always hide first (important)
+                    panel.querySelector('.section-next')?.classList.add('hidden');
+                    panel.querySelector('.section-result')?.classList.add('hidden');
+
                     updateCompletion();
 
-                    if (answered >= total && total > 0) {
-                        const currentIndex = [...sectionPanels].indexOf(panel);
-                        const isLast = currentIndex === sectionPanels.length - 1;
+                    // Show ONLY when all answered
+                    if (answered === total) {
 
-                        // if last section, go to submit tab
-                        if (isLast) {
-                            setMainTab('#tab-submit');
-                            document.querySelector('#tab-submit')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        } else {
-                            // open next section tab
-                            const nextPanel = sectionPanels[currentIndex + 1];
-                            const nextTarget = '#' + nextPanel.id;
-                            setSectionTab(nextTarget);
+                    // Result
+                            const result = calculateSectionResult(sectionKey);
+                            const resultBox = panel.querySelector('.section-result');
 
-                            // ensure main tab "Sections" is active
-                            setMainTab('#tab-questions');
-                        }
+                    // Title & message
+                            resultBox.querySelector('.section-result-title').textContent = result.title;
+                            resultBox.querySelector('.section-result-message').textContent = result.msg;
+
+                    // Title color
+                            resultBox.querySelector('.section-result-title').className =
+                                `section-result-title text-2xl font-extrabold ${result.text}`;
+
+                    // ICON CHANGE (THIS WAS MISSING)
+                            const iconEl = resultBox.querySelector('.result-icon');
+                            iconEl.className =
+                                `result-icon fa-solid ${result.icon} text-white text-xl leading-none relative`;
+
+                    // BADGE GRADIENT CHANGE (THIS WAS MISSING)
+                            const badgeEl = resultBox.querySelector('.icon-badge');
+                            badgeEl.className =
+                                `icon-badge relative flex-shrink-0 w-16 h-16 rounded-3xl
+                                 flex items-center justify-center
+                                 bg-gradient-to-br ${result.gradient}
+                                 shadow-[0_12px_30px_rgba(0,0,0,0.25)]`;
+
+                        resultBox.classList.remove('hidden');
+
+
+                        // Next button
+                        panel.querySelector('.section-next')?.classList.remove('hidden');
                     }
                 });
             });
 
             // initial state
             setMainTab('#tab-overview');
+
+
+            function calculateSectionResult(sectionKey) {
+                const inputs = document.querySelectorAll(
+                    `.question-input[data-section="${sectionKey}"]:checked`
+                );
+
+                let total = 0;
+                const max = inputs.length * 4;
+                inputs.forEach(i => total += parseInt(i.value));
+
+                const percent = Math.round((total / max) * 100);
+
+                if (percent >= 80) {
+                    return {
+                        title: "Excellent",
+                        msg: "Your responses suggest good self-awareness and emotional balance. You seem to handle situations with clarity and calm.",
+                        icon: "fa-crown",
+                        gradient: "from-pink-500 via-purple-500 to-indigo-500",
+                        text: "text-pink-600"
+                    };
+                } else if (percent >= 60) {
+                    return {
+                        title: "Good",
+                        msg: "Your responses show generally healthy patterns. With continued awareness, this area can grow even stronger.",
+                        icon: "fa-thumbs-up",
+                        gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+                        text: "text-emerald-600"
+                    };
+                } else if (percent >= 40) {
+                    return {
+                        title: "Moderate",
+                        msg: "Your responses show generally healthy patterns. With continued awareness, this area can grow even stronger.",
+                        icon: "fa-chart-line",
+                        gradient: "from-sky-500 via-blue-500 to-indigo-500",
+                        text: "text-sky-600"
+                    };
+                } else {
+                    return {
+                        title: "Needs Attention",
+                        msg: "Your responses show some ups and downs, which is normal. Gentle awareness may help bring more balance over time.",
+                        icon: "fa-triangle-exclamation",
+                        gradient: "from-orange-400 via-rose-400 to-pink-400",
+                        text: "text-orange-600"
+                    };
+                }
+            }
+
+            // next
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.next-section-btn')) return;
+
+                const panel = e.target.closest('.section-panel');
+                const panels = [...document.querySelectorAll('.section-panel')];
+                const index = panels.indexOf(panel);
+
+                const isLast = index === panels.length - 1;
+
+                if (isLast) {
+                    setMainTab('#tab-submit');
+                    document.querySelector('#tab-submit')
+                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    const nextPanel = panels[index + 1];
+                    setSectionTab('#' + nextPanel.id);
+                    setMainTab('#tab-questions');
+                }
+            });
+
+
+
         });
     </script>
 
@@ -508,7 +601,32 @@
             100% { transform: translateY(0); }
         }
 
+        {{--for NEXT BUTTON (PER SECTION)--}}
+        /* Font Awesome sharpness fix */
+        .fa-solid {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Smooth entry animation */
+        @keyframes glowFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(16px) scale(0.98);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-2px) scale(1.01);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .section-result {
+            animation: glowFloat 0.6s cubic-bezier(.22,1,.36,1);
+        }
+
     </style>
-
-
 @endsection
