@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="min-h-[100vh] flex items-center justify-center pt-14 pb-0 relative overflow-hidden
+    <div class="min-h-[100vh] flex items-top justify-center pt-14 pb-0 relative overflow-hidden
                 bg-[radial-gradient(circle_at_top,_#fed7aa55,_#fff7ed),radial-gradient(circle_at_bottom,_#fecaca55,_#fff7ed)]">
 
         {{-- soft blobs --}}
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-
+                {{-- Options and Questions --}}
                 @php
                     /* =========================================================
                      |  5-POINT REACTION EMOJI SCALE
@@ -90,6 +90,15 @@
                         1 => 'sad',
                         0 => 'very-sad',
                     ];
+
+                    $reactionLabels = [
+                        'very-happy' => 'Strongly Agree',
+                        'happy'      => 'Agree',
+                        'neutral'    => 'Neutral/Okay',
+                        'sad'        => 'Disagree',
+                        'very-sad'   => 'Strongly Disagree',
+                    ];
+
 
                     /* =========================================================
                      |  ASSESSMENT SECTIONS – 9 TOPICS, 5 QUESTIONS EACH
@@ -207,6 +216,7 @@
                     ];
                 @endphp
 
+
                 <form method="POST" action="{{ route('assessment.store') }}" class="space-y-0">
                     @csrf
 
@@ -248,223 +258,16 @@
                     </div>
 
                     {{-- Panels --}}
-                    <div class="px-6 md:px-10 pb-8 pt-6 space-y-6">
+                    <div class="px-6 md:px-10 pb-2 pt-1 space-y-6">
 
                         {{-- Overview --}}
-                        <div id="tab-overview" class="main-panel space-y-6">
-                            <div class="grid md:grid-cols-[1.4fr,1fr] gap-4">
-                                <div class="rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 p-5">
-                                    <h3 class="text-lg font-semibold text-amber-900 mb-2">
-                                        How this assessment works
-                                    </h3>
-                                    <p class="text-sm text-amber-900/80 leading-relaxed">
-                                        You will see sections like mood, anxiety, stress, relationships, self-esteem, and sleep.
-                                        For each statement, choose how often it has affected you recently.
-                                    </p>
-                                    <ul class="mt-3 space-y-1.5 text-xs text-amber-900/80">
-                                        <li class="flex gap-2">
-                                            <span class="mt-[3px] h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-                                            Honest answers help us recommend better support.
-                                        </li>
-                                        <li class="flex gap-2">
-                                            <span class="mt-[3px] h-1.5 w-1.5 rounded-full bg-orange-400"></span>
-                                            You can move between sections at any time.
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="rounded-2xl bg-white border border-amber-100 p-5 flex flex-col">
-                                    <div>
-                                        <p class="text-xs text-amber-900/80 leading-relaxed mb-6">
-                                            Your answers are encrypted and kept private. They are only used to help suggest
-                                            a therapist or care plan aligned with your needs.
-                                        </p>
-
-                                        {{-- Start Assessment Button --}}
-                                        <button type="button"
-                                                id="start-assessment-btn"
-                                                class="w-full py-4 px-6 rounded-2xl font-bold text-lg text-white
-                                                       bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400
-                                                       shadow-[0_14px_30px_rgba(249,115,22,0.75)]
-                                                       hover:shadow-[0_18px_40px_rgba(249,115,22,0.85)]
-                                                       hover:scale-[1.02] active:scale-[0.98]
-                                                       transition-all duration-300 ease-out
-                                                       flex items-center justify-center gap-3">
-                                            <i class="fa-solid fa-rocket text-lg"></i>
-                                            <span>Start Assessment</span>
-                                        </button>
-
-                                        <p class="mt-8 text-[11px] text-amber-800/80 text-center">
-                                            When ready, click above to begin answering questions.
-                                        </p>
-                                    </div>
-
-                                    <div class="mt-6 pt-6 border-t border-amber-100/50">
-                                        <div class="h-1.5 w-full bg-amber-100 rounded-full overflow-hidden">
-                                            <div class="h-full w-1/3 bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 rounded-full"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            @include('assessment.create-partials.overview-section')
 
                         {{-- Questions --}}
-                        <div id="tab-questions" class="main-panel hidden space-y-5">
-
-                            {{-- section chips --}}
-                            <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-amber-300/70 scrollbar-track-transparent section-tabs-wrapper">
-                                @foreach($sections as $sectionKey => $section)
-                                    <button type="button"
-                                            data-section-target="#section-{{ $sectionKey }}"
-                                            class="section-tab inline-flex flex-col items-start justify-center gap-1 px-4 py-3 rounded-2xl min-w-[170px]
-                                                   bg-white/90 text-xs text-amber-900 border border-amber-100
-                                                   hover:border-amber-400 hover:bg-amber-50/80 transition-all
-                                                   @if($loop->first) !bg-amber-100/90 !border-amber-400 !text-amber-900 shadow-md @endif">
-                                        <span class="text-[11px] uppercase tracking-wide text-amber-400 flex items-center gap-1">
-                                            {{ $loop->iteration < 10 ? '0'.$loop->iteration : $loop->iteration }}
-                                            <span class="hidden section-badge text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-[1px] text-[9px]">
-                                                Done
-                                            </span>
-                                        </span>
-                                        <span class="font-semibold text-sm">{{ $section['title'] }}</span>
-                                        <span class="text-[11px] text-amber-700/80 line-clamp-1">
-                                            {{ $section['description'] }}
-                                        </span>
-                                    </button>
-                                @endforeach
-                            </div>
-
-                            {{-- section panels --}}
-                            <div class="mt-4 space-y-5">
-                                @foreach($sections as $sectionKey => $section)
-                                    <div id="section-{{ $sectionKey }}"
-                                         data-section-key="{{ $sectionKey }}"
-                                         data-question-count="{{ count($section['questions']) }}"
-                                         class="section-panel @if(!$loop->first) hidden @endif bg-white border border-amber-100 rounded-3xl p-5 md:p-6 space-y-4">
-                                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
-                                            <div>
-                                                <h3 class="text-lg font-semibold text-amber-900">
-                                                    {{ $section['title'] }}
-                                                </h3>
-                                                <p class="text-xs text-amber-800/80 mt-1">
-                                                    {{ $section['description'] }}
-                                                </p>
-                                            </div>
-                                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[11px] text-amber-800">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-                                                Once you answer all questions, the next section opens automatically
-                                            </div>
-                                        </div>
-
-                                        <div class="flex justify-between px-4 mb-4 text-sm font-semibold text-cyan-600">
-                                            <span>Feels Like Me</span>
-                                            <span>Doesn't Feel Like Me</span>
-                                        </div>
-
-
-                                        @foreach($section['questions'] as $qKey => $question)
-                                            <div class="py-6 border-b last:border-b-0">
-
-                                                <!-- Question -->
-                                                <p class="text-center font-semibold text-gray-800 mb-6">
-                                                    {{ $loop->iteration }}. {{ $question }}
-                                                </p>
-
-                                                <!-- Reactions -->
-                                                <div class="flex justify-between max-w-xl mx-auto px-4">
-                                                    @foreach($options as $value => $type)
-                                                        <label class="reaction-label cursor-pointer relative">
-
-                                                            <input type="radio"
-                                                                   name="answers[{{ $sectionKey }}][{{ $qKey }}]"
-                                                                   value="{{ $value }}"
-                                                                   required
-                                                                   class="peer absolute opacity-0 pointer-events-none question-input"
-                                                                   data-section="{{ $sectionKey }}"
-                                                                   data-reaction="{{ $type }}">
-
-                                                            <svg class="reaction-svg"
-                                                                 data-reaction="{{ $type }}"
-                                                                 viewBox="0 0 24 24"
-                                                                 fill="none"
-                                                                 stroke="currentColor"
-                                                                 stroke-width="1.8"
-                                                                 stroke-linecap="round"
-                                                                 stroke-linejoin="round">
-
-                                                                <circle cx="12" cy="12" r="9"/>
-                                                                <circle class="eye" cx="9" cy="10" r="1"/>
-                                                                <circle class="eye" cx="15" cy="10" r="1"/>
-
-                                                                @if($type === 'very-happy')
-                                                                    <path class="mouth" d="M8 14c1.5 2 6.5 2 8 0"/>
-                                                                @elseif($type === 'happy')
-                                                                    <path class="mouth" d="M9 14c1 1 5 1 6 0"/>
-                                                                @elseif($type === 'neutral')
-                                                                    <line class="mouth" x1="9" y1="14" x2="15" y2="14"/>
-                                                                @elseif($type === 'sad')
-                                                                    <path class="mouth" d="M9 16c1-1 5-1 6 0"/>
-                                                                @else
-                                                                    <path class="mouth" d="M8 17c2-2 6-2 8 0"/>
-                                                                @endif
-
-                                                            </svg>
-                                                        </label>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                            @include('assessment.create-partials.questions-section')
 
                         {{-- Submit --}}
-                        <div id="tab-submit" class="main-panel hidden space-y-5">
-                            <div class="grid md:grid-cols-[1.4fr,1fr] gap-4">
-                                <div class="rounded-2xl border border-amber-100 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 p-5">
-                                    <h3 class="text-lg font-semibold text-amber-900 mb-2">
-                                        Ready to submit?
-                                    </h3>
-                                    <p class="text-sm text-amber-900/80 leading-relaxed">
-                                        Take a quick moment to ensure you have answered each section. You can still switch back
-                                        to any tab and adjust your responses before submitting.
-                                    </p>
-                                    <p class="mt-3 text-xs text-amber-900/80">
-                                        This assessment is not a diagnosis. It is a starting point to understand your mental wellbeing
-                                        and connect you with the most suitable support.
-                                    </p>
-                                </div>
-
-                                <div class="rounded-2xl bg-white border border-amber-100 p-5 flex flex-col justify-between">
-                                    <div>
-                                        <p class="text-[11px] text-amber-900/80 mb-2">
-                                            Progress overview
-                                        </p>
-                                        <div class="space-y-1.5 text-[11px] text-amber-800/85">
-                                            <div class="flex items-center justify-between">
-                                                <span>Sections completed</span>
-                                                <span class="font-semibold" id="sections-completed">0 / {{ count($sections) }}</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span>Completion status</span>
-                                                <span class="font-semibold" id="completion-status">In progress</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <button type="submit"
-                                                class="w-full py-3.5 rounded-2xl font-bold text-white text-sm md:text-base
-                                                       bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400
-                                                       shadow-[0_14px_30px_rgba(249,115,22,0.75)]
-                                                       hover:scale-[1.02] active:scale-[0.99]
-                                                       transition-all duration-300 ease-out">
-                                            Submit Assessment
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            @include('assessment.create-partials.submit-section')
 
                     </div>
                 </form>
@@ -581,6 +384,7 @@
                 }
             }
 
+            // Question Change Handler (Auto-Next Logic)
             questionInputs.forEach(input => {
                 input.addEventListener('change', () => {
                     const sectionKey = input.getAttribute('data-section');
