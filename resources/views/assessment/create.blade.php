@@ -348,10 +348,13 @@
 
             sectionTabs.forEach(btn => {
                 btn.addEventListener('click', () => {
+                    if (btn.classList.contains('section-locked')) return;
+
                     const target = btn.getAttribute('data-section-target');
                     setSectionTab(target);
                 });
             });
+
 
             // auto move to next section when all questions answered
             const questionInputs = document.querySelectorAll('.question-input');
@@ -473,6 +476,27 @@
                 activePanel = btn.closest('.section-panel');
                 const sectionKey = activePanel.getAttribute('data-section-key');
 
+                // 🔒 LOCK CURRENT & PREVIOUS SECTIONS
+                const panels = [...document.querySelectorAll('.section-panel')];
+                const tabs   = [...document.querySelectorAll('.section-tab')];
+
+                const currentIndex = panels.indexOf(activePanel);
+
+                panels.forEach((panel, index) => {
+                    if (index <= currentIndex) {
+                        panel.classList.add('section-locked');
+
+                        const tab = tabs[index];
+                        tab?.classList.add('section-locked');
+
+                        // 🔒 SHOW LOCK ICON
+                        const lockIcon = tab?.querySelector('.lock-icon');
+                        lockIcon?.classList.remove('hidden');
+                    }
+                });
+
+
+                // 👉 EXISTING RESULT LOGIC CONTINUES
                 const result = calculateSectionResult(sectionKey);
 
                 const modal = document.getElementById('sectionResultModal');
@@ -485,12 +509,13 @@
 
                 const badge = modal.querySelector('.icon-badge');
                 badge.className = `icon-badge w-16 h-16 rounded-3xl
-                       flex items-center justify-center
-                       bg-gradient-to-br ${result.gradient}`;
+           flex items-center justify-center
+           bg-gradient-to-br ${result.gradient}`;
 
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
             });
+
 
             const closeBtn = document.getElementById('closeResultModal');
             const nextBtn  = document.getElementById('modalNextSection');
@@ -522,6 +547,13 @@
                     }
                 });
             }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.target.closest('.section-locked')) {
+                    e.preventDefault();
+                }
+            });
+
 
 
         });
@@ -766,9 +798,6 @@
                 transform: none;
             }
         }
-
-
-
 
     </style>
 @endsection

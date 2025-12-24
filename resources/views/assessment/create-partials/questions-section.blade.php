@@ -9,12 +9,18 @@
                            bg-white/90 text-xs text-amber-900 border border-amber-100
                            hover:border-amber-400 hover:bg-amber-50/80 transition-all
                            @if($loop->first) !bg-amber-100/90 !border-amber-400 !text-amber-900 shadow-md @endif">
-                <span class="text-[11px] uppercase tracking-wide text-amber-400 flex items-center gap-1">
-                    {{ $loop->iteration < 10 ? '0'.$loop->iteration : $loop->iteration }}
-                    <span class="hidden section-badge text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-[1px] text-[9px]">
-                        Done
-                    </span>
-                </span>
+                                <span class="text-[11px] uppercase tracking-wide text-amber-400 flex items-center gap-1">
+                                    {{ $loop->iteration < 10 ? '0'.$loop->iteration : $loop->iteration }}
+
+                                    <!-- ✅ DONE BADGE -->
+                                    <span class="hidden section-badge text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-[1px] text-[9px]">
+                                        Done
+                                    </span>
+
+                                    <!-- 🔒 LOCK ICON (hidden by default) -->
+                                    <i class="fa-solid fa-lock text-[14px] text-gray-900 opacity-60 hidden lock-icon"></i>
+                                </span>
+
                 <span class="font-semibold text-sm">{{ $section['title'] }}</span>
                 <span class="text-[11px] text-amber-700/80 line-clamp-1">
                     {{ $section['description'] }}
