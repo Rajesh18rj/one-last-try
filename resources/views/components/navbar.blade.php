@@ -41,12 +41,12 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('therapists.index') }}"
-                       class="{{ request()->is('therapists') ? $activeClasses : '' }} {{ $linkClasses }}">
-                        Find a Therapist
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{ route('therapists.index') }}"--}}
+{{--                       class="{{ request()->is('therapists') ? $activeClasses : '' }} {{ $linkClasses }}">--}}
+{{--                        Find a Therapist--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li>
                     <a href="#"
                        class="{{ request()->is('about') ? $activeClasses : '' }} {{ $linkClasses }}">
@@ -153,7 +153,8 @@
     <div class="px-8 py-2 flex flex-col space-y-6">
         <a href="/" class="font-semibold text-gray-900 {{ request()->is('/') ? 'text-yellow-600' : '' }}">Home</a>
         <a href="#" class="text-gray-700 {{ request()->is('specialties') ? 'text-yellow-600' : '' }}">Specialties</a>
-        <a href="/therapists" class="text-gray-700 {{ request()->is('therapists') ? 'text-yellow-600' : '' }}">Find a Therapist</a>
+        <a href="{{ route('assessments.index') }}" class="text-gray-700 {{ request()->is('assessments*') ? 'text-yellow-600' : '' }}">Specialties</a>
+        {{--        <a href="/therapists" class="text-gray-700 {{ request()->is('therapists') ? 'text-yellow-600' : '' }}">Find a Therapist</a>--}}
         <a href="#" class="text-gray-700 {{ request()->is('about') ? 'text-yellow-600' : '' }}">About Us</a>
         <a href="#" class="text-gray-700 {{ request()->is('contact') ? 'text-yellow-600' : '' }}">Contact Us</a>
         @auth

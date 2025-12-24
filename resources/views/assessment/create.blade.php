@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="min-h-[100vh] flex items-top justify-center pt-14 pb-0 relative overflow-hidden
+    <div class="min-h-[100vh] flex items-center justify-center pt-0 pb-0 relative overflow-hidden
                 bg-[radial-gradient(circle_at_top,_#fed7aa55,_#fff7ed),radial-gradient(circle_at_bottom,_#fecaca55,_#fff7ed)]">
 
         {{-- soft blobs --}}
@@ -14,14 +14,14 @@
                     rounded-full blur-3xl"></div>
 
         {{-- soft container background --}}
-        <div class="pointer-events-none absolute inset-x-0 top-32 bottom-10">
-            <div class="mx-auto max-w-6xl h-full rounded-[3rem]
-                        bg-[linear-gradient(to_right,_#fff7ed_0%,_#fff_52%,_#fef3c7_100%)]
-                        border border-amber-100/70 shadow-[0_18px_70px_rgba(248,180,75,0.24)]"></div>
-        </div>
+{{--        <div class="pointer-events-none absolute inset-x-0 top-32 bottom-10">--}}
+{{--            <div class="mx-auto max-w-6xl h-full rounded-[3rem]--}}
+{{--                        bg-[linear-gradient(to_right,_#fff7ed_0%,_#fff_52%,_#fef3c7_100%)]--}}
+{{--                        border border-amber-100/70 shadow-[0_18px_70px_rgba(248,180,75,0.24)]"></div>--}}
+{{--        </div>--}}
 
-        <div class="relative max-w-5xl w-full px-4">
-            <div class="bg-white/95 backdrop-blur-xl border border-amber-100/80
+        <div class="relative max-w-6xl w-full px-0">
+            <div class="bg-white/95 backdrop-blur-xl pb-6 pt-6 border border-amber-100/80
                         rounded-[2.5rem] shadow-[0_18px_60px_rgba(248,180,75,0.38)]
                         overflow-hidden">
 
@@ -94,7 +94,7 @@
                     $reactionLabels = [
                         'very-happy' => 'Strongly Agree',
                         'happy'      => 'Agree',
-                        'neutral'    => 'Neutral/Okay',
+                        'neutral'    => 'Neutral',
                         'sad'        => 'Disagree',
                         'very-sad'   => 'Strongly Disagree',
                     ];
@@ -261,13 +261,13 @@
                     <div class="px-6 md:px-10 pb-2 pt-1 space-y-6">
 
                         {{-- Overview --}}
-                            @include('assessment.create-partials.overview-section')
+                        @include('assessment.create-partials.overview-section')
 
                         {{-- Questions --}}
-                            @include('assessment.create-partials.questions-section')
+                        @include('assessment.create-partials.questions-section')
 
                         {{-- Submit --}}
-                            @include('assessment.create-partials.submit-section')
+                        @include('assessment.create-partials.submit-section')
 
                     </div>
                 </form>
@@ -399,45 +399,17 @@
                     ).length;
 
                     // Always hide first (important)
-                    panel.querySelector('.section-next')?.classList.add('hidden');
-                    panel.querySelector('.section-result')?.classList.add('hidden');
+                    panel.querySelector('.section-submit')?.classList.add('hidden');
+
+                    if (answered === total) {
+                        panel.querySelector('.section-submit')?.classList.remove('hidden');
+                    }
+
 
                     updateCompletion();
 
                     // Show ONLY when all answered
-                    if (answered === total) {
 
-                    // Result
-                            const result = calculateSectionResult(sectionKey);
-                            const resultBox = panel.querySelector('.section-result');
-
-                    // Title & message
-                            resultBox.querySelector('.section-result-title').textContent = result.title;
-                            resultBox.querySelector('.section-result-message').textContent = result.msg;
-
-                    // Title color
-                            resultBox.querySelector('.section-result-title').className =
-                                `section-result-title text-2xl font-extrabold ${result.text}`;
-
-                    // ICON CHANGE (THIS WAS MISSING)
-                            const iconEl = resultBox.querySelector('.result-icon');
-                            iconEl.className =
-                                `result-icon fa-solid ${result.icon} text-white text-xl leading-none relative`;
-
-                    // BADGE GRADIENT CHANGE (THIS WAS MISSING)
-                            const badgeEl = resultBox.querySelector('.icon-badge');
-                            badgeEl.className =
-                                `icon-badge relative flex-shrink-0 w-16 h-16 rounded-3xl
-                                 flex items-center justify-center
-                                 bg-gradient-to-br ${result.gradient}
-                                 shadow-[0_12px_30px_rgba(0,0,0,0.25)]`;
-
-                        resultBox.classList.remove('hidden');
-
-
-                        // Next button
-                        panel.querySelector('.section-next')?.classList.remove('hidden');
-                    }
                 });
             });
 
@@ -491,27 +463,65 @@
                 }
             }
 
-            // next
+            // Submit button → OPEN POPUP
+            let activePanel = null;
+
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.next-section-btn')) return;
+                const btn = e.target.closest('.submit-section-btn');
+                if (!btn) return;
 
-                const panel = e.target.closest('.section-panel');
-                const panels = [...document.querySelectorAll('.section-panel')];
-                const index = panels.indexOf(panel);
+                activePanel = btn.closest('.section-panel');
+                const sectionKey = activePanel.getAttribute('data-section-key');
 
-                const isLast = index === panels.length - 1;
+                const result = calculateSectionResult(sectionKey);
 
-                if (isLast) {
-                    setMainTab('#tab-submit');
-                    document.querySelector('#tab-submit')
-                        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    const nextPanel = panels[index + 1];
-                    setSectionTab('#' + nextPanel.id);
-                    setMainTab('#tab-questions');
-                }
+                const modal = document.getElementById('sectionResultModal');
+
+                modal.querySelector('.modal-title').textContent = result.title;
+                modal.querySelector('.modal-message').textContent = result.msg;
+
+                const icon = modal.querySelector('.result-icon');
+                icon.className = `result-icon fa-solid ${result.icon}`;
+
+                const badge = modal.querySelector('.icon-badge');
+                badge.className = `icon-badge w-16 h-16 rounded-3xl
+                       flex items-center justify-center
+                       bg-gradient-to-br ${result.gradient}`;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
             });
 
+            const closeBtn = document.getElementById('closeResultModal');
+            const nextBtn  = document.getElementById('modalNextSection');
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    const modal = document.getElementById('sectionResultModal');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (!activePanel) return;
+
+                    const modal = document.getElementById('sectionResultModal');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+
+                    const panels = [...document.querySelectorAll('.section-panel')];
+                    const index = panels.indexOf(activePanel);
+
+                    if (index === panels.length - 1) {
+                        setMainTab('#tab-submit');
+                    } else {
+                        setMainTab('#tab-questions');
+                        setSectionTab('#' + panels[index + 1].id);
+                    }
+                });
+            }
 
 
         });
@@ -601,7 +611,7 @@
             100% { transform: translateY(0); }
         }
 
-        {{--for NEXT BUTTON (PER SECTION)--}}
+        /* for NEXT BUTTON (PER SECTION) */
         /* Font Awesome sharpness fix */
         .fa-solid {
             -webkit-font-smoothing: antialiased;
@@ -627,6 +637,138 @@
         .section-result {
             animation: glowFloat 0.6s cubic-bezier(.22,1,.36,1);
         }
+
+
+
+        /* ================= BACKDROP AMBIENCE (ENHANCED) ================= */
+
+        .modal-backdrop {
+            z-index: 0;
+        }
+
+        /* Fog layers */
+        .fog {
+            position: absolute;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(
+                circle,
+                rgba(255,255,255,0.35),
+                transparent 65%
+            );
+            filter: blur(90px);
+            opacity: 0.6;
+            animation: fogMove 35s ease-in-out infinite alternate;
+        }
+
+        .fog-1 {
+            top: -30%;
+            left: -35%;
+        }
+
+        .fog-2 {
+            bottom: -35%;
+            right: -30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes fogMove {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(160px, -120px);
+            }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.55;
+            animation: orbFloat 14s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 280px;
+            height: 280px;
+            background: rgba(168,85,247,0.55);
+            top: 12%;
+            left: 8%;
+        }
+
+        .orb-2 {
+            width: 320px;
+            height: 320px;
+            background: rgba(56,189,248,0.55);
+            bottom: 8%;
+            right: 12%;
+            animation-delay: -7s;
+        }
+
+        @keyframes orbFloat {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(-60px, -80px);
+            }
+        }
+
+        /* Card always above */
+        .modal-card {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ================= MOBILE EMOJI – FINAL CLEAN ================= */
+        @media (max-width: 640px) {
+
+            .reaction-row {
+                display: flex;
+                justify-content: space-between;
+                gap: 6px;
+            }
+
+            .reaction-label {
+                flex: 1;
+                min-width: 0;
+                text-align: center;
+                gap: 6px;
+            }
+
+            .reaction-svg {
+                width: 34px;
+                height: 34px;
+                margin: 0 auto;
+            }
+
+            .reaction-text {
+                font-size: 9px;
+                line-height: 1.2;
+                margin-top: 4px;
+                color: #94a3b8;
+                max-width: 52px;
+                margin-left: auto;
+                margin-right: auto;
+                word-break: break-word;
+                white-space: normal;
+            }
+
+            /* smooth selection */
+            .peer:checked + .reaction-svg {
+                transform: scale(1.1);
+            }
+
+            /* disable hover zoom on mobile */
+            .reaction-label:hover .reaction-svg {
+                transform: none;
+            }
+        }
+
+
+
 
     </style>
 @endsection

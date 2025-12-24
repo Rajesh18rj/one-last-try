@@ -9,8 +9,7 @@
                     <span class="text-xl font-semibold">One Last Try</span>
                 </div>
                 <p class="mt-4 text-sm leading-relaxed">
-                    India's most trusted therapists, all under one roof.
-                </p>
+                    India’s trusted platform for understanding your mental wellbeing.                </p>
                 <div class="mt-4 flex space-x-4 text-md text-[#385333]">
                     <a href="https://facebook.com" aria-label="Facebook"
                        class="hover:text-[#f7921e] transition-colors">
@@ -58,10 +57,17 @@
 {{--                        </a>--}}
 {{--                    </li>--}}
 
+{{--                    <li>--}}
+{{--                        <a href="/therapists" class="flex items-center gap-2 hover:text-[#f7921e]">--}}
+{{--                            <i class="fa-solid fa-chevron-right text-[10px]"></i>--}}
+{{--                            <span>Therapists</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+
                     <li>
-                        <a href="/therapists" class="flex items-center gap-2 hover:text-[#f7921e]">
+                        <a href="{{ route('assessments.index') }}" class="flex items-center gap-2 hover:text-[#f7921e]">
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                            <span>Therapists</span>
+                            <span>Assessment</span>
                         </a>
                     </li>
                     <li>
