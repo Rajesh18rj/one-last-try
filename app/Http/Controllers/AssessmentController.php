@@ -19,6 +19,12 @@ class AssessmentController extends Controller
             'answers' => 'required|array',
             'answers.*' => 'required|array',
             'answers.*.*' => 'required|integer|min:0|max:4',
+
+            // ikigai text inputs
+            'answers.ikigai.love'  => 'required|string|max:255',
+            'answers.ikigai.skill' => 'required|string|max:255',
+            'answers.ikigai.need'  => 'required|string|max:255',
+            'answers.ikigai.paid'  => 'required|string|max:255',
         ]);
 
         $answers = $data['answers'];

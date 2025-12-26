@@ -201,18 +201,6 @@
                             ],
                         ],
 
-                        'ikigai' => [
-                            'title' => 'Ikigai',
-                            'description' => 'Purpose, meaning, and life satisfaction.',
-                            'questions' => [
-                                'q1' => 'I feel my life has a clear purpose.',
-                                'q2' => 'My daily activities feel meaningful.',
-                                'q3' => 'I feel motivated about my future.',
-                                'q4' => 'I enjoy what I do each day.',
-                                'q5' => 'I feel fulfilled by my roles.',
-                            ],
-                        ],
-
                     ];
                 @endphp
 
@@ -293,6 +281,11 @@
                 3: 'Step 3 of 3 · Submit',
             };
 
+            document
+                .querySelector('#section-ikigai .section-submit')
+                ?.classList.remove('hidden');
+
+
             function setMainTab(targetId) {
                 mainTabs.forEach(t => t.classList.remove('bg-white','text-amber-900','shadow-sm'));
                 mainPanels.forEach(panel => panel.classList.add('hidden'));
@@ -348,9 +341,16 @@
 
             sectionTabs.forEach(btn => {
                 btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-section-target');
+
+                    // ✅ Ikigai is always accessible
+                    if (target === '#section-ikigai') {
+                        setSectionTab(target);
+                        return;
+                    }
+
                     if (btn.classList.contains('section-locked')) return;
 
-                    const target = btn.getAttribute('data-section-target');
                     setSectionTab(target);
                 });
             });
@@ -402,11 +402,22 @@
                     ).length;
 
                     // Always hide first (important)
+                    // 🔒 Hide submit by default
                     panel.querySelector('.section-submit')?.classList.add('hidden');
 
+                    // ✅ Show submit when all answered
                     if (answered === total) {
+
+                        // ✅ Ikigai: always allow submit
+                        if (sectionKey === 'ikigai') {
+                            panel.querySelector('.section-submit')?.classList.remove('hidden');
+                            return;
+                        }
+
+                        // other sections
                         panel.querySelector('.section-submit')?.classList.remove('hidden');
                     }
+
 
 
                     updateCompletion();
@@ -496,7 +507,23 @@
                 });
 
 
-                // 👉 EXISTING RESULT LOGIC CONTINUES
+                    // 👉 Ikigai: skip modal but go next
+                if (sectionKey === 'ikigai') {
+
+                    const panels = [...document.querySelectorAll('.section-panel')];
+                    const index = panels.indexOf(activePanel);
+
+                    if (index === panels.length - 1) {
+                        setMainTab('#tab-submit');
+                    } else {
+                        setMainTab('#tab-questions');
+                        setSectionTab('#' + panels[index + 1].id);
+                    }
+
+                    return;
+                }
+
+
                 const result = calculateSectionResult(sectionKey);
 
                 const modal = document.getElementById('sectionResultModal');
@@ -509,11 +536,12 @@
 
                 const badge = modal.querySelector('.icon-badge');
                 badge.className = `icon-badge w-16 h-16 rounded-3xl
-           flex items-center justify-center
-           bg-gradient-to-br ${result.gradient}`;
+    flex items-center justify-center
+    bg-gradient-to-br ${result.gradient}`;
 
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
+
             });
 
 

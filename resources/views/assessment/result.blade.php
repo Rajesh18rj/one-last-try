@@ -14,6 +14,13 @@
         $level  = $assessment->overall_level;
         $topics = $assessment->topic_scores ?? [];
 
+            // ✅ Always move Ikigai to the last position
+    if (array_key_exists('ikigai', $topics)) {
+        $ikigai = $topics['ikigai'];
+        unset($topics['ikigai']);
+        $topics['ikigai'] = $ikigai;
+    }
+
         /* ---------------------------------------------
            Overall Level UI (NON-CLINICAL)
         --------------------------------------------- */
@@ -172,36 +179,69 @@
                 <div class="grid sm:grid-cols-2 gap-6 mb-12">
 
                     @foreach($topics as $topic => $data)
-                        <div class="bg-[#FFF8ED] border border-[#FFD18A]
-                                rounded-2xl p-5">
 
-                            <h3 class="font-bold text-[#7A4A12] mb-1 capitalize">
-                                {{ str_replace('_', ' ', $topic) }}
-                            </h3>
+                        {{-- 🌸 IKIGAI SPECIAL RESULT --}}
+                        @if($topic === 'ikigai')
 
-                            <div class="flex items-center justify-between text-sm mb-2">
-                            <span class="text-gray-600">
-                                {{ $data['level'] }}
-                            </span>
+                            <div class="bg-[#FFF7ED] border border-[#FFD18A]
+                rounded-2xl p-6 text-center">
 
-                                <span class="font-semibold text-[#F79C23]">
-                                {{ $data['percentage'] }}%
-                            </span>
-                            </div>
-
-                            {{-- Progress Bar --}}
-                            <div class="w-full h-2 rounded-full bg-[#FFE2A8] mb-3">
-                                <div class="h-2 rounded-full bg-gradient-to-r
-                                        from-[#F79C23] to-[#FFB84D]"
-                                     style="width: {{ $data['percentage'] }}%">
+                                <div class="w-14 h-14 mx-auto mb-3 rounded-2xl
+                    bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
+                    flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-envelope-open-text text-white text-xl"></i>
                                 </div>
+
+                                <h3 class="font-bold text-[#7A4A12] text-lg mb-2">
+                                    Ikigai Insight
+                                </h3>
+
+                                <p class="text-sm text-[#7A5A2E] leading-relaxed max-w-sm mx-auto">
+                                    Ikigai is deeply personal and unfolds over time.
+                                    Your responses are being thoughtfully reviewed, and your
+                                    personalized Ikigai insight will be shared with you via email.
+                                </p>
+
+                                <p class="text-xs text-[#8A6A3E] mt-3">
+                                    🌱 Reflection takes time — clarity arrives gently.
+                                </p>
+
                             </div>
 
-                            {{-- Personalised Tip --}}
-                            <p class="text-sm text-[#7A5A2E] leading-relaxed">
-                                💡 {{ $topicTips[$topic][$data['level']] ?? 'Small mindful steps can create positive change.' }}
-                            </p>
-                        </div>
+                        @else
+
+                            {{-- ✅ NORMAL TOPIC RESULT --}}
+                            <div class="bg-[#FFF8ED] border border-[#FFD18A]
+                rounded-2xl p-5">
+
+                                <h3 class="font-bold text-[#7A4A12] mb-1 capitalize">
+                                    {{ str_replace('_', ' ', $topic) }}
+                                </h3>
+
+                                <div class="flex items-center justify-between text-sm mb-2">
+                <span class="text-gray-600">
+                    {{ $data['level'] }}
+                </span>
+
+                                    <span class="font-semibold text-[#F79C23]">
+                    {{ $data['percentage'] }}%
+                </span>
+                                </div>
+
+                                <div class="w-full h-2 rounded-full bg-[#FFE2A8] mb-3">
+                                    <div class="h-2 rounded-full bg-gradient-to-r
+                        from-[#F79C23] to-[#FFB84D]"
+                                         style="width: {{ $data['percentage'] }}%">
+                                    </div>
+                                </div>
+
+                                <p class="text-sm text-[#7A5A2E] leading-relaxed">
+                                    💡 {{ $topicTips[$topic][$data['level']] ?? 'Small mindful steps can create positive change.' }}
+                                </p>
+                            </div>
+
+                        @endif
+
                     @endforeach
 
                 </div>

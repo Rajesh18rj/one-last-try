@@ -70,6 +70,13 @@
                             <span>Assessment</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="#" class="flex items-center gap-2 hover:text-[#f7921e]">
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span>Programs</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#" class="flex items-center gap-2 hover:text-[#f7921e]">
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>

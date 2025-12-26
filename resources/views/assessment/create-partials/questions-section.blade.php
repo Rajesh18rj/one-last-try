@@ -1,8 +1,12 @@
-<div id="tab-questions" class="main-panel hidden space-y-6">
+<div id="tab-questions" class="main-panel space-y-6">
 
-    {{-- section chips --}}
+    {{-- ===================== --}}
+    {{-- SECTION TABS --}}
+    {{-- ===================== --}}
     <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-amber-300/70 scrollbar-track-transparent section-tabs-wrapper">
-        @foreach($sections as $sectionKey => $section)
+
+    {{-- Numeric section tabs --}}
+    @foreach($sections as $sectionKey => $section)
             <button type="button"
                     data-section-target="#section-{{ $sectionKey }}"
                     class="section-tab inline-flex flex-col items-start justify-center gap-1 px-4 py-3 rounded-2xl min-w-[170px]
@@ -27,11 +31,33 @@
                 </span>
             </button>
         @endforeach
+
+        {{-- ✅ MANUAL IKIGAI TAB (NEW) --}}
+        {{-- ✅ IKIGAI TAB --}}
+        <button type="button"
+                data-section-target="#section-ikigai"
+                class="section-tab inline-flex flex-col items-start justify-center gap-1
+               px-4 py-3 rounded-2xl min-w-[170px]
+               bg-white/90 text-xs text-amber-900
+               border border-amber-100
+               hover:border-amber-400 hover:bg-amber-50/80 transition-all">
+
+    <span class="text-[11px] uppercase tracking-wide text-amber-400">
+        {{ count($sections) + 1 }}
+    </span>
+
+            <span class="font-semibold text-sm">Ikigai</span>
+            <span class="text-[11px] text-amber-700/80">
+        Purpose & Meaning
+    </span>
+        </button>
+
     </div>
 
     {{-- section panels --}}
     <div class="mt-4 space-y-5">
         @foreach($sections as $sectionKey => $section)
+
             <div id="section-{{ $sectionKey }}"
                  data-section-key="{{ $sectionKey }}"
                  data-question-count="{{ count($section['questions']) }}"
@@ -120,6 +146,20 @@
                 </div>
             </div>
         @endforeach
+
+            {{-- ✅ IKIGAI PANEL (OUTSIDE LOOP) --}}
+            {{-- ✅ IKIGAI PANEL --}}
+            <div id="section-ikigai"
+                 data-section-key="ikigai"
+                 data-question-count="0"
+                 class="section-panel hidden">
+
+                @include('assessment.create-partials.ikigai-diagram')
+
+            </div>
+
+
+
     </div>
 
     {{-- 🌌 SECTION RESULT MODAL --}}
