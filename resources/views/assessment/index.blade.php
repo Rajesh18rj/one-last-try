@@ -65,8 +65,7 @@
                 {{-- Description --}}
                 <p class="text-[#7A6E54] text-base md:text-lg leading-relaxed
                       max-w-xl mx-auto mb-8">
-                    Answer a few gentle questions about how you feel,
-                    and we’ll help connect you with the right therapist for you.
+                    Take a moment to answer a few gentle questions, and we’ll help you understand what support fits you best.
                 </p>
 
                 {{-- CTA --}}

@@ -1,5 +1,7 @@
-<nav class="bg-[#fbeac2] fixed w-full top-0 z-30 font-sans">
-    <div class="max-w-6xl mx-auto px-4">
+<nav class="fixed w-full top-0 z-30 font-sans
+            bg-gradient-to-r from-amber-200 via-orange-200 to-rose-200">
+
+<div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between py-3">
             <!-- Left: Logo -->
             <div class="flex items-center space-x-2">

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('therapist_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('slug')->unique()->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('professional_title')->nullable();
             $table->text('qualifications')->nullable();

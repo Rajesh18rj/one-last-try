@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('users')->onDelete('cascade');
 //            $table->foreignId('therapist_id')->nullable()->constrained('users')->onDelete('set null')->nullable();
             $table->json('answers')->nullable();
+            $table->json('topic_scores')->nullable();
             $table->integer('overall_score')->nullable();
+            $table->string('overall_level')->nullable();
             $table->string('severity_level')->nullable();
             $table->enum('status', ['pending','completed','reviewed'])->default('completed');
             $table->dateTime('taken_at')->nullable();

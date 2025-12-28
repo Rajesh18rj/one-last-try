@@ -1,5 +1,5 @@
 <!-- Bottom bar footer -->
-<div class="border-t border-[#e2d3aa] mt-0 bg-[#fbeac2]">
+<div class="border-t border-[#e2d3aa] mt-0 bg-gradient-to-r from-amber-200 via-orange-200 to-rose-200">
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between text-xs text-[#6b7b5a] gap-2">
         <p>Copyright © {{ date('Y') }} OneLastTry. All Rights Reserved</p>
         <p>
