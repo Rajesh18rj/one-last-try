@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TherapistLoginController;
@@ -54,10 +55,26 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', fn () => view('admin.admin-dashboard.index'))
-        ->name('admin.dashboard');
-});
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'admin'])
+    ->group(function () {
+
+        Route::get('/dashboard', fn () => view('admin.admin-dashboard.index'))
+            ->name('dashboard');
+
+        Route::get('/customers', [\App\Http\Controllers\Admin\CustomerController::class, 'index'])
+            ->name('customers.index');
+
+        Route::put('/customers/{id}', [\App\Http\Controllers\Admin\CustomerController::class, 'update'])
+            ->name('customers.update');
+
+        Route::get('/therapists', [\App\Http\Controllers\Admin\TherapistController::class, 'index'])
+            ->name('therapists.index');
+
+        Route::put('/therapist/{id}', [\App\Http\Controllers\Admin\TherapistController::class, 'update'])
+            ->name('therapists.update');
+    });
 
 
 Route::get('/dashboard', function () {
