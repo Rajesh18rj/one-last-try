@@ -44,12 +44,6 @@
                         {{-- Info --}}
                         <div class="flex-1">
                             {{-- Likes --}}
-{{--                            <p class="text-[11px] text-[#A8916C] flex items-center gap-1 mb-1">--}}
-{{--                                <i class="fa-regular fa-heart text-[12px] text-[#F29C1F]"></i>--}}
-{{--                                0 likes--}}
-{{--                            </p>--}}
-
-                            {{-- Name --}}
                             <h3 class="text-[18px] text-[#2E3826] lg:text-[24px] font-semibold flex items-center gap-2">
                                 {{ $therapist->user->name }}
                                 <span class="text-[#33B86A] text-[16px]">

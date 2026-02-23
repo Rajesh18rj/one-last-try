@@ -90,13 +90,13 @@ class TherapistRegisterController extends Controller
             'experience_years'     => $validated['experience_years'],
             'bio'                  => $validated['bio'],
 
-            'specializations'      => json_encode($validated['specializations']),
-            'languages'           => json_encode($validated['languages']),
+            'specializations'      => $validated['specializations'],
+            'languages'            => $validated['languages'],
             'session_mode'         => $validated['session_mode'],
             'session_fee'          => $validated['session_fee'],
 
-            'available_days'       => json_encode($validated['available_days']),
-            'available_time_slots' => json_encode($validated['available_time_slots'] ?? []),
+            'available_days'       => $validated['available_days'],
+            'available_time_slots' => $validated['available_time_slots'] ?? [],
 
             'address'              => $validated['address'],
 
@@ -106,7 +106,7 @@ class TherapistRegisterController extends Controller
             'pin_code'             => $validated['pin_code'],
 
             'qualification_documents' => !empty($qualificationFiles)
-                ? json_encode($qualificationFiles)
+                ? $qualificationFiles
                 : null,
 
             'profile_image'        => $profileImage,

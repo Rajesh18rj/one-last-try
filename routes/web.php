@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\TherapistController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TherapistLoginController;
@@ -69,11 +70,15 @@ Route::prefix('admin')
         Route::put('/customers/{id}', [\App\Http\Controllers\Admin\CustomerController::class, 'update'])
             ->name('customers.update');
 
-        Route::get('/therapists', [\App\Http\Controllers\Admin\TherapistController::class, 'index'])
+        Route::get('/therapists', [TherapistController::class, 'index'])
             ->name('therapists.index');
 
-        Route::put('/therapist/{id}', [\App\Http\Controllers\Admin\TherapistController::class, 'update'])
+        Route::get('/therapists/{therapist}', [TherapistController::class, 'show'])
+            ->name('therapists.show');
+
+        Route::put('/therapists/{id}', [TherapistController::class, 'update'])
             ->name('therapists.update');
+
     });
 
 

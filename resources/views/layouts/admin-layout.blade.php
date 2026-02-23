@@ -71,7 +71,6 @@
 </script>
 
 
-@yield('scripts')
 
 <!-- Page Content -->
 <main>
@@ -79,6 +78,6 @@
 
 </main>
 
-
+@stack('modalscripts')
 </body>
 </html>
