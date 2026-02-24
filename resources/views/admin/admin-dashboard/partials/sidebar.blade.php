@@ -90,7 +90,7 @@
 
 
             <!-- ADMINS -->
-            <a href="#"
+            <a href="{{ route('admin.admins.index') }}"
                class="flex items-center gap-3 px-4 py-3 rounded-xl
                {{ request()->routeIs('admin.admins.*') ? $activeClass : $inactiveClass }}">
 
@@ -99,7 +99,9 @@
                                  w-1 h-6 bg-white rounded-r"></span>
                 @endif
 
-                <i class="fa-solid fa-user-shield text-[#F79C23] text-[20px] min-w-[20px]"></i>
+                <i class="fa-solid fa-user-shield text-[#F79C23] text-[20px] min-w-[20px]
+                    {{ request()->routeIs('admin.admins.*') ? 'text-white' : 'text-[#F79C23]' }}">
+                </i>
                 <span class="menu-text ml-1 font-semibold">Admins</span>
             </a>
         </div>

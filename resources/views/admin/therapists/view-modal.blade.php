@@ -1,8 +1,7 @@
 <div id="viewModal"
      class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-6">
 
-    <div class="bg-white/90 backdrop-blur-xl border border-white/40 rounded-[28px] shadow-[0_20px_70px_rgba(0,0,0,0.18)] w-full max-w-6xl overflow-hidden h-[90vh] flex flex-col">
-
+    <div class="relative bg-white/90 backdrop-blur-xl border border-white/40 rounded-[28px] shadow-[0_20px_70px_rgba(0,0,0,0.18)] w-full max-w-6xl overflow-hidden h-[90vh] flex flex-col">
         <!-- Header -->
         <div class="flex justify-between items-center px-10 py-6 border-b border-slate-200/70 bg-white/60 backdrop-blur-md">
             <h2 class="text-2xl font-bold text-slate-800 tracking-tight">
@@ -12,6 +11,16 @@
                     class="w-9 h-9 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition">
                 ✕
             </button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="viewLoading"
+             class="absolute inset-0 bg-white/80 backdrop-blur-sm hidden items-center justify-center z-50">
+
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-sm font-semibold text-gray-600">Loading therapist profile...</p>
+            </div>
         </div>
 
         <!-- Scrollable Body -->
@@ -269,6 +278,7 @@
         (function(){
 
             const modal = document.getElementById('viewModal');
+            const loadingEl = document.getElementById('viewLoading');
 
             // Cache DOM elements (performance boost)
             const el = {
@@ -309,6 +319,10 @@
                 loading = true;
 
                 openModal();
+                // show spinner
+                loadingEl.classList.remove('hidden');
+                loadingEl.classList.add('flex');
+
                 el.name.textContent = "Loading...";
 
                 try{
@@ -330,6 +344,9 @@
                     console.error(error);
                     alert('Failed to load therapist data');
                 }finally{
+                    // hide spinner
+                    loadingEl.classList.add('hidden');
+                    loadingEl.classList.remove('flex');
                     loading = false;
                 }
 
@@ -564,5 +581,6 @@
             }
 
         })();
+
     </script>
 @endpush

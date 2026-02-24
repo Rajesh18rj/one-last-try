@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\TherapistController;
 use App\Http\Controllers\AssessmentController;
@@ -78,6 +79,9 @@ Route::prefix('admin')
 
         Route::put('/therapists/{id}', [TherapistController::class, 'update'])
             ->name('therapists.update');
+
+        Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
+        Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admins.update');
 
     });
 

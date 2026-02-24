@@ -49,20 +49,37 @@
                 <tr class="border-t hover:bg-gray-50 transition">
 
                     <!-- Therapist -->
-                    <td class="px-6 py-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-green-100
-                                    flex items-center justify-center
-                                    text-green-600 font-bold">
-                            {{ strtoupper(substr($therapist->user->name, 0, 1)) }}
-                        </div>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
 
-                        <div>
-                            <div class="font-medium">
-                                {{ $therapist->user->name }}
+                            {{-- Profile Image --}}
+                            <div class="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white shadow">
+
+                                @if($therapist->profile_image)
+                                    <img
+                                        src="{{ asset('storage/'.$therapist->profile_image) }}"
+                                        loading="lazy"
+                                        alt="{{ $therapist->user->name }}"
+                                        class="w-full h-full object-cover">
+                                @else
+                                    {{-- Fallback Avatar --}}
+                                    <div class="w-full h-full bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center">
+                                        {{ strtoupper(substr($therapist->user->name, 0, 1)) }}
+                                    </div>
+                                @endif
+
                             </div>
-                            <div class="text-xs text-gray-500">
-                                {{ $therapist->user->email }}
+
+                            {{-- Name + Email --}}
+                            <div class="min-w-0">
+                                <div class="font-semibold text-gray-800 leading-tight">
+                                    {{ $therapist->user->name }}
+                                </div>
+                                <div class="text-xs text-gray-500 truncate max-w-[200px]">
+                                    {{ $therapist->user->email }}
+                                </div>
                             </div>
+
                         </div>
                     </td>
 

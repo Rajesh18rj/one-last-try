@@ -25,7 +25,6 @@
                                    focus:ring-2 focus:ring-orange-400">
                         <option value="customer">Customer</option>
                         <option value="admin">Admin</option>
-                        <option value="trainee">Trainee</option>
                     </select>
                 </div>
 

@@ -33,7 +33,7 @@
             </aside>
 
             <!-- Main Content -->
-            @include('admin.customers.main-content.customers-main-content')
+            @include('admin.admins.main-content.admin-main-content')
         </div>
     </div>
 

@@ -26,6 +26,7 @@
             <tr>
                 <th class="px-6 py-4 text-left">Customer</th>
                 <th class="px-6 py-4 text-left">Email</th>
+                <th class="px-6 py-4 text-left">Phone</th>
                 <th class="px-6 py-4 text-left">Role</th>
                 <th class="px-6 py-4 text-right">Actions</th>
             </tr>
@@ -60,6 +61,11 @@
                         {{ $customer->email }}
                     </td>
 
+                    <!-- Email -->
+                    <td class="px-6 py-4 text-gray-600">
+                        {{ $customer->phone }}
+                    </td>
+
                     <!-- Role -->
                     <td class="px-6 py-4">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold
@@ -76,6 +82,7 @@
                             class="view-btn text-blue-500 hover:text-blue-700"
                             data-name="{{ $customer->name }}"
                             data-email="{{ $customer->email }}"
+                            data-phone="{{ $customer->phone }}"
                             data-role="{{ $customer->role }}">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -126,6 +133,7 @@
         btn.addEventListener('click', () => {
             document.getElementById('viewName').textContent = btn.dataset.name;
             document.getElementById('viewEmail').textContent = btn.dataset.email;
+            document.getElementById('viewPhone').textContent = btn.dataset.phone;
             document.getElementById('viewRole').textContent = btn.dataset.role;
 
             viewModal.classList.remove('hidden');
@@ -171,6 +179,7 @@
         btn.addEventListener('click', () => {
             document.getElementById('viewName').textContent = btn.dataset.name;
             document.getElementById('viewEmail').textContent = btn.dataset.email;
+            document.getElementById('viewPhone').textContent = btn.dataset.phone;
             document.getElementById('viewRole').textContent = btn.dataset.role;
 
             document.getElementById('viewAvatar').textContent =

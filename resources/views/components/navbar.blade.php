@@ -79,14 +79,14 @@
                             @if(auth()->user()->role === 'admin')
                                 <a href="{{ route('admin.dashboard') }}"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Dashboard
+                                    Admin Dashboard
                                 </a>
                             @endif
 
                             @if(auth()->user()->role === 'therapist')
                                 <a href="{{ route('therapist.dashboard') }}"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Dashboard
+                                    Therapist Dashboard
                                 </a>
                             @endif
 
