@@ -74,7 +74,7 @@
                 <div class="flex-1 min-w-0">
                     <p class="text-base font-semibold text-gray-600 group-hover:text-gray-900 transition-all duration-300 mb-2 tracking-wide">Total Customers</p>
                     <p class="text-4xl lg:text-5xl font-black bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent mb-3 leading-none">
-                        {{ number_format($totalUsers ?? 20) }}
+                        {{ number_format($totalCustomers ?? 0) }}
                     </p>
 
                     <div class="flex items-center gap-3">
@@ -109,7 +109,7 @@
                 <div class="flex-1 min-w-0">
                     <p class="text-base font-semibold text-gray-600 group-hover:text-gray-900 transition-all duration-300 mb-2 tracking-wide">Active Therapists</p>
                     <p class="text-4xl lg:text-5xl font-black bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 bg-clip-text text-transparent mb-3 leading-none">
-                        {{ number_format($activeTherapists ?? 10) }}
+                        {{ number_format($totalTherapists ?? 0) }}
                     </p>
 
                     <div class="flex items-center gap-3">
@@ -157,7 +157,7 @@
                     </p>
 
                     <p class="text-4xl lg:text-5xl font-black bg-gradient-to-r from-sky-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-3 leading-none">
-                        {{ number_format($activeTherapists ?? 2) }}
+                        {{ number_format($totalAdmins ?? 0) }}
                     </p>
 
                     <div class="flex items-center gap-3">
