@@ -86,6 +86,13 @@ Route::prefix('admin')
         Route::get('/admins', [AdminController::class, 'index'])->name('admins.index');
         Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admins.update');
 
+        Route::get('/assessment-details', [\App\Http\Controllers\Admin\AssessmentDetailController::class, 'index'])
+            ->name('assessment-details.index');
+
+        Route::post('/assessments/{assessment}/update-review',
+            [\App\Http\Controllers\Admin\AssessmentDetailController::class, 'updateReview'])
+            ->name('assessments.updateReview');
+
     });
 
 

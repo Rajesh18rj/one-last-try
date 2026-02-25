@@ -47,17 +47,17 @@
         </a>
 
         <!-- Assessment Details -->
-        <a href="#"
+        <a href="{{ route('admin.assessment-details.index') }}"
            class="group flex items-center gap-3 px-4 py-3 rounded-xl
-   {{ request()->routeIs('#') ? $activeClass : $inactiveClass }}">
+   {{ request()->routeIs('admin.assessment-details.*') ? $activeClass : $inactiveClass }}">
 
-            @if(request()->routeIs('#'))
+            @if(request()->routeIs('admin.assessment-details.*'))
                 <span class="absolute left-0 top-1/2 -translate-y-1/2
                      w-1 h-6 bg-white rounded-r"></span>
             @endif
 
             <i class="fa-solid fa-list-check min-w-[20px] text-[20px]
-       {{ request()->routeIs('#') ? 'text-white' : 'text-[#F79C23]' }}">
+       {{ request()->routeIs('admin.assessment-details.*') ? 'text-white' : 'text-[#F79C23]' }}">
             </i>
 
             <span class="menu-text ml-0.5 font-semibold">Assessment Details</span>

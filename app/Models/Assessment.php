@@ -8,7 +8,8 @@ class Assessment extends Model
 {
     protected $fillable = [
         'customer_id','answers','overall_score', 'topic_scores', 'overall_level',
-        'severity_level','status','taken_at'
+        'severity_level','status','taken_at','is_reviewed'
+
     ];
 
     protected $casts = [
@@ -21,7 +22,4 @@ class Assessment extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
-    public function therapist() {
-        return $this->belongsTo(User::class, 'therapist_id');
-    }
 }
