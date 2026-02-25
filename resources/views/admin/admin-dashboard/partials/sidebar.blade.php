@@ -27,7 +27,7 @@
     </div>
 
     <!-- ===== MENU ===== -->
-    <nav class="flex-1 px-4 py-6 space-y-6 text-sm">
+    <nav class="flex-1 px-4 py-6 space-y-3 text-sm">
 
         <!-- DASHBOARD -->
         <a href="{{ route('admin.dashboard') }}"
@@ -46,10 +46,27 @@
             <span class="menu-text ml-0.5 font-semibold">Dashboard</span>
         </a>
 
+        <!-- Assessment Details -->
+        <a href="#"
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl
+   {{ request()->routeIs('#') ? $activeClass : $inactiveClass }}">
+
+            @if(request()->routeIs('#'))
+                <span class="absolute left-0 top-1/2 -translate-y-1/2
+                     w-1 h-6 bg-white rounded-r"></span>
+            @endif
+
+            <i class="fa-solid fa-list-check min-w-[20px] text-[20px]
+       {{ request()->routeIs('#') ? 'text-white' : 'text-[#F79C23]' }}">
+            </i>
+
+            <span class="menu-text ml-0.5 font-semibold">Assessment Details</span>
+        </a>
+
 
         <!-- MANAGE USERS -->
-        <div class="space-y-3">
-            <p class="menu-text font-bold text-xs uppercase text-gray-500 px-3 mb-2 tracking-wide">
+        <div class="space-y-2">
+            <p class="menu-text font-bold text-xs uppercase text-gray-500 px-3 mb-2 tracking-wide mt-6">
                 Manage Users
             </p>
 

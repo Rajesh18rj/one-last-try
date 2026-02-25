@@ -42,14 +42,14 @@
                 Customers
             </a>
 
-            <a href="#"
+            <a href="{{ route('admin.therapists.index') }}"
                class="flex items-center gap-2 px-4 py-2 rounded-xl
                           text-gray-700 hover:bg-[#FFE2A8] transition">
                 <i class="fa-solid fa-user-doctor text-[#F79C23] text-[20px] mr-3"></i>
                 Therapists
             </a>
 
-            <a href="#"
+            <a href="{{ route('admin.admins.index') }}"
                class="flex items-center gap-2 px-4 py-2 rounded-xl
                           text-gray-700 hover:bg-[#FFE2A8] transition">
                 <i class="fa-solid fa-user-shield text-[#F79C23] text-[20px] mr-2"></i>
