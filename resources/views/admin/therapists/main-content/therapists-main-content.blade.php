@@ -123,11 +123,11 @@
 
                         <!-- EDIT -->
                         <button
-                            class="edit-btn text-purple-500 hover:text-purple-700"
+                            class="edit-btn text-amber-500 hover:text-amber-700"
                             data-id="{{ $therapist->id }}"
                             data-status="{{ $therapist->approval_status }}"
                             data-plan="{{ $therapist->plan_type }}">
-                            <i class="fa-solid fa-pen"></i>
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                     </td>
                 </tr>
@@ -168,7 +168,7 @@
             <!-- Header -->
             <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-500 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-xl bg-green-100 text-green-500 flex items-center justify-center">
                         <i class="fa-solid fa-user-gear"></i>
                     </div>
 
@@ -244,7 +244,7 @@
 
                     <button type="button"
                             onclick="closeEditModal()"
-                            class="px-5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium transition">
+                            class="px-5 py-2.5 rounded-xl bg-gray-700 hover:bg-gray-800 text-gray-100 text-sm font-medium transition">
                         Cancel
                     </button>
 

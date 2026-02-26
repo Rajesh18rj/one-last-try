@@ -27,6 +27,11 @@ class AssessmentDetailController extends Controller
             'is_reviewed' => $request->is_reviewed
         ]);
 
-        return response()->json(['success' => true]);
+        return response()->json([
+            'success' => true,
+            'message' => $request->is_reviewed === 'reviewed'
+                ? 'Assessment marked as Reviewed'
+                : 'Assessment set to Not Reviewed'
+        ]);
     }
 }

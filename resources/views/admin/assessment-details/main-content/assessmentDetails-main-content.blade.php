@@ -125,49 +125,11 @@
     </div>
 </div>
 
+    <!-- View Modal -->
     @include('admin.assessment-details.view')
 
-<div id="reviewModal"
-     class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
-
-    <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl">
-
-        <h2 class="text-xl font-semibold mb-6">Edit Review Status</h2>
-
-        <form id="reviewForm">
-
-            <input type="hidden" id="reviewAssessmentId">
-
-            <div class="space-y-4">
-
-                <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="radio" name="is_reviewed" value="not_yet" class="accent-amber-500">
-                    <span class="font-medium">Not Yet Reviewed</span>
-                </label>
-
-                <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="radio" name="is_reviewed" value="reviewed" class="accent-emerald-500">
-                    <span class="font-medium">Reviewed</span>
-                </label>
-
-            </div>
-
-            <div class="flex justify-end gap-3 mt-8">
-                <button type="button"
-                        onclick="closeReviewModal()"
-                        class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
-                    Cancel
-                </button>
-
-                <button type="submit"
-                        class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
-                    Save
-                </button>
-            </div>
-
-        </form>
-    </div>
-</div>
+    <!-- Review Modal -->
+    @include('admin.assessment-details.review')
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -298,6 +260,7 @@
     });
 </script>
 
+<!-- Script for Review -->
 <script>
     const reviewModal = document.getElementById('reviewModal');
 
@@ -343,7 +306,18 @@
             .then(res => res.json())
             .then(data => {
                 if(data.success){
-                    location.reload(); // simple + safe
+
+                    closeReviewModal();
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+
+                    // small delay so user can see message
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1200);
                 }
             });
     });

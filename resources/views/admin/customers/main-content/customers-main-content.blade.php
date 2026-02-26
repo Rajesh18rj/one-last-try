@@ -37,7 +37,7 @@
                 @php
                     $isSelf = auth()->id() === $customer->id;
                     $roleStyles = [
-                        'customer'  => 'bg-blue-100 text-blue-700',
+                        'customer'  => 'bg-orange-100 text-orange-500',
                         'trainee'   => 'bg-yellow-100 text-yellow-700',
                         'therapist' => 'bg-green-100 text-green-700',
                         'admin'     => 'bg-red-100 text-red-700',

@@ -112,67 +112,211 @@
 
 {{-- ================= VIEW MODAL ================= --}}
 
-<div id="adminViewModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-6">
+<div id="adminViewModal"
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
 
+    <div class="w-full max-w-md
+                bg-[#F4F5F7]
+                rounded-[30px]
+                shadow-[0_30px_80px_rgba(0,0,0,0.25)]
+                overflow-hidden">
 
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-7 pt-7">
 
-        <button onclick="closeAdminViewModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+            <div class="flex items-center gap-4">
 
-        <div class="flex flex-col items-center text-center">
+                <!-- Icon -->
+                <div class="w-12 h-12 rounded-2xl
+                            bg-red-100 text-red-600
+                            flex items-center justify-center">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
 
-            <div id="adminViewAvatar" class="w-20 h-20 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-3xl font-bold mb-4">
-                A
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        Admin Details
+                    </h2>
+
+                    <!-- small accent line -->
+                    <div class="w-16 h-1 bg-red-400 rounded-full mt-2"></div>
+
+                    <p class="text-xs text-gray-500 mt-2">
+                        System administrator profile
+                    </p>
+                </div>
+
             </div>
 
-            <h2 id="adminViewName" class="text-xl font-bold text-gray-800"></h2>
+            <!-- Close -->
+            <button onclick="closeAdminViewModal()"
+                    class="text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
 
-            <p id="adminViewEmail" class="text-gray-500 mt-1"></p>
 
-            <span id="adminViewRole" class="mt-4 px-4 py-1 rounded-full bg-red-100 text-red-700 text-sm font-semibold"></span>
+        <!-- Body -->
+        <div class="px-7 py-7 space-y-5">
+
+            <!-- Name Card -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm flex items-center gap-4">
+
+                <div id="adminViewAvatar"
+                     class="w-16 h-16 rounded-2xl
+                            bg-red-100 text-red-600
+                            flex items-center justify-center
+                            text-2xl font-bold">
+                    A
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Full Name</p>
+                    <p id="adminViewName"
+                       class="font-semibold text-gray-800 text-base"></p>
+                </div>
+
+            </div>
+
+            <!-- Email -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm">
+                <p class="text-sm text-gray-500 mb-1">Email Address</p>
+                <p id="adminViewEmail"
+                   class="font-medium text-gray-800 text-sm break-all"></p>
+            </div>
+
+            <!-- Role -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm flex items-center justify-between">
+                <p class="text-sm text-gray-500">Role</p>
+                <span id="adminViewRole"
+                      class="px-3 py-1 rounded-full text-xs font-semibold
+                             bg-red-100 text-red-600">
+                </span>
+            </div>
 
         </div>
-    </div>
 
+        <!-- Footer -->
+        <div class="px-7 pb-7 flex justify-end">
+
+            <!-- Dark gray cancel -->
+            <button onclick="closeAdminViewModal()"
+                    class="px-6 py-2.5 rounded-xl
+                           bg-gray-800 text-white
+                           font-medium hover:bg-gray-900 transition">
+                Close
+            </button>
+
+        </div>
+
+    </div>
 </div>
 
 {{-- ================= EDIT MODAL ================= --}}
 
-<div id="adminEditModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-6">
+<div id="adminEditModal"
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50 p-6">
 
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div class="w-full max-w-md
+                bg-[#F4F5F7]
+                rounded-[30px]
+                shadow-[0_30px_80px_rgba(0,0,0,0.25)]
+                overflow-hidden">
 
-        <h2 class="text-lg font-bold mb-4">Change Admin Role</h2>
+        <!-- Header -->
+        <div class="flex items-center justify-between px-7 pt-7">
 
-        <form id="adminEditForm" method="POST">
-            @csrf
-            @method('PUT')
+            <div class="flex items-center gap-4">
 
-            <label class="block text-sm font-medium text-gray-600 mb-2">
-                Select Role
-            </label>
+                <!-- Icon -->
+                <div class="w-12 h-12 rounded-2xl
+                            bg-red-100 text-red-600
+                            flex items-center justify-center">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
 
-            <select id="adminEditRole" name="role" class="w-full border rounded-lg px-4 py-2 mb-6">
-                <option value="admin">Admin</option>
-                <option value="customer">Customer</option>
-            </select>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        Change Admin Role
+                    </h2>
 
-            <div class="flex justify-end gap-3">
-                <button type="button" onclick="closeAdminEditModal()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
-                    Cancel
-                </button>
+                    <!-- Accent line -->
+                    <div class="w-16 h-1 bg-red-400 rounded-full mt-2"></div>
 
-                <button type="submit" class="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600">
-                    Update
-                </button>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Update administrator permissions
+                    </p>
+                </div>
+
             </div>
-        </form>
+
+            <!-- Close -->
+            <button onclick="closeAdminEditModal()"
+                    class="text-gray-400 hover:text-gray-600 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-7 py-7">
+
+            <form id="adminEditForm" method="POST">
+                @csrf
+                @method('PUT')
+
+                <!-- Floating Input Card -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm">
+
+                    <label class="text-sm font-semibold text-gray-600">
+                        Select Role
+                    </label>
+
+                    <select id="adminEditRole"
+                            name="role"
+                            class="w-full mt-3 px-4 py-3 rounded-xl
+                                   border border-gray-200
+                                   bg-gray-50
+                                   focus:outline-none
+                                   focus:ring-2 focus:ring-red-400
+                                   focus:bg-white
+                                   transition">
+
+                        <option value="admin">Admin</option>
+                        <option value="customer">Customer</option>
+
+                    </select>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-8 flex justify-end gap-4">
+
+                    <!-- Dark Gray Cancel -->
+                    <button type="button"
+                            onclick="closeAdminEditModal()"
+                            class="px-6 py-2.5 rounded-xl
+                                   bg-gray-800 text-white
+                                   font-medium hover:bg-gray-900 transition">
+                        Cancel
+                    </button>
+
+                    <!-- Red Primary -->
+                    <button type="submit"
+                            class="px-6 py-2.5 rounded-xl
+                                   bg-red-500 text-white font-semibold
+                                   hover:bg-red-600 transition shadow-sm">
+                        Update Role
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
 </div>
-
 {{-- ================= JAVASCRIPT ================= --}}
 
 <script>
