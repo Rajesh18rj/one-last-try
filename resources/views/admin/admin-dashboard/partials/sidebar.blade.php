@@ -63,6 +63,23 @@
             <span class="menu-text ml-0.5 font-semibold">Assessment Details</span>
         </a>
 
+        <!-- Assign Therapist -->
+        <a href="{{ route('admin.assign.therapist.index') }}"
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl
+   {{ request()->routeIs('admin.assign.*') ? $activeClass : $inactiveClass }}">
+
+            @if(request()->routeIs('admin.assign.*'))
+                <span class="absolute left-0 top-1/2 -translate-y-1/2
+                     w-1 h-6 bg-white rounded-r"></span>
+            @endif
+
+            <i class="fa-solid fa-people-arrows w-[20px] text-[20px]
+       {{ request()->routeIs('admin.assign.*') ? 'text-white' : 'text-[#F79C23]' }}">
+            </i>
+
+            <span class="menu-text ml-0.5 font-semibold">Assign Therapist</span>
+        </a>
+
 
         <!-- MANAGE USERS -->
         <div class="space-y-2">

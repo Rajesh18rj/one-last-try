@@ -90,6 +90,18 @@ Route::prefix('admin')
             [\App\Http\Controllers\Admin\AssessmentDetailController::class, 'updateReview'])
             ->name('assessments.updateReview');
 
+        Route::get('/assign-therapist', [\App\Http\Controllers\Admin\AssignTherapistController::class, 'index'])->name('assign.therapist.index');
+
+        Route::post('/assign-therapist/store', [\App\Http\Controllers\Admin\AssignTherapistController::class, 'store'])
+            ->name('assign.therapist.store');
+
+        Route::delete('/assign-therapist/{id}', [\App\Http\Controllers\Admin\AssignTherapistController::class, 'destroy'])
+            ->name('assign.therapist.delete');
+
+        Route::get('/therapist/{id}/availability',
+            [\App\Http\Controllers\Admin\AssignTherapistController::class,'availability']
+        )->name('therapist.availability');
+
     });
 
 

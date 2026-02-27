@@ -26,4 +26,5 @@ class TherapySession extends Model
     public function assessment() {
         return $this->belongsTo(Assessment::class);
     }
+
 }

@@ -22,4 +22,8 @@ class Assessment extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
+    public function therapySessions()
+    {
+        return $this->hasMany(TherapySession::class);
+    }
 }

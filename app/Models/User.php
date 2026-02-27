@@ -53,4 +53,16 @@ class User extends Authenticatable
         return $this->hasOne(TherapistProfile::class);
     }
 
+    // Customer sessions
+    public function therapySessions()
+    {
+        return $this->hasMany(TherapySession::class, 'customer_id');
+    }
+
+    // Therapist sessions
+    public function assignedSessions()
+    {
+        return $this->hasMany(TherapySession::class, 'therapist_id');
+    }
+
 }
