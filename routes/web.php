@@ -62,9 +62,6 @@ Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->group(function () {
 
-//        Route::get('/dashboard', fn () => view('admin.admin-dashboard.index'))
-//            ->name('dashboard');
-
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
             ->name('dashboard');
 

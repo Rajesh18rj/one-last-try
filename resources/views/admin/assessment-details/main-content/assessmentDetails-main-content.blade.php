@@ -58,7 +58,32 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        {{ $assessment->overall_level }}
+                        @php
+                            $level = $assessment->overall_level;
+
+                            $levelClasses = [
+                                'Excellent' => 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                                'Good' => 'bg-blue-100 text-blue-700 border border-blue-200',
+                                'Moderate' => 'bg-amber-100 text-amber-700 border border-amber-200',
+                                'Needs Attention' => 'bg-red-100 text-red-700 border border-red-200',
+                            ];
+                        @endphp
+
+                        <span class="px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1
+                            {{ $levelClasses[$level] ?? 'bg-gray-100 text-gray-700 border' }}">
+
+                            <!-- small dot indicator -->
+                            <span class="w-2 h-2 rounded-full
+                                @if($level=='Excellent') bg-emerald-500
+                                @elseif($level=='Good') bg-blue-500
+                                @elseif($level=='Moderate') bg-amber-500
+                                @elseif($level=='Needs Attention') bg-red-500
+                                @else bg-gray-400
+                                @endif">
+                            </span>
+
+                            {{ $level }}
+                        </span>
                     </td>
 
                     <td class="px-6 py-4">
