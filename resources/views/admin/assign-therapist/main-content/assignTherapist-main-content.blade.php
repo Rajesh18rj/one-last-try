@@ -1,4 +1,3 @@
-
 <div class="p-6 w-full">
 
     <!-- ================= HEADER ================= -->
@@ -154,7 +153,41 @@
     }
 
     /* availability loader */
-        document.getElementById('therapistSelect').addEventListener('change', function(){
+    document.getElementById('therapistSelect').addEventListener('change', function(){
+
+        const slotBox = document.getElementById('timeSlots');
+        const dateInput = document.getElementById('sessionDate');
+
+        // If therapist removed (user selects empty)
+        if(!this.value){
+
+            // disable date
+            dateInput.disabled = true;
+            dateInput.value = '';
+
+            // reset hidden scheduled field
+            document.getElementById('scheduledAt').value = '';
+
+            // reset slots message
+            slotBox.innerHTML = `
+                <div class="col-span-full bg-gray-50 border border-dashed border-gray-300 text-gray-400 text-sm px-4 py-4 rounded-xl text-center">
+                    Select therapist first
+                </div>
+                `;
+
+            // hide availability card
+            document.getElementById('therapistAvailability').classList.add('hidden');
+
+            return;
+        }
+
+    // Therapist selected → enable date picker
+        dateInput.disabled = false;
+        slotBox.innerHTML = `
+        <div class="col-span-full bg-gray-50 border border-dashed border-gray-300 text-gray-400 text-sm px-4 py-4 rounded-xl text-center">
+            Select date first
+        </div>
+    `;
 
         let id = this.value;
         if(!id) return;
@@ -194,24 +227,51 @@
         return `${hour}:${m} ${ampm}`;
     }
 
-        let slotOutput = '';
+        const slotContainer = document.getElementById('availableSlots');
+        slotContainer.innerHTML = '';
 
         if(data.slots && Object.keys(data.slots).length){
 
-        for(const day in data.slots){
+            for(const day in data.slots){
 
-        let slots = data.slots[day];
+                const dayCard = document.createElement('div');
+                dayCard.className =
+                    "bg-white border border-indigo-100 rounded-xl p-3 shadow-sm";
 
-        slots.forEach(slot=>{
-        slotOutput += `${day}: ${formatTime(slot.start)} - ${formatTime(slot.end)}\n`;
-    });
-    }
+                // Day Title
+                const dayTitle = document.createElement('div');
+                dayTitle.className =
+                    "text-sm font-semibold text-indigo-700 mb-2 flex items-center gap-2";
 
-        document.getElementById('availableSlots').innerText = slotOutput;
+                dayTitle.innerHTML =
+                    `<i class="fa-solid fa-calendar-day text-indigo-500"></i> ${day}`;
 
-    }else{
-        document.getElementById('availableSlots').innerText = 'Not set';
-    }
+                dayCard.appendChild(dayTitle);
+
+                // Slot badges
+                const slotsWrapper = document.createElement('div');
+                slotsWrapper.className = "flex flex-wrap gap-2";
+
+                data.slots[day].forEach(slot=>{
+
+                    const badge = document.createElement('span');
+                    badge.className =
+                        "px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-medium hover:bg-indigo-200 transition";
+
+                    badge.innerText =
+                        `${formatTime(slot.start)} - ${formatTime(slot.end)}`;
+
+                    slotsWrapper.appendChild(badge);
+                });
+
+                dayCard.appendChild(slotsWrapper);
+                slotContainer.appendChild(dayCard);
+            }
+
+        }else{
+            slotContainer.innerHTML =
+                '<span class="text-gray-400 text-sm">No time slots configured</span>';
+        }
 
 
         /* -------- FEE -------- */
@@ -231,24 +291,44 @@
 
     document.getElementById('sessionDate').addEventListener('change', function(){
 
-        const selectedDate = new Date(this.value);
-        const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-
+        const therapist = document.getElementById('therapistSelect').value;
         const slotBox = document.getElementById('timeSlots');
-        slotBox.innerHTML = '';
 
-        // therapist not working this day
-        if(!therapistSlots[dayName]){
-            slotBox.innerHTML = '<div class="text-red-500 col-span-3">Therapist not available this day</div>';
+        // 🚫 Therapist not selected
+        if(!therapist){
+            this.value = '';
+
+            slotBox.innerHTML = `
+        <div class="col-span-full bg-gray-50 border border-dashed border-gray-300 text-gray-400 text-sm px-4 py-4 rounded-xl text-center">
+            Select therapist first
+        </div>
+        `;
             return;
         }
 
-        // show slots
+        const selectedDate = new Date(this.value);
+        const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+
+        // clear old slots
+        slotBox.innerHTML = '';
+
+        // ❌ Therapist not available that day
+        if(!therapistSlots[dayName]){
+            slotBox.innerHTML = `
+        <div class="col-span-full bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl text-center">
+            Therapist not available on this day
+        </div>
+        `;
+            return;
+        }
+
+        // ✔ Show slots
         therapistSlots[dayName].forEach(slot => {
 
             const btn = document.createElement('button');
             btn.type = "button";
-            btn.className = "border rounded-lg px-3 py-2 hover:bg-pink-100 hover:border-pink-400 transition";
+            btn.className =
+                "inline-flex items-center justify-center whitespace-nowrap rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 shadow-sm transition duration-200 hover:border-pink-400 hover:bg-pink-50 hover:text-pink-600";
 
             const format = (t)=>{
                 let [h,m]=t.split(':');
@@ -258,17 +338,22 @@
                 return `${hour}:${m} ${ampm}`;
             }
 
-            btn.innerText = `${format(slot.start)} - ${format(slot.end)}`;
+            btn.innerHTML = `
+            ${format(slot.start)}
+            <span class="mx-1 text-gray-400">–</span>
+            ${format(slot.end)}
+        `;
 
             btn.onclick = function(){
 
-                // highlight
+                // remove previous selection
                 document.querySelectorAll('#timeSlots button')
-                    .forEach(b=>b.classList.remove('bg-pink-500','text-white'));
+                    .forEach(b=>b.classList.remove('slot-selected'));
 
-                this.classList.add('bg-pink-500','text-white');
+                // add new selection
+                this.classList.add('slot-selected');
 
-                // store actual datetime
+                // store datetime
                 const selectedDate = document.getElementById('sessionDate').value;
                 const datetime = selectedDate + ' ' + slot.start + ':00';
 
@@ -279,6 +364,24 @@
         });
 
     });
-
 </script>
+
+<style>
+    .slot-selected{
+        background: linear-gradient(135deg,#ec4899,#db2777);
+        color: white !important;
+        border-color: transparent !important;
+        box-shadow:
+            0 6px 16px rgba(236,72,153,.35),
+            inset 0 1px 0 rgba(255,255,255,.25);
+        transform: translateY(-1px) scale(1.03);
+    }
+
+    #timeSlots button{
+        transition: all .2s ease;
+    }
+    #timeSlots button:active{
+        transform: scale(.96);
+    }
+</style>
 

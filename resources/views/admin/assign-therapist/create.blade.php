@@ -96,8 +96,11 @@
                                 </div>
                             </div>
 
+                            <div class="border-t border-dashed border-gray-400 mb-4"></div>
+
+
                             <!-- Content -->
-                            <div class="space-y-4 text-sm">
+                            <div class="space-y-4 text-xs">
 
                                 <!-- Days -->
                                 <div>
@@ -111,6 +114,8 @@
                                     </div>
                                 </div>
 
+                                <div class="border-t border-dashed border-gray-400 mb-4"></div>
+
                                 <!-- Slots -->
                                 <div>
                                     <div class="text-gray-500 mb-1 flex items-center gap-2">
@@ -118,9 +123,12 @@
                                         Time Slots
                                     </div>
                                     <div id="availableSlots"
-                                         class="grid grid-cols-1 gap-3">
+                                         class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     </div>
                                 </div>
+
+                                <div class="border-t border-dashed border-gray-400 mb-4"></div>
+
 
                                 <!-- Fee & Mode -->
                                 <div class="grid grid-cols-2 gap-3">
@@ -147,6 +155,7 @@
                         </div>
                     </div>
 
+
                 </div>
 
 
@@ -163,8 +172,10 @@
                         </label>
                         <div>
 
-                            <input type="date" id="sessionDate"
-                                   class="w-full border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
+                            <input type="date"
+                                   id="sessionDate"
+                                   disabled
+                                   class="w-full border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-pink-400 disabled:bg-gray-100 disabled:cursor-not-allowed">
                         </div>
 
                         <!-- TIME SLOT SELECTOR -->
@@ -176,7 +187,9 @@
 
                             <div id="timeSlots"
                                  class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                                <div class="text-gray-400">Select date first</div>
+                                <div class="col-span-full bg-gray-50 border border-dashed border-gray-300 text-gray-400 text-sm px-4 py-4 rounded-xl text-center">
+                                    Select therapist first
+                                </div>
                             </div>
                         </div>
 
