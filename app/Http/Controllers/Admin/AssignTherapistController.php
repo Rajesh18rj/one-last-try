@@ -17,11 +17,7 @@ class AssignTherapistController extends Controller
             ->latest()
             ->paginate(10);
 
-        $customers = User::where('role','customer')->get();
-        $therapists = User::where('role','therapist')->get();
-
-        return view('admin.assign-therapist.index',
-            compact('assignments','customers','therapists'));
+        return view('admin.assign-therapist.index', compact('assignments'));
     }
 
     // STORE
@@ -39,10 +35,22 @@ class AssignTherapistController extends Controller
         ]);
 
         // prevent duplicate assignment
-        $already = TherapySession::where('customer_id',$request->customer_id)->exists();
+        if($request->scheduled_at){
+            $already = TherapySession::where('customer_id',$request->customer_id)
+                ->where('scheduled_at',$request->scheduled_at)
+                ->exists();
 
-        if($already){
-            return back()->with('error','Customer already assigned to a therapist.');
+            if($already){
+                return back()->with('error','Customer already has a session at this time.');
+            }
+        }
+
+        if ($request->scheduled_at) {
+            $scheduled = Carbon::parse($request->scheduled_at);
+
+            if ($scheduled->isPast()) {
+                return back()->with('error','You cannot schedule a session in the past.');
+            }
         }
 
         TherapySession::create([
@@ -80,5 +88,50 @@ class AssignTherapistController extends Controller
             'fee'   => $profile?->session_fee,
             'mode'  => $profile?->session_mode,
         ]);
+    }
+
+    public function searchCustomers(Request $request)
+    {
+        $q = $request->q;
+
+        return User::where('role','customer')
+            ->where(function($query) use ($q){
+                $query->where('name','like',"%$q%")
+                    ->orWhere('email','like',"%$q%");
+            })
+            ->limit(10)
+            ->get(['id','name','email']);
+    }
+
+    public function searchTherapists(Request $request)
+    {
+        $q = $request->q;
+
+        return User::where('role','therapist')
+            ->where(function($query) use ($q){
+                $query->where('name','like',"%$q%")
+                    ->orWhere('email','like',"%$q%");
+            })
+            ->limit(10)
+            ->get(['id','name','email']);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $session = TherapySession::findOrFail($id);
+
+        $request->validate([
+            'fee' => 'nullable|numeric',
+            'status' => 'required',
+            'meeting_link' => 'nullable|url'
+        ]);
+
+        $session->update([
+            'fee' => $request->fee,
+            'status' => $request->status,
+            'meeting_link' => $request->meeting_link,
+        ]);
+
+        return back()->with('success','Session updated successfully.');
     }
 }

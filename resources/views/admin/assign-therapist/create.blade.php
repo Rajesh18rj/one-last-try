@@ -9,7 +9,7 @@
 
             <div class="flex items-center gap-4">
                 <div class="w-14 h-14 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center shadow">
-                    <i class="fa-solid fa-handshake text-xl"></i>
+                    <i class="fa-solid fa-people-arrows text-xl"></i>
                 </div>
 
                 <div>
@@ -38,7 +38,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                 <!-- LEFT : PEOPLE -->
-                <div class="bg-gray-50 rounded-2xl p-6 space-y-6">
+                <div class="bg-pink-50 rounded-2xl p-6 space-y-6">
 
                     <h3 class="text-sm font-bold text-gray-500 uppercase">People Information</h3>
 
@@ -48,15 +48,20 @@
                             <i class="fa-solid fa-user text-pink-500 mr-1"></i>
                             Customer
                         </label>
-                        <select name="customer_id"
-                                class="w-full border border-gray-200 bg-white rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
-                            <option value="">Select Customer</option>
-                            @foreach($customers as $customer)
-                                <option value="{{ $customer->id }}">
-                                    {{ $customer->name }} ({{ $customer->email }})
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+                            <input type="text"
+                                   id="customerSearch"
+                                   placeholder="Search customer by name or email..."
+                                   class="w-full border border-gray-200 bg-white rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
+
+                            <!-- results dropdown -->
+                            <div id="customerResults"
+                                 class="absolute z-50 w-full bg-white border rounded-xl mt-1 shadow-lg max-h-60 overflow-y-auto hidden">
+                            </div>
+
+                            <!-- REAL VALUE -->
+                            <input type="hidden" name="customer_id" id="customerId">
+                        </div>
                     </div>
 
                     <!-- Therapist -->
@@ -66,15 +71,19 @@
                             Therapist
                         </label>
 
-                        <select name="therapist_id" id="therapistSelect"
-                                class="w-full border border-gray-200 bg-white rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
-                            <option value="">Select Therapist</option>
-                            @foreach($therapists as $therapist)
-                                <option value="{{ $therapist->id }}">
-                                    {{ $therapist->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+
+                            <input type="text"
+                                   id="therapistSearch"
+                                   placeholder="Search therapist..."
+                                   class="w-full border border-gray-200 bg-white rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
+
+                            <div id="therapistResults"
+                                 class="absolute z-50 w-full bg-white border rounded-xl mt-1 shadow-lg max-h-60 overflow-y-auto hidden">
+                            </div>
+
+                            <input type="hidden" name="therapist_id" id="therapistSelect">
+                        </div>
 
                         <!-- AVAILABILITY BOX -->
                         <div id="therapistAvailability"
@@ -160,7 +169,7 @@
 
 
                 <!-- RIGHT : SESSION -->
-                <div class="bg-gray-50 rounded-2xl p-6 space-y-6">
+                <div class="bg-pink-50 rounded-2xl p-6 space-y-6">
 
                     <h3 class="text-sm font-bold text-gray-500 uppercase">Session Details</h3>
 
@@ -219,7 +228,7 @@
 
                     <!-- Status -->
                     <div>
-                        <label class="text-sm font-semibold mb-2 block">
+                        <label class="text-sm font-semibold mb-0 block">
                             <i class="fa-solid fa-circle-info text-pink-500 mr-1"></i>
                             Status
                         </label>
@@ -239,13 +248,13 @@
 
             <!-- Meeting Link -->
             <div>
-                <label class="text-sm font-semibold mb-2 block">
+                <label class="text-sm font-semibold mt-4 mb-1 block">
                     <i class="fa-solid fa-video text-pink-500 mr-1"></i>
                     Meeting Link
                 </label>
                 <input type="url" name="meeting_link"
                        placeholder="https://meet.google.com/..."
-                       class="w-full border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-pink-400">
+                       class="w-full border bg-pink-50 border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-pink-400 placeholder:text-gray-400">
             </div>
 
             <!-- FOOTER -->

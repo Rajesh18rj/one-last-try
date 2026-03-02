@@ -102,6 +102,11 @@ Route::prefix('admin')
             [\App\Http\Controllers\Admin\AssignTherapistController::class,'availability']
         )->name('therapist.availability');
 
+        Route::get('/search/customers', [\App\Http\Controllers\Admin\AssignTherapistController::class,'searchCustomers']);
+        Route::get('/search/therapists', [\App\Http\Controllers\Admin\AssignTherapistController::class,'searchTherapists']);
+
+        Route::put('/assign-therapist/{id}', [\App\Http\Controllers\Admin\AssignTherapistController::class,'update']);
+
     });
 
 

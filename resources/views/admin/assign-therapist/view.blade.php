@@ -1,140 +1,140 @@
-<!-- VIEW MODAL -->
+<!-- ================= VIEW MODAL ================= -->
 <div id="viewModal"
-     class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-6 backdrop-blur-md">
+     class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 overflow-y-auto">
 
-    <div class="bg-[#FFFDF8] rounded-3xl shadow-2xl w-full max-w-6xl h-[92vh] flex flex-col overflow-hidden border border-amber-200">
+    <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl relative max-h-[90vh] flex flex-col mx-auto mt-10">
 
         <!-- HEADER -->
-        <div class="flex items-center justify-between px-8 py-5 border-b border-amber-200
-                    bg-gradient-to-r from-amber-100/80 via-orange-50 to-amber-50">
+        <div class="flex items-center justify-between px-8 py-5 border-b bg-gradient-to-r from-pink-50 to-white rounded-t-3xl">
 
             <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500
-                            text-white flex items-center justify-center shadow-lg">
-                    <i class="fa-solid fa-brain text-2xl"></i>
+                <div class="w-14 h-14 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center shadow">
+                    <i class="fa-solid fa-eye text-xl"></i>
                 </div>
 
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800 tracking-tight">
-                        Mental Assessment Report
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        Session Details
                     </h2>
-                    <p class="text-sm text-gray-500 mt-1">
-                        Patient: <span id="viewCustomer" class="font-semibold text-gray-700"></span>
+                    <p class="text-sm text-gray-500">
+                        View therapy session information
                     </p>
                 </div>
             </div>
 
             <button onclick="closeViewModal()"
-                    class="w-11 h-11 rounded-xl bg-white hover:bg-red-50 text-gray-500 hover:text-red-500
-                           flex items-center justify-center shadow-md transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
+                    class="w-10 h-10 rounded-xl hover:bg-gray-100 flex items-center justify-center text-gray-500">
+                <i class="fa-solid fa-xmark text-xl"></i>
             </button>
         </div>
 
+
         <!-- BODY -->
-        <div class="flex-1 overflow-y-auto">
+        <div class="flex-1 overflow-y-auto p-8 space-y-0">
 
-            <!-- USER PROFILE BAR -->
-            <div class="px-8 py-6 bg-gradient-to-r from-white to-amber-50 border-b border-amber-100">
-                <div class="flex items-center gap-5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-                    <!-- Avatar -->
-                    <div id="viewAvatar"
-                         class="w-16 h-16 rounded-full bg-orange-100 text-orange-600
-                                flex items-center justify-center font-bold text-2xl shadow-inner">
-                        A
-                    </div>
+                <!-- LEFT : PEOPLE -->
+                <div class="bg-pink-50 rounded-2xl p-6 space-y-6">
 
-                    <!-- User Info -->
-                    <div class="flex-1">
-                        <h3 id="viewCustomerName"
-                            class="text-xl font-bold text-gray-800"></h3>
-
-                        <div class="flex flex-wrap gap-6 mt-2 text-sm text-gray-600">
-                            <div>
-                                <i class="fa-solid fa-envelope text-gray-400 mr-2"></i>
-                                <span id="viewCustomerEmail"></span>
-                            </div>
-
-                            <div>
-                                <i class="fa-solid fa-phone text-gray-400 mr-2"></i>
-                                <span id="viewCustomerPhone"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Score Badge -->
-                    <div class="text-right">
-                        <p class="text-xs text-gray-500 mb-1">Overall Score</p>
-                        <div class="flex items-center gap-3">
-                            <div id="viewScore"
-                                 class="text-5xl font-extrabold text-orange-500"></div>
-
-                            <div id="viewLevelBadge"
-                                 class="px-5 py-2 rounded-xl text-sm font-semibold shadow-sm">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- CONTENT -->
-            <div class="p-8 space-y-10">
-
-                <!-- ANALYSIS TITLE -->
-                <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-semibold text-gray-800">
-                        Psychological Analysis
+                    <h3 class="text-sm font-bold text-gray-500 uppercase">
+                        People Information
                     </h3>
-                    <span class="text-xs text-gray-400">
-                        Areas requiring attention will appear in red
-                    </span>
-                </div>
 
-                <!-- TOPIC CARDS -->
-                <div id="topicsContainer"
-                     class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-                </div>
-
-                <!-- IKIGAI SECTION -->
-                <div class="bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-md border border-purple-100 p-7">
-
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-11 h-11 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shadow">
-                            <i class="fa-solid fa-lightbulb"></i>
+                    <!-- Customer -->
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-user text-pink-500"></i>
+                            Customer
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">
-                            Ikigai Personal Reflection
-                        </h3>
+
+                        <div id="viewCustomer"
+                             class="w-full bg-white border border-gray-200 rounded-xl p-3 font-semibold text-gray-800"></div>
+
+                        <div id="viewCustomerEmail"
+                             class="text-sm text-gray-500 mt-1"></div>
                     </div>
 
-                    <div class="grid md:grid-cols-2 gap-8 text-sm">
-
-                        <div>
-                            <p class="text-gray-500 mb-1">What you love</p>
-                            <p id="ikigaiLove" class="font-semibold text-gray-800"></p>
+                    <!-- Therapist -->
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-pink-500"></i>
+                            Therapist
                         </div>
 
-                        <div>
-                            <p class="text-gray-500 mb-1">What you're good at</p>
-                            <p id="ikigaiSkill" class="font-semibold text-gray-800"></p>
-                        </div>
-
-                        <div>
-                            <p class="text-gray-500 mb-1">What the world needs</p>
-                            <p id="ikigaiNeed" class="font-semibold text-gray-800"></p>
-                        </div>
-
-                        <div>
-                            <p class="text-gray-500 mb-1">What you can be paid for</p>
-                            <p id="ikigaiPaid" class="font-semibold text-gray-800"></p>
-                        </div>
-
+                        <div id="viewTherapist"
+                             class="w-full bg-white border border-gray-200 rounded-xl p-3 font-semibold text-gray-800"></div>
                     </div>
+
                 </div>
 
+
+                <!-- RIGHT : SESSION -->
+                <div class="bg-pink-50 rounded-2xl p-6 space-y-6">
+
+                    <h3 class="text-sm font-bold text-gray-500 uppercase">
+                        Session Details
+                    </h3>
+
+                    <!-- Scheduled -->
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-calendar text-pink-500"></i>
+                            Scheduled At
+                        </div>
+
+                        <div id="viewScheduled"
+                             class="w-full bg-white border border-gray-200 rounded-xl p-3 font-semibold text-gray-800"></div>
+                    </div>
+
+                    <!-- Fee -->
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-indian-rupee-sign text-pink-500"></i>
+                            Session Fee
+                        </div>
+
+                        <div id="viewFee"
+                             class="w-full bg-white border border-gray-200 rounded-xl p-3 font-semibold text-emerald-600"></div>
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-pink-500"></i>
+                            Status
+                        </div>
+
+                        <div id="viewStatus"
+                             class="w-full bg-white border border-gray-200 rounded-xl p-3"></div>
+                    </div>
+
+                </div>
             </div>
+
+            <!-- Meeting Link -->
+            <div class="mt-6">
+                <div class="text-xs text-gray-500 mb-1 flex items-center gap-2 mt-4">
+                    <i class="fa-solid fa-video text-pink-500"></i>
+                    Meeting Link
+                </div>
+
+                <div class="w-full bg-white border border-gray-200 rounded-xl p-3">
+                    <a id="viewMeeting"
+                       target="_blank"
+                       class="text-pink-600 hover:underline break-all"></a>
+                </div>
+            </div>
+
         </div>
+
+        <!-- FOOTER -->
+        <div class="flex justify-end px-8 py-6 border-t">
+            <button onclick="closeViewModal()"
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 rounded-xl font-semibold">
+                Close
+            </button>
+        </div>
+
     </div>
 </div>
