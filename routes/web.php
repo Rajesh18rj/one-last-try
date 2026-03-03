@@ -109,6 +109,15 @@ Route::prefix('admin')
 
     });
 
+Route::prefix('therapist')
+    ->name('therapist.')
+    ->middleware(['auth', 'therapist'])
+    ->group(function () {
+
+        Route::get('/dashboard', [\App\Http\Controllers\Therapist\DashboardController::class, 'index'])
+            ->name('dashboard');
+
+    });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
