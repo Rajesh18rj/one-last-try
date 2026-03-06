@@ -117,6 +117,9 @@ Route::prefix('therapist')
         Route::get('/dashboard', [\App\Http\Controllers\Therapist\DashboardController::class, 'index'])
             ->name('dashboard');
 
+        Route::get('/sessions', [\App\Http\Controllers\Therapist\TherapistSessionController::class, 'index'])
+            ->name('sessions.index');
+
     });
 
 Route::get('/dashboard', function () {

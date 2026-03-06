@@ -46,22 +46,39 @@
             <span class="menu-text ml-0.5 font-semibold">Dashboard</span>
         </a>
 
+        <!-- Assigned Sessions -->
+        <a href="{{ route('therapist.sessions.index') }}"
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl
+   {{ request()->routeIs('therapist.sessions.*') ? $activeClass : $inactiveClass }}">
+
+            @if(request()->routeIs('#'))
+                <span class="absolute left-0 top-1/2 -translate-y-1/2
+                     w-1 h-6 bg-white rounded-r"></span>
+            @endif
+
+            <i class="fa-solid fa-calendar-check min-w-[20px] text-[20px]
+       {{ request()->routeIs('therapist.sessions.*') ? 'text-white' : 'text-[#F79C23]' }}">
+            </i>
+
+            <span class="menu-text ml-0.5 font-semibold">Assigned Sessions</span>
+        </a>
+
     </nav>
 
     <!-- ===== FOOTER ===== -->
-    <div class="px-6 py-4 border-t border-[#FFE2A8] bg-white/40">
-        <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-[#F79C23]
-                    flex items-center justify-center
-                    text-white font-semibold">
-                A
-            </div>
+    <div id="footer"
+         class="px-2 py-4 border-t border-[#FFE2A8]
+            bg-gradient-to-r from-white/70 to-[#FFF3D6]/60
+            backdrop-blur text-center">
 
-            <div class="menu-text">
-                <p class="text-sm font-semibold">Admin</p>
-                <p class="text-xs text-gray-500">admin@onelasttry.com</p>
-            </div>
-        </div>
+        <p class="text-xs tracking-wide text-gray-500 flex items-center justify-center gap-1">
+            <i class="fa-regular fa-copyright text-gray-400"></i>
+            2026
+            <span class="font-semibold text-[#F79C23]">OneLastTry</span>
+            <span class="mx-1 text-gray-300">|</span>
+            All Rights Reserved
+        </p>
+
     </div>
 </aside>
 
@@ -81,11 +98,13 @@
             sidebar.classList.replace('w-72', 'w-20');
             texts.forEach(t => t.classList.add('hidden'));
             logo.classList.add('hidden');
+            footer.classList.add('hidden');   // 👈 hide footer
             icon.className = 'fa-solid fa-list';
         } else {
             sidebar.classList.replace('w-20', 'w-72');
             texts.forEach(t => t.classList.remove('hidden'));
             logo.classList.remove('hidden');
+            footer.classList.remove('hidden'); // 👈 show footer
             icon.className = 'fa-solid fa-angle-left';
         }
     }
