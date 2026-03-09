@@ -8,7 +8,7 @@ class TherapySession extends Model
 {
     protected $fillable = [
         'customer_id','therapist_id','assessment_id','scheduled_at','duration_minutes',
-        'fee','status','meeting_link','customer_notes','therapist_notes','feedback'
+        'fee','status','meeting_link','customer_notes','therapist_notes','feedback', 'session_status'
     ];
 
     protected $casts = [

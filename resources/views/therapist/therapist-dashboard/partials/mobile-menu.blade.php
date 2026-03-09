@@ -30,6 +30,15 @@
                 Dashboard
             </a>
 
+            <!-- Assigned Sessions -->
+            <a href="{{ route('therapist.sessions.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl
+                          bg-gradient-to-r from-[#F79C23] to-[#FFB703]
+                          text-white font-semibold shadow">
+                <i class="fa-solid fa-calendar-check"></i>
+                Assigned Sessions
+            </a>
+
         </nav>
     </div>
 </div>

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\TherapistController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ProfileController;
@@ -119,6 +118,15 @@ Route::prefix('therapist')
 
         Route::get('/sessions', [\App\Http\Controllers\Therapist\TherapistSessionController::class, 'index'])
             ->name('sessions.index');
+
+        Route::put('/sessions/{session}', [\App\Http\Controllers\Therapist\TherapistSessionController::class, 'update'])
+            ->name('sessions.update');
+
+        Route::get('/profile', [\App\Http\Controllers\Therapist\EditTherapistController::class, 'edit'])
+            ->name('profile.edit');
+
+        Route::put('/profile', [\App\Http\Controllers\Therapist\EditTherapistController::class, 'update'])
+            ->name('profile.update');
 
     });
 

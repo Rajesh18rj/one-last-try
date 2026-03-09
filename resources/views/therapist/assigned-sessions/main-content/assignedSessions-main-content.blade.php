@@ -38,7 +38,8 @@
                     <th class="px-6 py-3">Date</th>
                     <th class="px-6 py-3">Duration</th>
                     <th class="px-6 py-3">Fee</th>
-                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Booking Status</th>
+                    <th class="px-6 py-3">Your Session Status</th> <!-- NEW -->
                     <th class="px-6 py-3">Meeting</th>
                     <th class="px-6 py-3">Actions</th>
                 </tr>
@@ -64,23 +65,39 @@
                             ₹{{ $session->fee }}
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-center">
                             {{ ucfirst($session->status) }}
+                        </td>
+
+                        <!-- SESSION STATUS-->
+                        <td class="px-6 py-4 text-center">
+
+                            @if($session->session_status == 'completed')
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-lg">
+                                    Completed
+                                </span>
+                                        @else
+                                            <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg">
+                                    Not Completed
+                                </span>
+                            @endif
+
                         </td>
 
                         <td class="px-6 py-4">
                             @if($session->meeting_link)
                                 <a href="{{ $session->meeting_link }}" target="_blank"
-                                   class="text-blue-600 font-medium">
+                                   class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-pink-600 bg-pink-50 border border-pink-200 rounded-lg hover:bg-pink-100 transition">
+                                    <i class="fa-solid fa-video text-xs"></i>
                                     Join
                                 </a>
                             @else
-                                -
+                                <span class="text-gray-400">—</span>
                             @endif
                         </td>
 
                         <!-- ACTIONS -->
-                        <td class="px-6 py-4 flex items-center gap-3">
+                        <td class="px-4 py-4 flex items-center">
 
                             <!-- VIEW BUTTON -->
                             <button
@@ -93,7 +110,7 @@
                                     meeting: '{{ $session->meeting_link }}',
                                     notes: `{{ $session->therapist_notes }}`
                                 })"
-                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100">
+                                class="w-9 h-9 flex items-center justify-center rounded-lg text-blue-600 hover:text-blue-800">
 
                                 <i class="fa-solid fa-eye"></i>
 
@@ -101,10 +118,14 @@
 
                             <!-- EDIT NOTES BUTTON -->
                             <button
-                                onclick="openNotesModal('{{ $session->id }}', `{{ $session->therapist_notes }}`)"
-                                class="w-9 h-9 flex items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100">
+                                onclick="openNotesModal(
+                                        '{{ $session->id }}',
+                                        `{{ $session->therapist_notes }}`,
+                                        '{{ $session->session_status }}'
+                                    )"
+                                class="w-9 h-9 flex items-center justify-center rounded-lg text-amber-600 hover:text-amber-800">
 
-                                <i class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
 
                             </button>
 
@@ -129,16 +150,23 @@
 
 <script>
 
-    function openNotesModal(sessionId, notes){
+    function openNotesModal(sessionId, notes, sessionStatus){
 
         const modal = document.getElementById('notesModal');
         const textarea = document.getElementById('therapistNotes');
+        const statusSelect = document.getElementById('sessionStatus');
         const form = document.getElementById('notesForm');
 
+        // Set therapist notes
         textarea.value = notes ?? '';
 
+        // Set session status
+        statusSelect.value = sessionStatus ?? 'not_completed';
+
+        // Set form action
         form.action = `/therapist/sessions/${sessionId}`;
 
+        // Show modal
         modal.classList.remove('hidden');
 
     }
@@ -161,8 +189,17 @@
 
         document.getElementById('viewMeeting').innerHTML =
             session.meeting
-                ? `<a href="${session.meeting}" target="_blank" class="text-blue-600">Join Meeting</a>`
-                : '-';
+                ? `<a href="${session.meeting}" target="_blank"
+            class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-pink-600 bg-pink-50 border border-pink-200 rounded-lg hover:bg-pink-100 transition">
+            <i class="fa-solid fa-video text-xs"></i>
+            Join Meeting
+          </a>`
+                : '<span class="text-gray-400">—</span>';
+
+        document.getElementById('viewSessionStatus').innerHTML =
+            session.session_status === 'completed'
+                ? '<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-lg">Completed</span>'
+                : '<span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg">Not Completed</span>';
 
         document.getElementById('viewNotes').innerText =
             session.notes ?? 'No notes added yet';

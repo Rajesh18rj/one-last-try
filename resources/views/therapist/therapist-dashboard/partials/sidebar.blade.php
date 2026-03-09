@@ -51,7 +51,7 @@
            class="group flex items-center gap-3 px-4 py-3 rounded-xl
    {{ request()->routeIs('therapist.sessions.*') ? $activeClass : $inactiveClass }}">
 
-            @if(request()->routeIs('#'))
+            @if(request()->routeIs('therapist.sessions.*'))
                 <span class="absolute left-0 top-1/2 -translate-y-1/2
                      w-1 h-6 bg-white rounded-r"></span>
             @endif
@@ -61,6 +61,23 @@
             </i>
 
             <span class="menu-text ml-0.5 font-semibold">Assigned Sessions</span>
+        </a>
+
+        <!-- Edit Profile -->
+        <a href="{{ route('therapist.profile.edit') }}"
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl
+   {{ request()->routeIs('therapist.profile.*') ? $activeClass : $inactiveClass }}">
+
+            @if(request()->routeIs('therapist.profile.*'))
+                <span class="absolute left-0 top-1/2 -translate-y-1/2
+                     w-1 h-6 bg-white rounded-r"></span>
+            @endif
+
+            <i class="fa-solid fa-user-pen min-w-[20px] text-[20px]
+       {{ request()->routeIs('therapist.profile.*') ? 'text-white' : 'text-[#F79C23]' }}">
+            </i>
+
+            <span class="menu-text ml-0.5 font-semibold">Edit Profile</span>
         </a>
 
     </nav>

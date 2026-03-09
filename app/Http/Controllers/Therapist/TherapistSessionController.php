@@ -20,10 +20,22 @@ class TherapistSessionController extends Controller
 
     public function show($id)
     {
-        $session = Session::with('customer')
+        $session = TherapySession::with('customer')
             ->where('therapist_id', auth()->id())
             ->findOrFail($id);
 
         return view('therapist.sessions.show', compact('session'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $session = TherapySession::findOrFail($id);
+
+        $session->therapist_notes = $request->therapist_notes;
+        $session->session_status = $request->session_status;
+
+        $session->save();
+
+        return redirect()->back()->with('success', 'Session updated successfully');
     }
 }
