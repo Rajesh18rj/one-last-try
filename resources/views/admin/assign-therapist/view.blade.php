@@ -64,6 +64,9 @@
 
                         <div id="viewTherapist"
                              class="w-full bg-white border border-gray-200 rounded-xl p-3 font-semibold text-gray-800"></div>
+
+                        <div id="viewTherapistEmail"
+                             class="text-sm text-gray-500 mt-1"></div>
                     </div>
 
                 </div>
@@ -126,6 +129,136 @@
                 </div>
             </div>
 
+            <!-- Feedback Section -->
+            <div class="pt-10">
+
+                <div class="flex items-center gap-3 mb-6">
+
+                    <div class="w-11 h-11 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 shadow-sm">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">
+                            Session Feedback
+                        </h3>
+
+                        <p class="text-sm text-gray-500">
+                            Notes shared after the therapy session
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <!-- Therapist Notes -->
+                    <div class="bg-gradient-to-br from-green-50 to-white border border-green-100 rounded-2xl p-6 shadow-sm">
+
+                        <div class="flex items-center gap-3 mb-4">
+
+                            <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+                                <i class="fa-solid fa-user-doctor"></i>
+                            </div>
+
+                            <div>
+                                <div class="font-semibold text-gray-800">
+                                    Therapist Feedback
+                                </div>
+
+                                <div class="text-xs text-gray-400">
+                                    Professional observation
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div id="viewTherapistFeedback"
+                             class="bg-white border border-gray-100 rounded-xl p-4 text-sm text-gray-700 min-h-[110px] leading-relaxed">
+
+                <span class="text-gray-400 italic">
+                    Therapist has not added notes
+                </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Customer Notes -->
+                    <div class="bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-2xl p-6 shadow-sm">
+
+                        <div class="flex items-center gap-3 mb-4">
+
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <div>
+                                <div class="font-semibold text-gray-800">
+                                    Customer Feedback
+                                </div>
+
+                                <div class="text-xs text-gray-400">
+                                    Experience feedback
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div id="viewCustomerFeedback"
+                             class="bg-white border border-gray-100 rounded-xl p-4 text-sm text-gray-700 min-h-[110px] leading-relaxed">
+
+                <span class="text-gray-400 italic">
+                    Customer has not added notes
+                </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Admin Feedback -->
+                    <div class="bg-gradient-to-br from-purple-50 to-white border border-purple-100 rounded-2xl p-6 shadow-sm">
+
+                        <div class="flex items-center gap-3 mb-4">
+
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+
+                            <div>
+                                <div class="font-semibold text-gray-800">
+                                    Your Feedback
+                                </div>
+
+                                <div class="text-xs text-gray-400">
+                                    Internal session notes
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div id="viewAdminFeedback"
+                             class="bg-white border border-gray-100 rounded-xl p-4 text-sm text-gray-700 min-h-[110px] leading-relaxed">
+
+                <span class="text-gray-400 italic">
+                    No internal feedback added
+                </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
         <!-- FOOTER -->

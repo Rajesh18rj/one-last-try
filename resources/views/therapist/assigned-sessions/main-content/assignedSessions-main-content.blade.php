@@ -15,11 +15,6 @@
                 <div class="w-24 h-1 bg-pink-500 rounded-full mt-2"></div>
             </div>
         </div>
-
-        <!-- TOTAL -->
-{{--        <span class="text-sm text-gray-500 font-medium">--}}
-{{--            Total: {{ $assignments->total() }}--}}
-{{--        </span>--}}
     </div>
 
     <div class="p-6">
@@ -101,16 +96,18 @@
 
                             <!-- VIEW BUTTON -->
                             <button
-                                onclick="openViewModal({
-                                    customer: '{{ $session->customer->name ?? '-' }}',
-                                    date: '{{ \Carbon\Carbon::parse($session->scheduled_at)->format('d M Y H:i') }}',
-                                    duration: '{{ $session->duration_minutes }}',
-                                    fee: '{{ $session->fee }}',
-                                    status: '{{ $session->status }}',
-                                    meeting: '{{ $session->meeting_link }}',
-                                    notes: `{{ $session->therapist_notes }}`
-                                })"
-                                class="w-9 h-9 flex items-center justify-center rounded-lg text-blue-600 hover:text-blue-800">
+                                class="w-9 h-9 flex items-center justify-center rounded-lg text-blue-600 hover:text-blue-800 viewBtn"
+
+                                data-customer="{{ $session->customer->name ?? '-' }}"
+                                data-date="{{ \Carbon\Carbon::parse($session->scheduled_at)->format('d M Y H:i') }}"
+                                data-duration="{{ $session->duration_minutes }}"
+                                data-fee="{{ $session->fee }}"
+                                data-status="{{ $session->status }}"
+                                data-meeting="{{ $session->meeting_link }}"
+                                data-notes="{{ $session->therapist_notes }}"
+                                data-sessionstatus="{{ $session->session_status }}"
+
+                            >
 
                                 <i class="fa-solid fa-eye"></i>
 
@@ -201,8 +198,22 @@
                 ? '<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-lg">Completed</span>'
                 : '<span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg">Not Completed</span>';
 
-        document.getElementById('viewNotes').innerText =
-            session.notes ?? 'No notes added yet';
+        const notes = session.notes ?? 'No notes added';
+
+        const notesEl = document.getElementById('viewNotes');
+        const btn = document.getElementById('notesToggle');
+
+        notesEl.innerHTML = notes.replace(/\n/g,'<br>');
+
+        if(notes.length > 300) // show button only if long
+        {
+            btn.classList.remove('hidden');
+            notesEl.classList.add('notes-clamp');
+        }
+        else
+        {
+            btn.classList.add('hidden');
+        }
 
         document.getElementById('viewSessionModal').classList.remove('hidden');
 
@@ -212,4 +223,62 @@
         document.getElementById('viewSessionModal').classList.add('hidden');
     }
 
+</script>
+
+<style>
+
+    .notes-clamp{
+        display:-webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+    }
+
+    .notes-expanded{
+        -webkit-line-clamp:unset;
+    }
+
+</style>
+<script>
+    function toggleNotes()
+    {
+        const el = document.getElementById('viewNotes');
+        const btn = document.getElementById('notesToggle');
+
+        if(el.classList.contains('notes-expanded'))
+        {
+            el.classList.remove('notes-expanded');
+            el.classList.add('notes-clamp');
+            btn.innerText = 'See more';
+        }
+        else
+        {
+            el.classList.remove('notes-clamp');
+            el.classList.add('notes-expanded');
+            btn.innerText = 'See less';
+        }
+    }
+</script>
+
+<script>
+    document.querySelectorAll('.viewBtn').forEach(btn => {
+
+        btn.addEventListener('click', function(){
+
+            const session = {
+                customer: this.dataset.customer,
+                date: this.dataset.date,
+                duration: this.dataset.duration,
+                fee: this.dataset.fee,
+                status: this.dataset.status,
+                meeting: this.dataset.meeting,
+                notes: this.dataset.notes,
+                session_status: this.dataset.sessionstatus
+            };
+
+            openViewModal(session);
+
+        });
+
+    });
 </script>

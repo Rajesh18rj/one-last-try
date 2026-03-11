@@ -83,7 +83,8 @@
                     </td>
 
                     <td class="p-4">
-                        {{ $assign->therapist->name }}
+                        <div class="font-semibold">{{ $assign->therapist->name }}</div>
+                        <div class="text-xs text-gray-500">{{ $assign->therapist->email }}</div>
                     </td>
 
                     <td class="p-4">
@@ -637,6 +638,8 @@
 
         // Therapist
         document.getElementById('viewTherapist').textContent = data.therapist.name;
+        document.getElementById('viewTherapistEmail').textContent = data.therapist.email;
+
 
         // Scheduled
         document.getElementById('viewScheduled').textContent =
@@ -670,10 +673,52 @@
             meeting.textContent = 'No meeting link provided';
             meeting.removeAttribute('href');
         }
+
+        // ADD THIS PART ↓↓↓
+        setFeedback(
+            'viewTherapistFeedback',
+            data.therapist_notes,
+            'Therapist has not added notes'
+        );
+
+        setFeedback(
+            'viewCustomerFeedback',
+            data.customer_notes,
+            'Customer has not added notes'
+        );
+
+        setFeedback(
+            'viewAdminFeedback',
+            data.feedback,
+            'No internal feedback added'
+        );
     }
 
     function closeViewModal(){
         document.getElementById('viewModal').classList.add('hidden');
+    }
+
+
+</script>
+
+
+{{-- Feedback Section --}}
+<script>
+    function setFeedback(id,value,emptyText = 'No feedback added')
+    {
+        const el = document.getElementById(id);
+
+        if(!el) return;
+
+        if(value && value !== null && value !== '')
+        {
+            el.innerText = value;
+        }
+        else
+        {
+            el.innerHTML =
+                `<span class="text-gray-400 italic">${emptyText}</span>`;
+        }
     }
 
 
@@ -695,6 +740,19 @@
     }
     #timeSlots button:active{
         transform: scale(.96);
+    }
+</style>
+
+<style>
+    .clamp-6{
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .expanded{
+        -webkit-line-clamp: unset;
     }
 </style>
 

@@ -85,12 +85,22 @@
                     <!-- HEADER -->
                     <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 border-b text-sm font-semibold text-gray-700">
                         <i class="fa-solid fa-note-sticky text-pink-500 text-xs"></i>
-                        <span>Therapist Notes</span>
+                        <span>Your Notes</span>
                     </div>
 
                     <!-- CONTENT -->
-                    <div id="viewNotes"
-                         class="p-4 text-sm text-gray-700 leading-relaxed">
+                    <div class="p-4">
+
+                        <div id="viewNotes"
+                             class="text-sm text-gray-700 leading-relaxed notes-clamp">
+                        </div>
+
+                        <button id="notesToggle"
+                                onclick="toggleNotes()"
+                                class="hidden text-xs text-pink-600 mt-2 font-semibold hover:underline">
+                            See more
+                        </button>
+
                     </div>
 
                 </div>
