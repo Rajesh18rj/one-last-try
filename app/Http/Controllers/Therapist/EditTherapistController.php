@@ -45,6 +45,10 @@ class EditTherapistController extends Controller
             'city' => 'nullable|string',
             'state' => 'nullable|string',
             'profile_image' => 'nullable|image|max:2048',
+            'qualification_documents.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:4096',
+
+            'specializations' => 'nullable|array',
+            'specializations.*' => 'string',
         ]);
 
 
@@ -77,6 +81,23 @@ class EditTherapistController extends Controller
             $profile->profile_image = $imagePath;
         }
 
+        /**
+         * Handle qualification documents
+         */
+        $existingDocs = $profile->qualification_documents ?? [];
+
+        if ($request->hasFile('qualification_documents')) {
+
+            foreach ($request->file('qualification_documents') as $file) {
+
+                $path = $file->store('therapist_documents', 'public');
+
+                $existingDocs[] = $path;
+            }
+        }
+
+        $availableSlots = $request->available_time_slots ?? [];
+
 
         /**
          * Update therapist profile
@@ -90,6 +111,9 @@ class EditTherapistController extends Controller
             'session_fee' => $request->session_fee,
             'city' => $request->city,
             'state' => $request->state,
+            'specializations' => $request->specializations ?? [],
+            'qualification_documents' => $existingDocs ?? $profile->qualification_documents,
+            'available_time_slots' => $availableSlots,
         ]);
 
 
