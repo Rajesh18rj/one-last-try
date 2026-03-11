@@ -90,6 +90,13 @@
                                 </a>
                             @endif
 
+                            @if(auth()->user()->role === 'customer')
+                                <a href="{{ route('customer.dashboard') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                     Dashboard
+                                </a>
+                            @endif
+
                             <!-- Profile -->
                             <a href="{{ route('profile.edit') }}"
                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">

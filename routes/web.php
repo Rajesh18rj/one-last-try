@@ -130,6 +130,17 @@ Route::prefix('therapist')
 
     });
 
+Route::prefix('customer')
+    ->name('customer.')
+    ->middleware(['auth', 'customer'])
+    ->group(function () {
+
+        Route::get('/dashboard', [\App\Http\Controllers\Customer\DashboardController::class, 'index'])
+            ->name('dashboard');
+
+    });
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
