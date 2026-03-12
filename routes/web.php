@@ -138,6 +138,15 @@ Route::prefix('customer')
         Route::get('/dashboard', [\App\Http\Controllers\Customer\DashboardController::class, 'index'])
             ->name('dashboard');
 
+        Route::get(
+            '/sessions', [\App\Http\Controllers\Customer\MySessionsController::class,'index'])
+            ->name('sessions');
+
+        Route::put(
+            '/sessions/{session}/notes',
+            [\App\Http\Controllers\Customer\MySessionsController::class,'updateNotes']
+        )->name('sessions.notes.update');
+
     });
 
 

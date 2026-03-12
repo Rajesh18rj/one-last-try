@@ -1,8 +1,11 @@
 <div id="reviewModal"
-     class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+     class="modal fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4"
+     role="dialog"
+     aria-modal="true">
 
-    <!-- Modal Card -->
-    <div class="bg-white rounded-3xl w-full max-w-md shadow-[0_20px_60px_rgba(0,0,0,0.25)] overflow-hidden">
+
+<!-- Modal Card -->
+    <div class="modal-content bg-white rounded-3xl w-full max-w-md shadow-[0_20px_60px_rgba(0,0,0,0.25)] overflow-hidden">
 
         <!-- Header -->
         <div class="flex items-center gap-4 px-6 py-5 border-b bg-gradient-to-r from-indigo-50 to-white">
@@ -65,7 +68,9 @@
             <div class="flex justify-end gap-3 mt-8 pt-5 border-t">
 
                 <button type="button"
-                        onclick="closeReviewModal()"
+
+                        data-modal-close="reviewModal"
+
                         class="px-5 py-2.5 rounded-xl font-medium bg-gray-700 text-gray-100 hover:bg-gray-800 transition">
                     Cancel
                 </button>

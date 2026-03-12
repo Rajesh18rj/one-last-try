@@ -117,6 +117,8 @@
 
                             <!-- View -->
                             <button
+                                data-modal-open="viewModal"
+
                                 class="view-btn text-blue-500 hover:text-blue-700"
                                 data-name="{{ $assessment->customer?->name }}"
                                 data-email="{{ $assessment->customer?->email }}"
@@ -130,6 +132,8 @@
 
                             <!-- Edit Review -->
                             <button
+                                data-modal-open="reviewModal"
+
                                 class="edit-review text-amber-500 hover:text-amber-700"
                                 data-id="{{ $assessment->id }}"
                                 data-reviewed="{{ $assessment->is_reviewed }}">
@@ -157,17 +161,17 @@
     @include('admin.assessment-details.review')
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function(){
 
-        const modal = document.getElementById('viewModal');
-        const topicsContainer = document.getElementById('topicsContainer');
+        /* ================= VIEW MODAL DATA ================= */
 
         document.addEventListener('click', function(e){
 
             const btn = e.target.closest('.view-btn');
             if(!btn) return;
 
-            /* ================= USER INFO ================= */
+            /* USER INFO */
 
             const name  = btn.dataset.name || '-';
             const email = btn.dataset.email || '-';
@@ -177,173 +181,288 @@
             document.getElementById('viewCustomerEmail').textContent = email;
             document.getElementById('viewCustomerPhone').textContent = phone;
 
-            // avatar
             document.getElementById('viewAvatar').textContent =
                 name !== '-' ? name.charAt(0).toUpperCase() : '?';
 
-            // header subtitle
             document.getElementById('viewCustomer').textContent = name;
 
-            /* ================= OVERALL SCORE ================= */
+            /* OVERALL SCORE */
 
             const score = btn.dataset.score;
             const level = btn.dataset.level;
 
-            document.getElementById('viewScore').textContent = score + "%";
+            document.getElementById('viewScore').textContent =
+                score + "%";
 
-            const levelEl = document.getElementById('viewLevelBadge');
+            const levelEl =
+                document.getElementById('viewLevelBadge');
 
             const levelStyles = {
-                "Excellent": "bg-green-100 text-green-700",
-                "Good": "bg-blue-100 text-blue-700",
-                "Moderate": "bg-yellow-100 text-yellow-700",
-                "Needs Attention": "bg-red-100 text-red-700"
+
+                "Excellent":
+                    "bg-green-100 text-green-700",
+
+                "Good":
+                    "bg-blue-100 text-blue-700",
+
+                "Moderate":
+                    "bg-yellow-100 text-yellow-700",
+
+                "Needs Attention":
+                    "bg-red-100 text-red-700"
+
             };
 
             levelEl.textContent = level;
+
             levelEl.className =
                 "px-6 py-3 rounded-2xl text-sm font-semibold " +
-                (levelStyles[level] || "bg-gray-100 text-gray-700");
+                (levelStyles[level] ||
+                    "bg-gray-100 text-gray-700");
 
-            /* ================= TOPIC ANALYSIS ================= */
 
-            const topics = JSON.parse(btn.dataset.topics || "{}");
-            topicsContainer.innerHTML = '';
+            /* TOPIC ANALYSIS */
 
-            Object.keys(topics).forEach(topic => {
+            const topics =
+                JSON.parse(btn.dataset.topics || "{}");
 
-                // Skip Ikigai (not a score test)
-                if(topic === 'ikigai') return;
+            const topicsContainer =
+                document.getElementById('topicsContainer');
 
-                const data = topics[topic];
+            if(topicsContainer){
 
-                let barClass = '';
-                let textClass = '';
+                topicsContainer.innerHTML = '';
 
-                if (data.percentage >= 80) {
-                    barClass  = 'bg-green-500';
-                    textClass = 'text-green-600';
-                }
-                else if (data.percentage >= 60) {
-                    barClass  = 'bg-blue-500';
-                    textClass = 'text-blue-600';
-                }
-                else if (data.percentage >= 40) {
-                    barClass  = 'bg-yellow-500';
-                    textClass = 'text-yellow-600';
-                }
-                else {
-                    barClass  = 'bg-red-500';
-                    textClass = 'text-red-600';
-                }
+                Object.keys(topics).forEach(topic => {
 
-                const prettyTitle = topic
-                    .replaceAll('_',' ')
-                    .replace(/\b\w/g, l => l.toUpperCase());
+                    if(topic === 'ikigai') return;
 
-                topicsContainer.innerHTML += `
+                    const data = topics[topic];
+
+                    let barClass='';
+                    let textClass='';
+
+                    if(data.percentage >= 80){
+
+                        barClass='bg-green-500';
+                        textClass='text-green-600';
+
+                    }
+                    else if(data.percentage >= 60){
+
+                        barClass='bg-blue-500';
+                        textClass='text-blue-600';
+
+                    }
+                    else if(data.percentage >= 40){
+
+                        barClass='bg-yellow-500';
+                        textClass='text-yellow-600';
+
+                    }
+                    else{
+
+                        barClass='bg-red-500';
+                        textClass='text-red-600';
+
+                    }
+
+                    const prettyTitle =
+                        topic.replaceAll('_',' ')
+                            .replace(/\b\w/g,
+                                l=>l.toUpperCase());
+
+                    topicsContainer.innerHTML += `
+
                 <div class="bg-white border rounded-2xl p-4 shadow-sm">
 
                     <div class="flex justify-between mb-2">
-                        <h4 class="font-semibold">${prettyTitle}</h4>
-                        <span class="${textClass} font-semibold">${data.percentage}%</span>
+
+                        <h4 class="font-semibold">
+                        ${prettyTitle}
+                        </h4>
+
+                        <span class="${textClass} font-semibold">
+                        ${data.percentage}%
+                        </span>
+
                     </div>
 
                     <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+
                         <div class="h-2 ${barClass} rounded-full"
-                            style="width:${data.percentage}%"></div>
+                        style="width:${data.percentage}%">
+                        </div>
+
                     </div>
 
                     <p class="text-xs text-gray-500 mt-2">
+
                         Level: ${data.level}
+
                     </p>
+
                 </div>
-            `;
-            });
 
-            /* ================= IKIGAI ================= */
+                `;
 
-            const answers = JSON.parse(btn.dataset.answers || "{}");
-            const ikigai = answers.ikigai || {};
+                });
 
-            document.getElementById('ikigaiLove').textContent  = ikigai.love  || '-';
-            document.getElementById('ikigaiSkill').textContent = ikigai.skill || '-';
-            document.getElementById('ikigaiNeed').textContent  = ikigai.need  || '-';
-            document.getElementById('ikigaiPaid').textContent  = ikigai.paid  || '-';
+            }
 
-            /* ================= OPEN MODAL ================= */
+            /* IKIGAI */
 
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            const answers =
+                JSON.parse(btn.dataset.answers || "{}");
+
+            const ikigai =
+                answers.ikigai || {};
+
+            document.getElementById('ikigaiLove')
+                .textContent = ikigai.love || '-';
+
+            document.getElementById('ikigaiSkill')
+                .textContent = ikigai.skill || '-';
+
+            document.getElementById('ikigaiNeed')
+                .textContent = ikigai.need || '-';
+
+            document.getElementById('ikigaiPaid')
+                .textContent = ikigai.paid || '-';
+
         });
 
-        window.closeViewModal = function(){
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        };
 
-    });
-</script>
 
-<!-- Script for Review -->
-<script>
-    const reviewModal = document.getElementById('reviewModal');
+        /* ================= REVIEW MODAL DATA ================= */
 
-    document.addEventListener('click', function(e){
+        document.addEventListener('click', function(e){
 
-        const btn = e.target.closest('.edit-review');
-        if(!btn) return;
+            const btn =
+                e.target.closest('.edit-review');
 
-        const id = btn.dataset.id;
-        const reviewed = btn.dataset.reviewed;
+            if(!btn) return;
 
-        document.getElementById('reviewAssessmentId').value = id;
+            const id =
+                btn.dataset.id;
 
-        // preselect radio
-        document.querySelectorAll('input[name="is_reviewed"]').forEach(r => {
-            r.checked = r.value === reviewed;
+            const reviewed =
+                btn.dataset.reviewed;
+
+            document.getElementById(
+                'reviewAssessmentId'
+            ).value = id;
+
+            document.querySelectorAll(
+                'input[name="is_reviewed"]'
+            ).forEach(r=>{
+
+                r.checked =
+                    r.value === reviewed;
+
+            });
+
         });
 
-        reviewModal.classList.remove('hidden');
-        reviewModal.classList.add('flex');
+        /* ================= SAVE REVIEW ================= */
+
+        const reviewForm =
+            document.getElementById('reviewForm');
+
+        if(reviewForm){
+
+            reviewForm.addEventListener(
+                'submit',
+
+                function(e){
+
+                    e.preventDefault();
+
+                    const submitBtn =
+                        reviewForm.querySelector(
+                            'button[type="submit"]'
+                        );
+
+                    submitBtn.disabled = true;
+
+                    submitBtn.innerText = "Saving...";
+
+                    document.body.style.cursor='wait';
+
+                    const id =
+                        document.getElementById(
+                            'reviewAssessmentId'
+                        ).value;
+
+                    const selected =
+                        document.querySelector(
+                            'input[name="is_reviewed"]:checked'
+                        );
+
+                    if(!selected) return;
+
+                    const value =
+                        selected.value;
+
+                    fetch(
+                        `/admin/assessments/${id}/update-review`,
+
+                        {
+
+                            method:'POST',
+
+                            headers:{
+
+                                'Content-Type':
+                                    'application/json',
+
+                                'X-CSRF-TOKEN':
+                                    '{{ csrf_token() }}'
+
+                            },
+
+                            body:JSON.stringify({
+
+                                is_reviewed:value
+
+                            })
+
+                        })
+
+                        .then(res=>res.json())
+
+                        .then(data=>{
+
+                            if(data.success){
+
+                                submitBtn.disabled=false;
+
+                                submitBtn.innerText="Save Changes";
+
+                                document.body.style.cursor='default';
+
+                                ModalManager.close('reviewModal');
+
+                                Toast.fire({
+
+                                    icon:'success',
+                                    title:data.message
+
+                                });
+
+                                setTimeout(()=>{
+
+                                    location.reload();
+
+                                },1200);
+
+                            }
+
+                        });
+                });
+        }
+
     });
 
-    function closeReviewModal(){
-        reviewModal.classList.add('hidden');
-        reviewModal.classList.remove('flex');
-    }
 
-    /* SAVE */
-    document.getElementById('reviewForm').addEventListener('submit', function(e){
-        e.preventDefault();
-
-        const id = document.getElementById('reviewAssessmentId').value;
-        const value = document.querySelector('input[name="is_reviewed"]:checked').value;
-
-        fetch(`/admin/assessments/${id}/update-review`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ is_reviewed: value })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success){
-
-                    closeReviewModal();
-
-                    Toast.fire({
-                        icon: 'success',
-                        title: data.message
-                    });
-
-                    // small delay so user can see message
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1200);
-                }
-            });
-    });
 </script>

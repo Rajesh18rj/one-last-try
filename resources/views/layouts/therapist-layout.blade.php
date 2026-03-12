@@ -27,6 +27,7 @@
 </head>
 <body>
 
+<script src="{{ asset('js/modal-manager.js') }}"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

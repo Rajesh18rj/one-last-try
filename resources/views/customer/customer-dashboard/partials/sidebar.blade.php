@@ -46,6 +46,23 @@
             <span class="menu-text ml-0.5 font-semibold">Dashboard</span>
         </a>
 
+        <!-- My Sessions -->
+        <a href="{{ route('customer.sessions') }}"
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl
+   {{ request()->routeIs('customer.sessions') ? $activeClass : $inactiveClass }}">
+
+            @if(request()->routeIs('customer.sessions'))
+                <span class="absolute left-0 top-1/2 -translate-y-1/2
+                     w-1 h-6 bg-white rounded-r"></span>
+            @endif
+
+            <i class="fa-solid fa-gauge min-w-[20px] text-[20px]
+       {{ request()->routeIs('customer.sessions') ? 'text-white' : 'text-[#F79C23]' }}">
+            </i>
+
+            <span class="menu-text ml-0.5 font-semibold">My Sessions</span>
+        </a>
+
 
     </nav>
 

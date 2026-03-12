@@ -166,10 +166,16 @@
         // Show modal
         modal.classList.remove('hidden');
 
+        /* prevent background scroll */
+        document.body.style.overflow='hidden';
+
     }
 
     function closeNotesModal(){
         document.getElementById('notesModal').classList.add('hidden');
+
+        /* restore scroll */
+        document.body.style.overflow='auto';
     }
 
 </script>
@@ -217,11 +223,26 @@
 
         document.getElementById('viewSessionModal').classList.remove('hidden');
 
+        document.body.style.overflow='hidden';
+
     }
 
     function closeViewModal(){
         document.getElementById('viewSessionModal').classList.add('hidden');
+
+        document.body.style.overflow='auto';
     }
+
+    document.getElementById('viewSessionModal')
+        .addEventListener('click', function(e){
+
+            if(e.target === this){
+
+                closeViewModal();
+
+            }
+
+        });
 
 </script>
 
@@ -236,6 +257,15 @@
 
     .notes-expanded{
         -webkit-line-clamp:unset;
+
+    #viewSessionModal ::-webkit-scrollbar{
+        width:6px;
+    }
+
+    #viewSessionModal ::-webkit-scrollbar-thumb{
+        background:#f472b6;
+        border-radius:10px;
+    }
     }
 
 </style>
@@ -281,4 +311,15 @@
         });
 
     });
+
+    document.getElementById('notesModal')
+        .addEventListener('click', function(e){
+
+            if(e.target === this){
+
+                closeNotesModal();
+
+            }
+
+        });
 </script>

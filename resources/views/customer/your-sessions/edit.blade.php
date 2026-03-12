@@ -1,96 +1,86 @@
-<!-- ================= EDIT SESSION MODAL ================= -->
-<div id="notesModal"
-     class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+<div id="editNotesModal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
 
-    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+    <div class="bg-white w-[520px] max-w-[95%] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden animate-fadeUp">
 
-        <!-- HEADER -->
-        <div class="flex items-center justify-between px-6 py-4 border-b">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-orange-50 to-pink-50 px-6 py-5 border-b">
 
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
-                    <i class="fa-solid fa-pen-to-square"></i>
+            <div class="flex justify-between items-center">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-10 h-10 rounded-xl bg-orange-500 text-white flex items-center justify-center shadow">
+
+                        <i class="fa-solid fa-note-sticky"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="text-lg font-semibold text-gray-800">
+                            Edit Session Feedback
+                        </h3>
+
+                        <p class="text-xs text-gray-500">
+                            Update your session feedback
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-800">
-                        Edit Session
-                    </h2>
-                    <p class="text-xs text-gray-500">
-                        Update therapist notes and session status
-                    </p>
-                </div>
+                <button onclick="closeEditNotes()"
+                        class="w-9 h-9 rounded-lg bg-white shadow hover:bg-red-50 transition">
+
+                    <i class="fa-solid fa-xmark text-gray-400 hover:text-red-500"></i>
+
+                </button>
+
             </div>
-
-            <button onclick="closeNotesModal()"
-                    class="w-9 h-9 rounded-lg hover:bg-pink-50 flex items-center justify-center text-gray-500 hover:text-pink-600 transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
 
         </div>
 
+        <!-- Body -->
+        <div class="p-6">
 
-        <!-- FORM -->
-        <form id="notesForm" method="POST">
+            <form id="notesForm">
 
-            @csrf
-            @method('PUT')
+                <input type="hidden" id="sessionId">
 
-            <div class="p-6 space-y-5">
+                <label class="text-sm text-gray-600 font-medium">
+                    Your Feedback
+                </label>
 
-                <!-- SESSION STATUS -->
-                <div>
-                    <label class="text-sm font-semibold text-gray-700 block mb-2">
-                        Session Status
-                    </label>
+                <textarea
+                    id="editNotesText"
+                    class="w-full border border-gray-200 rounded-2xl p-4 h-36 mt-2 resize-none focus:ring-2 focus:ring-orange-300 focus:border-orange-300 outline-none transition"
+                    placeholder="Write your session notes here..."></textarea>
 
-                    <select name="session_status"
-                            id="sessionStatus"
-                            class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400">
+                <div class="flex justify-end gap-3 mt-6">
 
-                        <option value="not_completed">Not Completed</option>
-                        <option value="completed">Completed</option>
+                    <button type="button"
+                            onclick="closeEditNotes()"
+                            class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
 
-                    </select>
-                </div>
+                        Cancel
 
+                    </button>
 
-                <!-- THERAPIST NOTES -->
-                <div>
+                    <button type="submit"
+                            class="px-6 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl shadow hover:scale-105 transition">
 
-                    <label class="text-sm font-semibold text-gray-700 block mb-2">
-                        Therapist Notes
-                    </label>
+                        <i class="fa-solid fa-check mr-1"></i>
 
-                    <textarea name="therapist_notes"
-                              id="therapistNotes"
-                              rows="6"
-                              class="w-full border border-gray-200 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400"
-                              placeholder="Write session observations, progress, or important notes..."></textarea>
+                        Save Feedback
+
+                    </button>
 
                 </div>
 
-            </div>
+            </form>
 
-
-            <!-- FOOTER -->
-            <div class="flex justify-end gap-3 px-6 py-4 border-t">
-
-                <button type="button"
-                        onclick="closeNotesModal()"
-                        class="px-5 py-2 rounded-xl border border-gray-300 text-white bg-gray-500 hover:bg-gray-600 transition">
-                    Cancel
-                </button>
-
-                <button type="submit"
-                        class="inline-flex items-center gap-1 bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl shadow-sm transition">
-                    <i class="fa-solid fa-save text-xs"></i>
-                    Save Changes
-                </button>
-
-            </div>
-
-        </form>
+        </div>
 
     </div>
 

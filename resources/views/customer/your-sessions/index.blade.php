@@ -1,4 +1,4 @@
-@extends('layouts.therapist-layout')
+@extends('layouts.customer-layout')
 
 @section('content')
     <div class="min-h-screen bg-[#FFF8ED]">

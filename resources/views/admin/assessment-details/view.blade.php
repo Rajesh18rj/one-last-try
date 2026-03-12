@@ -1,6 +1,6 @@
 <!-- VIEW MODAL -->
 <div id="viewModal"
-     class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-6 backdrop-blur-md">
+     class="modal fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-6 backdrop-blur-md">
 
     <div class="bg-[#FFFDF8] rounded-3xl shadow-2xl w-full max-w-6xl h-[92vh] flex flex-col overflow-hidden border border-amber-200">
 
@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <button onclick="closeViewModal()"
+            <button data-modal-close="viewModal"
                     class="w-11 h-11 rounded-xl bg-white hover:bg-red-50 text-gray-500 hover:text-red-500
                            flex items-center justify-center shadow-md transition">
                 <i class="fa-solid fa-xmark text-lg"></i>

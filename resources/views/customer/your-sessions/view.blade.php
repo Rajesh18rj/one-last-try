@@ -1,111 +1,150 @@
-<!-- ================= VIEW SESSION MODAL ================= -->
-
 <div id="viewSessionModal"
-     class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md transition">
 
-    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-
-        <!-- HEADER -->
-        <div class="flex items-center justify-between px-6 py-4 border-b">
-
-            <div class="flex items-center gap-3">
-
-                <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
-                    <i class="fa-solid fa-eye"></i>
-                </div>
-
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-800">
-                        Session Details
-                    </h2>
-                    <p class="text-xs text-gray-500">
-                        View assigned therapy session
-                    </p>
-                </div>
-
-            </div>
+    <div class="bg-white w-[920px] max-w-[95%] rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] relative overflow-hidden animate-fadeUp max-h-[85vh] flex flex-col">        <!-- Header -->
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-[#fff1f5] via-[#fff7ed] to-[#fdf2f8] p-7 border-b relative">
 
             <button onclick="closeViewModal()"
-                    class="w-9 h-9 rounded-lg hover:bg-pink-50 flex items-center justify-center text-gray-500 hover:text-pink-600 transition">
-                <i class="fa-solid fa-xmark"></i>
+                    class="absolute top-6 right-6 w-10 h-10 rounded-xl bg-white shadow hover:bg-red-50 hover:scale-105 transition">
+
+                <i class="fa-solid fa-xmark text-gray-400 hover:text-red-500"></i>
+
             </button>
 
-        </div>
+            <div>
 
+                <h2 class="text-2xl font-semibold flex items-center gap-3 text-gray-800">
 
-        <!-- CONTENT -->
-        <div class="p-6 grid grid-cols-2 gap-5 text-sm">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-orange-400 text-white flex items-center justify-center shadow">
 
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Customer</span>
-                <p id="viewCustomer" class="font-semibold text-gray-800 mt-1"></p>
-            </div>
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Session Date</span>
-                <p id="viewDate" class="font-semibold text-gray-800 mt-1"></p>
-            </div>
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Duration</span>
-                <p id="viewDuration" class="font-semibold text-gray-800 mt-1"></p>
-            </div>
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Fee</span>
-                <p id="viewFee" class="font-semibold text-gray-800 mt-1"></p>
-            </div>
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Status</span>
-                <p id="viewStatus" class="font-semibold text-gray-800 mt-1"></p>
-            </div>
-
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Meeting Link</span>
-                <p id="viewMeeting" class="text-pink-600 font-medium mt-1"></p>
-            </div>
-
-            <!-- SESSION STATUS (NEW) -->
-            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <span class="text-gray-500 text-xs">Your Session Status</span>
-                <p id="viewSessionStatus" class="font-semibold mt-1"></p>
-            </div>
-
-        </div>
-
-        <!-- NOTES -->
-        <div class="px-6 pb-6">
-
-            <div class="border-t pt-6">
-
-                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
-
-                    <!-- HEADER -->
-                    <div class="flex items-center gap-2 px-4 py-2 bg-gray-50 border-b text-sm font-semibold text-gray-700">
-                        <i class="fa-solid fa-note-sticky text-pink-500 text-xs"></i>
-                        <span>Your Notes</span>
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div class="p-4">
-
-                        <div id="viewNotes"
-                             class="text-sm text-gray-700 leading-relaxed notes-clamp">
-                        </div>
-
-                        <button id="notesToggle"
-                                onclick="toggleNotes()"
-                                class="hidden text-xs text-pink-600 mt-2 font-semibold hover:underline">
-                            See more
-                        </button>
+                        <i class="fa-solid fa-calendar-check"></i>
 
                     </div>
+
+                    Session Details
+
+                </h2>
+
+                <p class="text-gray-500 text-sm mt-2">
+                    Your therapy session information
+                </p>
+
+                <!-- STATUS -->
+                <div class="mt-4 flex items-center gap-2">
+
+                    <span class="text-sm text-gray-500 font-medium">
+                        Status :
+                    </span>
+
+                    <div id="viewStatus"></div>
 
                 </div>
 
             </div>
+
+        </div>
+
+        <!-- Body -->
+        <div class="p-6 space-y-5 overflow-y-auto">
+            <!-- Info Grid -->
+            <div class="grid grid-cols-2 gap-6">
+
+                <div class="modern-card">
+
+                    <div class="modern-label">
+
+                        <i class="fa-solid fa-user-doctor text-pink-500"></i>
+
+                        Therapist
+
+                    </div>
+
+                    <div id="viewTherapist" class="modern-value"></div>
+
+                </div>
+
+
+                <div class="modern-card">
+
+                    <div class="modern-label">
+
+                        <i class="fa-solid fa-calendar text-orange-500"></i>
+
+                        Session Date
+
+                    </div>
+
+                    <div id="viewDate" class="modern-value"></div>
+
+                </div>
+
+
+                <div class="modern-card">
+
+                    <div class="modern-label">
+
+                        <i class="fa-solid fa-clock text-blue-500"></i>
+
+                        Duration
+
+                    </div>
+
+                    <div id="viewDuration" class="modern-value"></div>
+
+                </div>
+
+
+                <div class="modern-card">
+
+                    <div class="modern-label">
+
+                        <i class="fa-solid fa-indian-rupee-sign text-green-500"></i>
+
+                        Session Fee
+
+                    </div>
+
+                    <div id="viewFee" class="modern-value text-green-600 font-semibold"></div>
+
+                </div>
+
+
+                <div class="modern-card col-span-2">
+
+                    <div class="modern-label">
+
+                        <i class="fa-solid fa-video text-purple-500"></i>
+
+                        Meeting Link
+
+                    </div>
+
+                    <div id="viewMeeting" class="mt-3"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="modern-notes">
+
+                <div class="flex items-center gap-2 mb-3 text-gray-700 font-medium">
+
+                    <i class="fa-solid fa-note-sticky text-gray-400"></i>
+
+                    Your Notes
+
+                </div>
+
+                <div id="viewCustomerNotes"
+                     class="modern-notes-body">
+
+                </div>
+
+            </div>
+
 
         </div>
 
