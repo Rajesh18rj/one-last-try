@@ -164,7 +164,7 @@
 
     {{-- 🌌 SECTION RESULT MODAL --}}
     <div id="sectionResultModal"
-         class="fixed inset-0 z-[9999] hidden items-end pb-14 justify-center
+         class="fixed inset-0 z-[9999] hidden items-end pb-12 justify-center
                 bg-black/40 backdrop-blur-sm">
 
         <!-- 🌌 Animated Backdrop -->
@@ -176,41 +176,86 @@
         </div>
 
         <!-- Card -->
-        <div class="relative max-w-xl w-full mx-4 rounded-[3rem]
-                    bg-gradient-to-r from-pink-100 via-sky-100 to-violet-100
-                    border border-white/70 shadow-[0_30px_80px_rgba(168,85,247,0.45)]
-                    p-8 overflow-hidden modal-card">
+        <div class="relative w-[1100px] max-w-[96%]
+            rounded-[32px]
+            bg-white/95 backdrop-blur-xl
+            border border-white/60
+            shadow-[0_40px_100px_rgba(0,0,0,0.18)]
+            p-10
+            overflow-hidden modal-card">
 
-            <!-- Static glow -->
-            <div class="pointer-events-none absolute -top-24 -left-24
-                        w-80 h-80 bg-pink-400/30 blur-3xl"></div>
-            <div class="pointer-events-none absolute -bottom-24 -right-24
-                        w-96 h-96 bg-indigo-400/30 blur-3xl"></div>
+            <!-- soft glow -->
+            <div class="pointer-events-none absolute -top-32 -left-32
+                w-96 h-96 bg-pink-300/20 blur-3xl"></div>
 
-            <div class="relative flex items-center gap-6">
-                <div class="icon-badge w-16 h-16 rounded-3xl flex items-center justify-center">
-                    <i class="result-icon fa-solid text-white text-xl"></i>
+            <div class="pointer-events-none absolute -bottom-32 -right-32
+                w-96 h-96 bg-indigo-300/20 blur-3xl"></div>
+
+
+            <!-- HEADER -->
+            <div class="flex items-start gap-6 mb-6">
+
+                <div class="icon-badge w-20 h-20 rounded-3xl
+                    flex items-center justify-center
+                    shadow-lg">
+
+                    <i class="result-icon fa-solid text-white text-2xl"></i>
+
                 </div>
 
                 <div class="flex-1">
-                    <p class="modal-title text-2xl font-extrabold"></p>
-                    <p class="modal-message mt-1 text-base text-slate-700"></p>
+
+                    <h2 class="modal-title text-3xl font-bold text-gray-800"></h2>
+
+                    <!-- score -->
+                    <div class="modal-score mt-2 text-lg font-semibold text-orange-600"></div>
+
                 </div>
+
             </div>
 
-            <div class="mt-6 flex justify-end gap-3">
-                <button type="button" id="closeResultModal"
-                        class="px-4 py-2 text-sm font-semibold rounded-xl bg-white border">
+
+            <!-- REPORT CONTENT -->
+            <div class="modal-message
+                max-h-[60vh]
+                overflow-y-auto
+                pr-2">
+            </div>
+
+
+            <!-- FOOTER -->
+            <div class="mt-8 flex justify-end gap-4">
+
+                <button type="button"
+                        id="closeResultModal"
+
+                        class="px-6 py-3 rounded-xl
+                       bg-gray-100 hover:bg-gray-200
+                       text-gray-700 font-semibold
+                       transition">
+
                     Close
+
                 </button>
 
-                <button type="button" id="modalNextSection"
-                        class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600
-                               text-white text-sm font-semibold">
-                    Next Section
-                    <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+
+                <button type="button"
+                        id="modalNextSection"
+
+                        class="px-7 py-3 rounded-xl
+                       bg-gradient-to-r
+                       from-blue-500 to-indigo-600
+                       text-white font-semibold
+                       shadow-md
+                       hover:scale-105
+                       transition">
+
+                    Next Section →
+
                 </button>
+
             </div>
+
         </div>
     </div>
 </div>
