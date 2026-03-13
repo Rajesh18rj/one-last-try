@@ -47,7 +47,9 @@
 
             <tbody>
             @foreach($assessments as $assessment)
-                <tr class="border-t hover:bg-gray-50">
+                <tr
+                    data-assessment-id="{{ $assessment->id }}"
+                    class="border-t hover:bg-gray-50">
 
                     <td class="px-6 py-4 font-medium">
                         {{ $assessment->customer->name ?? 'User Deleted' }}
@@ -90,7 +92,7 @@
                         {{ $assessment->taken_at?->format('d M Y') }}
                     </td>
 
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 ">
                         <span class="px-3 py-1 rounded-full text-xs
                         {{ $assessment->status == 'completed'
                             ? 'bg-green-100 text-green-700'
@@ -99,7 +101,7 @@
                         </span>
                     </td>
 
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 review-status">
                         @if($assessment->is_reviewed === 'reviewed')
                             <span class="px-3 py-1 rounded-full text-xs bg-emerald-100 text-emerald-700 font-semibold">
                                 <i class="fa-solid fa-check mr-1"></i> Reviewed
@@ -443,22 +445,74 @@
 
                                 ModalManager.close('reviewModal');
 
-                                Toast.fire({
+                                /* LIVE UPDATE TABLE */
 
-                                    icon:'success',
-                                    title:data.message
+                                const row =
+                                    document.querySelector(
+                                        `tr[data-assessment-id="${id}"]`
+                                    );
 
-                                });
+                                const statusCell =
+                                    row.querySelector('.review-status');
 
-                                setTimeout(()=>{
+                                if(value === 'reviewed'){
 
-                                    location.reload();
+                                    statusCell.innerHTML = `
+<span class="px-3 py-1 rounded-full text-xs bg-emerald-100 text-emerald-700 font-semibold">
+<i class="fa-solid fa-check mr-1"></i>
+Reviewed
+</span>
+`;
 
-                                },1200);
+                                }else{
+
+                                    statusCell.innerHTML = `
+<span class="px-3 py-1 rounded-full text-xs bg-amber-100 text-amber-700 font-semibold">
+<i class="fa-solid fa-hourglass-half mr-1"></i>
+Not Yet
+</span>
+`;
+
+                                }
+
+                                /* UPDATE BUTTON DATA */
+
+                                const editBtn =
+                                    row.querySelector('.edit-review');
+
+                                editBtn.dataset.reviewed = value;
+
+
+                                /* SUCCESS MESSAGE */
+
+                                if(typeof Toast !== 'undefined'){
+
+                                    Toast.fire({
+
+                                        icon:'success',
+
+                                        title:data.message
+
+                                    });
+
+                                }else{
+
+                                    Swal.fire({
+
+                                        icon:'success',
+
+                                        title:data.message,
+
+                                        timer:1500,
+
+                                        showConfirmButton:false
+
+                                    });
+
+                                }
 
                             }
-
-                        });
+                        })
                 });
         }
 
