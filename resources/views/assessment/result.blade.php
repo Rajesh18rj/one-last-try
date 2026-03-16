@@ -57,6 +57,18 @@
 
         $ui = $levelMap[$level] ?? $levelMap['Good'];
 
+        $topicIcons = [
+            'emotional_intelligence'=>'fa-brain',
+            'personality'=>'fa-user',
+            'slumber_score'=>'fa-bed',
+            'emotional_eating'=>'fa-utensils',
+            'entrepreneur_employee'=>'fa-briefcase',
+            'swot'=>'fa-chart-pie',
+            'interpersonal_skills'=>'fa-comments',
+            'emotional_stability'=>'fa-scale-balanced',
+            'relationship_health'=>'fa-heart'
+            ];
+
         /* ---------------------------------------------
            Personalised Tips Per Topic
         --------------------------------------------- */
@@ -154,6 +166,47 @@
                     </p>
                 </div>
 
+                <div class="bg-gradient-to-r from-[#FFF7ED] to-[#FFF1DC]
+                        border border-[#FFD18A] rounded-2xl p-6 mb-10">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+                            <div class="text-xs text-[#B7791F] font-semibold uppercase">
+                                Overall Wellbeing Score
+                            </div>
+
+                            <div class="text-3xl font-bold text-[#7A4A12] mt-1">
+                                {{ $assessment->overall_percentage ?? 68 }}%
+                            </div>
+
+                            <div class="text-sm text-gray-600 mt-1">
+                                Based on all assessment areas
+                            </div>
+
+                        </div>
+
+                        <div class="w-16 h-16 rounded-2xl
+        bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
+        flex items-center justify-center shadow-md">
+
+                            <i class="fa-solid fa-chart-simple text-white text-xl"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="w-full h-3 bg-[#FFE2A8] rounded-full mt-5">
+
+                        <div class="h-3 rounded-full
+        bg-gradient-to-r from-[#F79C23] to-[#FFB84D]"
+                             style="width:{{ $assessment->overall_percentage ?? 68 }}%">
+                        </div>
+
+                    </div>
+
+                </div>
+
                 {{-- Overall Level --}}
                 <div class="flex justify-center mb-8">
                 <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full
@@ -183,13 +236,15 @@
                         {{-- 🌸 IKIGAI SPECIAL RESULT --}}
                         @if($topic === 'ikigai')
 
-                            <div class="bg-[#FFF7ED] border border-[#FFD18A]
-                rounded-2xl p-6 text-center">
+                            <div class="bg-gradient-to-br from-[#FFF7ED] to-[#FFF0D9]
+                                border border-[#FFD18A]
+                                rounded-2xl p-8 text-center
+                                shadow-sm">
 
                                 <div class="w-14 h-14 mx-auto mb-3 rounded-2xl
                     bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
                     flex items-center justify-center shadow-md">
-                                    <i class="fa-solid fa-envelope-open-text text-white text-xl"></i>
+                                    <i class="fa-solid fa-compass text-white text-xl"></i>
                                 </div>
 
                                 <h3 class="font-bold text-[#7A4A12] text-lg mb-2">
@@ -211,17 +266,47 @@
                         @else
 
                             {{-- ✅ NORMAL TOPIC RESULT --}}
-                            <div class="bg-[#FFF8ED] border border-[#FFD18A]
-                rounded-2xl p-5">
+                            <div class="bg-white border border-[#FFE2A8]
+                                rounded-2xl p-6
+                                shadow-sm hover:shadow-lg
+                                transition-all duration-300
+                                hover:-translate-y-1">
 
-                                <h3 class="font-bold text-[#7A4A12] mb-1 capitalize">
-                                    {{ str_replace('_', ' ', $topic) }}
-                                </h3>
+                                <div class="flex items-center gap-3 mb-2">
+
+                                    <div class="w-10 h-10 rounded-xl
+                                    bg-[#FFF3D6]
+                                    flex items-center justify-center">
+
+                                        <i class="fa-solid {{ $topicIcons[$topic] ?? 'fa-circle' }} text-[#F79C23] text-sm"></i>
+
+                                    </div>
+
+                                    <h3 class="font-bold text-[#7A4A12] capitalize">
+                                        {{ ucwords(str_replace('_',' ',$topic)) }}
+                                    </h3>
+
+                                </div>
 
                                 <div class="flex items-center justify-between text-sm mb-2">
-                <span class="text-gray-600">
-                    {{ $data['level'] }}
-                </span>
+                                    <span class="
+                                            text-xs font-semibold px-2 py-1 rounded-full
+
+                                            @if($data['level']=='Excellent')
+                                            bg-emerald-100 text-emerald-700
+                                            @elseif($data['level']=='Good')
+                                            bg-blue-100 text-blue-700
+                                            @elseif($data['level']=='Moderate')
+                                            bg-amber-100 text-amber-700
+                                            @else
+                                            bg-orange-100 text-orange-700
+                                            @endif
+
+                                            ">
+
+                                            {{ $data['level'] }}
+
+                                    </span>
 
                                     <span class="font-semibold text-[#F79C23]">
                     {{ $data['percentage'] }}%
@@ -259,7 +344,9 @@
                        class="flex-1 inline-flex justify-center items-center gap-2
                           px-6 py-4 rounded-2xl font-bold text-white
                           bg-gradient-to-r from-[#F79C23] to-[#FF9F40]
-                          shadow-xl hover:shadow-2xl hover:scale-[1.02] transition">
+                          shadow-lg hover:shadow-xl
+                            transition-all duration-300
+                            hover:-translate-y-0.5">
                         <i class="fa-solid fa-user-doctor"></i>
                         Explore Guidance
                     </a>

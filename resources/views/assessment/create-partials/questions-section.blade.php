@@ -32,8 +32,7 @@
             </button>
         @endforeach
 
-        {{-- ✅ MANUAL IKIGAI TAB (NEW) --}}
-        {{-- ✅ IKIGAI TAB --}}
+        {{-- ✅ MANUAL IKIGAI TAB --}}
         <button type="button"
                 data-section-target="#section-ikigai"
                 class="section-tab inline-flex flex-col items-start justify-center gap-1
@@ -147,7 +146,6 @@
             </div>
         @endforeach
 
-            {{-- ✅ IKIGAI PANEL (OUTSIDE LOOP) --}}
             {{-- ✅ IKIGAI PANEL --}}
             <div id="section-ikigai"
                  data-section-key="ikigai"
@@ -157,8 +155,6 @@
                 @include('assessment.create-partials.ikigai-diagram')
 
             </div>
-
-
 
     </div>
 

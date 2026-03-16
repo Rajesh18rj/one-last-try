@@ -194,6 +194,18 @@
                             ],
                         ],
 
+                        'relationship_health' => [
+                            'title' => 'Relationship Health',
+                            'description' => 'Quality of emotional connection, trust, and communication in close relationships.',
+                            'questions' => [
+                                'q1' => 'I feel emotionally supported by people close to me.',
+                                'q2' => 'I communicate openly in my important relationships.',
+                                'q3' => 'I feel respected in my relationships.',
+                                'q4' => 'I handle disagreements in a healthy way.',
+                                'q5' => 'I feel comfortable being myself around others.',
+                                ],
+                            ],
+
                     ];
                 @endphp
 

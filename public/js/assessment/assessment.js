@@ -300,7 +300,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             interpersonal_skills:"Interpersonal Skills Assessment",
 
-            emotional_stability:"Emotional Stability Assessment"
+            emotional_stability:"Emotional Stability Assessment",
+
+            relationship_health:"Relationship Health Assessment",
 
         };
 
