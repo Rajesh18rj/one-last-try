@@ -9,7 +9,7 @@
         <div class="pointer-events-none absolute -top-40 -left-10 w-80 h-80
                     bg-gradient-to-br from-amber-300/60 via-orange-300/40 to-yellow-200/35
                     rounded-full blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-40 -right-0 w-96 h-96
+        <div class="pointer-events-none absolute -bottom-40 -right-0 w-96
                     bg-gradient-to-tr from-orange-400/40 via-rose-300/35 to-amber-200/35
                     rounded-full blur-3xl"></div>
 

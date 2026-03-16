@@ -284,145 +284,182 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const modal = document.getElementById('sectionResultModal');
 
-        modal.querySelector('.modal-score').textContent =
-            "Score : " + result.score + "%";
+        const sectionTitles = {
+
+            emotional_intelligence:"Emotional Intelligence Assessment",
+
+            personality:"Personality Assessment",
+
+            slumber_score:"Sleep Quality Assessment",
+
+            emotional_eating:"Emotional Eating Assessment",
+
+            entrepreneur_employee:"Work Style Assessment",
+
+            swot:"Self Awareness Assessment",
+
+            interpersonal_skills:"Interpersonal Skills Assessment",
+
+            emotional_stability:"Emotional Stability Assessment"
+
+        };
+
+        modal.querySelector('.modal-score').innerHTML = `
+
+        <div class="flex items-center justify-between mb-5">
+
+            <div class="flex items-center gap-4">
+
+                <div>
+
+                    <div class="text-xs text-gray-500 font-medium tracking-wide">
+                        ASSESSMENT RESULT
+                    </div>
+
+                    <div class="text-2xl font-semibold text-gray-800">
+                        ${sectionTitles[sectionKey]}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="text-right">
+
+                <div class="text-xs text-gray-500 font-medium">
+                    Score
+                </div>
+
+                <div class="text-3xl font-bold text-gray-800">
+                    ${result.score}%
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="w-full bg-gray-200 rounded-full h-2">
+
+            <div class="h-2 rounded-full bg-gradient-to-r ${result.gradient}
+            transition-all duration-700"
+            style="width:${result.score}%"></div>
+
+        </div>
+
+`;
+
 
         modal.querySelector('.modal-message').innerHTML =
             `
-<div class="space-y-6">
-
-<div class="flex items-center gap-4">
-
-<div class="w-16 h-16 rounded-2xl
-bg-gradient-to-br ${result.gradient}
-flex items-center justify-center shadow-lg">
-
-<i class="fa-solid ${result.icon} text-white text-xl"></i>
-
-</div>
-
-<div>
-
-<div class="text-sm text-amber-700 font-semibold">
-Assessment Score
-</div>
-
-<div class="text-2xl font-bold text-gray-800">
-${result.score}%
-</div>
-
-</div>
-
-</div>
 
 
-<div class="bg-white/60 backdrop-blur rounded-xl p-4 border border-amber-100">
+        <div class="bg-white/60 backdrop-blur rounded-xl p-4 border border-amber-100">
 
-<p class="text-gray-600 leading-relaxed">
-${result.summary}
-</p>
+        <p class="text-gray-600 leading-relaxed">
+        ${result.summary}
+        </p>
 
-</div>
-
-
-<div class="grid grid-cols-2 gap-4">
-
-<div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-
-<div class="font-semibold text-emerald-600 mb-2 flex items-center gap-2">
-
-<i class="fa-solid fa-circle-check"></i>
-
-Strengths
-
-</div>
-
-<ul class="space-y-1 text-sm text-gray-700">
-
-${result.strengths.map(s=>`
-<li class="flex gap-2">
-<span class="text-emerald-500">•</span>
-${s}
-</li>
-`).join("")}
-
-</ul>
-
-</div>
+        </div>
 
 
-<div class="bg-orange-50 rounded-xl p-4 border border-orange-100">
+        <div class="grid grid-cols-2 gap-4">
 
-<div class="font-semibold text-orange-600 mb-2 flex items-center gap-2">
+        <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
 
-<i class="fa-solid fa-chart-line"></i>
+        <div class="font-semibold text-emerald-600 mb-2 flex items-center gap-2">
 
-Growth Areas
+        <i class="fa-solid fa-circle-check"></i>
 
-</div>
+        Strengths
 
-<ul class="space-y-1 text-sm text-gray-700">
+        </div>
 
-${result.risks.map(r=>`
-<li class="flex gap-2">
-<span class="text-orange-500">•</span>
-${r}
-</li>
-`).join("")}
+        <ul class="space-y-1 text-sm text-gray-700">
 
-</ul>
+        ${result.strengths.map(s=>`
+        <li class="flex gap-2">
+        <span class="text-emerald-500">•</span>
+        ${s}
+        </li>
+        `).join("")}
 
-</div>
+        </ul>
 
-
-<div class="bg-sky-50 rounded-xl p-4 border border-sky-100">
-
-<div class="font-semibold text-sky-600 mb-2 flex items-center gap-2">
-
-<i class="fa-solid fa-lightbulb"></i>
-
-Recommendations
-
-</div>
-
-<ul class="space-y-1 text-sm text-gray-700">
-
-${result.recommendations.map(r=>`
-<li class="flex gap-2">
-<span class="text-sky-500">•</span>
-${r}
-</li>
-`).join("")}
-
-</ul>
-
-</div>
+        </div>
 
 
-<div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+        <div class="bg-orange-50 rounded-xl p-4 border border-orange-100">
 
-<div class="font-semibold text-purple-600 mb-2 flex items-center gap-2">
+        <div class="font-semibold text-orange-600 mb-2 flex items-center gap-2">
 
-<i class="fa-solid fa-seedling"></i>
+        <i class="fa-solid fa-chart-line"></i>
 
-Helpful Habits
+        Growth Areas
 
-</div>
+        </div>
 
-<ul class="space-y-1 text-sm text-gray-700">
+        <ul class="space-y-1 text-sm text-gray-700">
 
-${result.habits.map(h=>`
-<li class="flex gap-2">
-<span class="text-purple-500">•</span>
-${h}
-</li>
-`).join("")}
+        ${result.risks.map(r=>`
+        <li class="flex gap-2">
+        <span class="text-orange-500">•</span>
+        ${r}
+        </li>
+        `).join("")}
 
-</ul>
+        </ul>
 
-</div>
+        </div>
 
-</div>
+
+        <div class="bg-sky-50 rounded-xl p-4 border border-sky-100">
+
+        <div class="font-semibold text-sky-600 mb-2 flex items-center gap-2">
+
+        <i class="fa-solid fa-lightbulb"></i>
+
+        Recommendations
+
+        </div>
+
+        <ul class="space-y-1 text-sm text-gray-700">
+
+        ${result.recommendations.map(r=>`
+        <li class="flex gap-2">
+        <span class="text-sky-500">•</span>
+        ${r}
+        </li>
+        `).join("")}
+
+        </ul>
+
+        </div>
+
+
+        <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+
+        <div class="font-semibold text-purple-600 mb-2 flex items-center gap-2">
+
+        <i class="fa-solid fa-seedling"></i>
+
+        Helpful Habits
+
+        </div>
+
+        <ul class="space-y-1 text-sm text-gray-700">
+
+        ${result.habits.map(h=>`
+        <li class="flex gap-2">
+        <span class="text-purple-500">•</span>
+        ${h}
+        </li>
+        `).join("")}
+
+        </ul>
+
+        </div>
+
+        </div>
 
 </div>
 `;

@@ -4,75 +4,107 @@ window.sectionFeedback = {
 
         high:{
             title:"High Emotional Intelligence",
-            summary:"You demonstrate strong emotional awareness and the ability to regulate your feelings effectively. You likely respond thoughtfully rather than react impulsively.",
+
+            summary:
+                "You show strong emotional awareness and good control over your reactions. You usually think before responding and handle difficult situations calmly. This ability helps you maintain healthy relationships and make balanced decisions.",
+
             strengths:[
-                "Strong emotional awareness",
-                "Good emotional control",
-                "Empathy toward others",
-                "Ability to stay calm under pressure"
+                "You understand your emotions clearly in most situations",
+                "You stay calm even during pressure situations",
+                "You show empathy and understand others feelings",
+                "You respond thoughtfully instead of reacting impulsively"
             ],
+
             risks:[
-                "May take on others emotional burdens",
-                "Possible emotional overthinking"
+                "You may sometimes take on others emotional problems",
+                "You might overthink emotional situations",
+                "You may neglect your own emotional needs while helping others"
             ],
+
             recommendations:[
-                "Maintain emotional boundaries",
-                "Continue reflection habits",
-                "Protect your mental energy"
+                "Maintain emotional boundaries when helping others",
+                "Continue practicing self reflection",
+                "Protect your mental energy when dealing with stressful people",
+                "Balance empathy with self care"
             ],
+
             habits:[
-                "Daily emotional reflection",
-                "Mindful breathing",
-                "Journaling reactions"
+                "Daily emotional reflection for 5 minutes",
+                "Mindful breathing during stressful moments",
+                "Journaling emotional reactions",
+                "Taking short mental breaks when overwhelmed"
             ]
+
         },
 
         medium:{
             title:"Developing Emotional Intelligence",
-            summary:"You show generally healthy emotional responses but may sometimes struggle with stress or emotional clarity.",
+
+            summary:
+                "You generally manage emotions well in normal situations. However, during stressful situations you may sometimes react quickly instead of responding calmly. Improving emotional control can help you make better decisions and improve relationships.",
+
             strengths:[
-                "Basic emotional awareness",
-                "Some stress regulation",
-                "Growing empathy"
+                "You are aware of your emotions most of the time",
+                "You can calm yourself after stressful situations",
+                "You show understanding toward others",
+                "You are willing to improve yourself emotionally"
             ],
+
             risks:[
-                "Occasional emotional reactions",
-                "Stress affecting decisions"
+                "You may react emotionally when under pressure",
+                "Stress may sometimes affect your decisions",
+                "You may overthink emotional situations",
+                "You might avoid difficult emotional conversations"
             ],
+
             recommendations:[
-                "Pause before reacting",
-                "Practice identifying emotions",
-                "Improve stress recovery habits"
+                "Pause for a few seconds before responding in stressful moments",
+                "Identify what emotion you are feeling before reacting",
+                "Practice calm communication during disagreements",
+                "Try to understand others perspective before responding"
             ],
+
             habits:[
-                "5 minute reflection daily",
-                "Breathing exercises",
-                "Stress journaling"
+                "Spend 5 minutes daily reflecting on your reactions",
+                "Practice deep breathing when stressed",
+                "Write emotional triggers to understand patterns",
+                "Practice responding slowly instead of reacting fast"
             ]
+
         },
 
         low:{
-            title:"Emotional Regulation Needs Attention",
-            summary:"You may find it difficult to manage emotions during stressful situations. With awareness, this area can improve significantly.",
+            title:"Emotional Regulation Needs Improvement",
+
+            summary:
+                "You may find it difficult to manage emotions during stressful situations. This may lead to quick reactions, frustration, or emotional exhaustion. The good news is emotional intelligence can be improved with awareness and practice.",
+
             strengths:[
-                "Opportunity for growth",
-                "Developing awareness"
+                "You have good potential for emotional growth",
+                "You are becoming more aware of your emotional patterns"
             ],
+
             risks:[
-                "Emotional impulsiveness",
+                "Reacting emotionally instead of thinking first",
                 "Difficulty managing stress",
-                "Mood fluctuations"
+                "Frequent mood fluctuations",
+                "Emotional decisions instead of logical ones"
             ],
+
             recommendations:[
-                "Practice emotional pause techniques",
-                "Improve sleep and recovery",
-                "Learn calming strategies"
+                "Practice emotional pause before reacting",
+                "Improve sleep and stress recovery habits",
+                "Learn simple calming techniques",
+                "Focus on understanding your emotional triggers"
             ],
+
             habits:[
-                "Deep breathing",
-                "Short walks",
-                "Structured daily routine"
+                "Practice deep breathing daily",
+                "Take short walks when stressed",
+                "Follow a structured daily routine",
+                "Reduce exposure to stressful environments"
             ]
+
         }
 
     },
@@ -81,75 +113,106 @@ window.sectionFeedback = {
 
         high:{
             title:"Strong Personality Development",
-            summary:"You appear confident, adaptable, and consistent in your behavior. These traits support healthy personal and professional growth.",
+
+            summary:
+                "You show confidence, adaptability, and consistency in your behavior. These traits support strong personal and professional growth and help you handle challenges effectively.",
+
             strengths:[
-                "Confidence",
-                "Adaptability",
-                "Self expression",
-                "Consistency"
+                "You show confidence in your decisions",
+                "You adapt well to new situations",
+                "You express your thoughts clearly",
+                "You maintain consistency in your actions"
             ],
+
             risks:[
-                "Possible overcommitment",
-                "Taking too much responsibility"
+                "You may take on too many responsibilities",
+                "You might overcommit yourself",
+                "You may put pressure on yourself to perform perfectly"
             ],
+
             recommendations:[
-                "Maintain balance",
-                "Continue self development",
-                "Support your confidence with planning"
+                "Maintain balance between work and personal life",
+                "Continue developing your strengths",
+                "Plan your commitments carefully",
+                "Delegate responsibilities when possible"
             ],
+
             habits:[
-                "Goal tracking",
-                "Skill development",
-                "Regular planning"
+                "Track personal and professional goals",
+                "Continue skill development",
+                "Regular weekly planning",
+                "Maintain work life balance routines"
             ]
+
         },
 
         medium:{
-            title:"Balanced Personality",
-            summary:"You show stable personality traits with some areas that could benefit from confidence building or adaptability improvements.",
+            title:"Balanced Personality Development",
+
+            summary:
+                "You show a stable personality with reasonable confidence and adaptability. However, you may sometimes hesitate in unfamiliar situations or avoid risks that could help your growth.",
+
             strengths:[
-                "Stable behavior",
-                "Good adaptability",
-                "Moderate confidence"
+                "You maintain stable behavior in most situations",
+                "You can adapt when situations change",
+                "You think before making decisions",
+                "You are open to improving yourself"
             ],
+
             risks:[
-                "Hesitation in decisions",
-                "Avoiding risks"
+                "You may hesitate when quick decisions are needed",
+                "You may avoid risks that could help your growth",
+                "You might underestimate your abilities"
             ],
+
             recommendations:[
-                "Build confidence gradually",
-                "Try new experiences",
-                "Practice decision making"
+                "Start taking small confident decisions daily",
+                "Try one new experience regularly",
+                "Express your opinions more often",
+                "Accept mistakes as part of growth"
             ],
+
             habits:[
-                "Small challenges",
-                "Communication practice",
-                "Weekly goals"
+                "Set one small challenge daily",
+                "Track weekly personal goals",
+                "Practice communication skills",
+                "Write one daily achievement"
             ]
+
         },
 
         low:{
             title:"Personality Growth Opportunity",
-            summary:"You may sometimes struggle with confidence or consistency. Personality traits can always be developed with practice.",
+
+            summary:
+                "You may sometimes struggle with confidence or consistency. This may make decision making difficult or reduce self expression. With practice, personality strengths can be developed.",
+
             strengths:[
-                "Self awareness opportunity",
-                "Growth potential"
+                "You have strong potential for growth",
+                "You are becoming more self aware"
             ],
+
             risks:[
-                "Low confidence",
-                "Difficulty expressing opinions",
-                "Resistance to change"
+                "Low confidence in challenging situations",
+                "Difficulty expressing your thoughts",
+                "Resistance to change",
+                "Fear of making mistakes"
             ],
+
             recommendations:[
-                "Practice self expression",
-                "Develop routines",
-                "Build small confidence wins"
+                "Practice expressing your thoughts daily",
+                "Build simple daily routines",
+                "Celebrate small achievements",
+                "Focus on gradual confidence building"
             ],
+
             habits:[
-                "Daily achievements list",
-                "Speaking practice",
-                "Routine building"
+                "Write daily achievements",
+                "Practice speaking confidently",
+                "Follow a simple daily routine",
+                "Try one new task weekly"
             ]
+
         }
 
     },
@@ -158,70 +221,93 @@ window.sectionFeedback = {
 
         high:{
             title:"Healthy Sleep Pattern",
-            summary:"Your sleep habits appear supportive of both mental and physical wellbeing.",
+
+            summary:
+                "Your sleep habits strongly support your mental and physical wellbeing. Consistent rest helps improve focus, emotional balance, and energy levels.",
+
             strengths:[
-                "Consistent sleep routine",
-                "Good recovery",
-                "Healthy rest patterns"
+                "You maintain a consistent sleep routine",
+                "You recover well after daily work",
+                "You maintain healthy sleep habits"
             ],
+
             risks:[
-                "Minor fatigue risk if routine breaks"
+                "Sleep quality may reduce if routine breaks",
+                "Irregular schedules may reduce recovery"
             ],
+
             recommendations:[
-                "Maintain sleep schedule",
-                "Protect sleep environment"
+                "Maintain your sleep schedule",
+                "Protect your sleep environment",
+                "Avoid late night stimulation"
             ],
+
             habits:[
-                "Fixed sleep time",
-                "Low screen exposure before bed",
-                "Relaxation routine"
+                "Fixed sleep and wake time",
+                "Reduce screen use before bed",
+                "Maintain a relaxation routine"
             ]
+
         },
 
         medium:{
             title:"Moderate Sleep Quality",
-            summary:"Your sleep appears average but could improve with better consistency.",
+
+            summary:
+                "Your sleep is adequate but could improve with better consistency. Small improvements in sleep routine can improve your energy and concentration.",
+
             strengths:[
-                "Some good sleep habits",
-                "Adequate rest"
+                "You get reasonable sleep",
+                "You maintain some good sleep habits"
             ],
+
             risks:[
                 "Inconsistent sleep timing",
-                "Light fatigue"
+                "Mild fatigue during the day"
             ],
+
             recommendations:[
-                "Improve sleep timing",
-                "Reduce late screen usage",
-                "Improve bedtime routine"
+                "Maintain consistent sleep schedule",
+                "Reduce late night screen exposure",
+                "Improve bedtime habits"
             ],
+
             habits:[
-                "Sleep schedule",
-                "Evening relaxation",
-                "Reduce caffeine"
+                "Go to bed at same time daily",
+                "Relax before sleep",
+                "Reduce caffeine intake"
             ]
+
         },
 
         low:{
             title:"Sleep Needs Attention",
-            summary:"Your responses suggest your sleep may not be fully supporting your wellbeing.",
+
+            summary:
+                "Your sleep habits may not be fully supporting your health. Poor sleep may affect your mood, focus, and energy. Improving sleep habits can significantly improve wellbeing.",
+
             strengths:[
-                "Awareness opportunity"
+                "You can improve quickly with better habits"
             ],
+
             risks:[
-                "Fatigue",
-                "Low energy",
-                "Poor recovery"
+                "Low energy levels",
+                "Poor recovery",
+                "Difficulty concentrating"
             ],
+
             recommendations:[
                 "Improve sleep hygiene",
                 "Reduce late night stimulation",
-                "Create consistent bedtime"
+                "Create consistent bedtime routine"
             ],
+
             habits:[
                 "No screens before sleep",
-                "Dark sleep room",
-                "Fixed wake time"
+                "Keep room dark and quiet",
+                "Wake at fixed time daily"
             ]
+
         }
 
     },
@@ -230,67 +316,88 @@ window.sectionFeedback = {
 
         high:{
             title:"Healthy Eating Awareness",
-            summary:"You appear to maintain a balanced relationship between emotions and eating habits.",
+
+            summary:
+                "You maintain a healthy balance between emotions and eating habits. You generally eat based on need rather than emotional triggers.",
+
             strengths:[
-                "Emotional awareness",
-                "Controlled eating habits"
+                "You are aware of emotional triggers",
+                "You maintain controlled eating habits"
             ],
+
             risks:[
-                "Occasional emotional snacking"
+                "Occasional stress eating"
             ],
+
             recommendations:[
-                "Maintain awareness",
-                "Continue balanced habits"
+                "Maintain your awareness",
+                "Continue balanced eating habits"
             ],
+
             habits:[
-                "Mindful eating",
-                "Regular meals",
-                "Hydration"
+                "Practice mindful eating",
+                "Maintain regular meal timing",
+                "Stay hydrated"
             ]
+
         },
 
         medium:{
             title:"Moderate Emotional Eating",
-            summary:"You may sometimes eat based on emotions rather than hunger.",
+
+            summary:
+                "You sometimes eat based on emotions instead of hunger. With awareness, this can be easily improved.",
+
             strengths:[
-                "Basic awareness",
-                "Some control"
+                "You have some awareness of eating habits",
+                "You show some control"
             ],
+
             risks:[
-                "Stress eating",
+                "Stress based eating",
                 "Boredom snacking"
             ],
+
             recommendations:[
-                "Identify hunger vs emotion",
+                "Identify emotional vs physical hunger",
                 "Build alternative coping habits"
             ],
+
             habits:[
-                "Drink water first",
-                "Short walks",
-                "Healthy snacks"
+                "Drink water before eating",
+                "Take short walks",
+                "Keep healthy snacks"
             ]
+
         },
 
         low:{
             title:"Emotional Eating Risk",
-            summary:"Your responses suggest emotions may strongly influence eating patterns.",
+
+            summary:
+                "Your eating habits may be strongly influenced by emotions. This can lead to unhealthy patterns if not managed.",
+
             strengths:[
-                "Awareness opportunity"
+                "You can improve with awareness"
             ],
+
             risks:[
-                "Stress eating",
-                "Guilt cycles",
+                "Stress eating patterns",
+                "Guilt cycles after eating",
                 "Impulse eating"
             ],
+
             recommendations:[
-                "Develop emotional coping tools",
-                "Create meal routines"
+                "Develop emotional coping strategies",
+                "Create structured meal routines"
             ],
+
             habits:[
-                "Meal schedule",
-                "Stress alternatives",
-                "Healthy comfort habits"
+                "Follow meal schedule",
+                "Practice stress alternatives",
+                "Choose healthy comfort options"
             ]
+
         }
 
     },
@@ -299,66 +406,87 @@ window.sectionFeedback = {
 
         high:{
             title:"Strong Initiative Mindset",
-            summary:"You show initiative, ownership, and independence in your work style.",
+
+            summary:
+                "You show strong ownership and initiative. You are comfortable taking responsibility and making decisions.",
+
             strengths:[
-                "Ownership mindset",
-                "Decision confidence",
-                "Initiative"
+                "You take ownership of your work",
+                "You show initiative",
+                "You make confident decisions"
             ],
+
             risks:[
-                "Risk overload",
-                "Work pressure"
+                "Taking too much risk",
+                "Work pressure from responsibility"
             ],
+
             recommendations:[
-                "Balance risk and planning",
-                "Protect work boundaries"
+                "Balance risk with planning",
+                "Maintain work boundaries"
             ],
+
             habits:[
                 "Weekly planning",
                 "Goal review",
                 "Risk evaluation"
             ]
+
         },
 
         medium:{
             title:"Balanced Work Mindset",
-            summary:"You show a mix of stability preference and initiative.",
+
+            summary:
+                "You show a balance between stability and initiative. You may benefit from taking more leadership decisions.",
+
             strengths:[
-                "Balanced thinking",
-                "Stable work approach"
+                "You show balanced thinking",
+                "You maintain stable work habits"
             ],
+
             risks:[
-                "Decision hesitation"
+                "Hesitation in decision making"
             ],
+
             recommendations:[
-                "Practice leadership decisions",
-                "Take small initiatives"
+                "Take small leadership decisions",
+                "Practice initiative"
             ],
+
             habits:[
-                "Skill learning",
-                "Leadership practice"
+                "Learn new skills",
+                "Practice leadership"
             ]
+
         },
 
         low:{
             title:"Stability Oriented Mindset",
-            summary:"You may prefer structured environments over uncertainty.",
+
+            summary:
+                "You may prefer stable environments over uncertainty. Building confidence in taking initiative can help growth.",
+
             strengths:[
-                "Reliability",
-                "Consistency"
+                "You are reliable",
+                "You maintain consistency"
             ],
+
             risks:[
-                "Fear of risk",
-                "Avoiding initiative"
+                "Avoiding risks",
+                "Fear of initiative"
             ],
+
             recommendations:[
                 "Take small calculated risks",
                 "Build decision confidence"
             ],
+
             habits:[
                 "Try small leadership tasks",
                 "Skill development"
             ]
+
         }
 
     },
@@ -367,62 +495,83 @@ window.sectionFeedback = {
 
         high:{
             title:"Strong Self Awareness",
-            summary:"You demonstrate clear understanding of your strengths and growth areas.",
+
+            summary:
+                "You clearly understand your strengths and areas of improvement. This awareness helps you grow faster.",
+
             strengths:[
-                "Self awareness",
+                "Strong self awareness",
                 "Growth mindset",
-                "Preparation ability"
+                "Good preparation ability"
             ],
+
             risks:[
                 "Self pressure"
             ],
+
             recommendations:[
-                "Continue self evaluation",
-                "Maintain growth focus"
+                "Continue self reflection",
+                "Maintain growth mindset"
             ],
+
             habits:[
                 "Monthly reflection",
                 "Goal review"
             ]
+
         },
 
         medium:{
             title:"Growing Self Awareness",
-            summary:"You show reasonable understanding of yourself with room to deepen it.",
+
+            summary:
+                "You understand yourself reasonably well but deeper reflection can improve clarity.",
+
             strengths:[
-                "Basic awareness"
+                "Basic self awareness"
             ],
+
             risks:[
-                "Blind spots"
+                "Blind spots in self understanding"
             ],
+
             recommendations:[
-                "Reflect more often",
+                "Reflect regularly",
                 "Seek feedback"
             ],
+
             habits:[
                 "Weekly review",
-                "Skill tracking"
+                "Track learning"
             ]
+
         },
 
         low:{
             title:"Self Awareness Development Needed",
-            summary:"You may benefit from deeper reflection on your strengths and weaknesses.",
+
+            summary:
+                "You may benefit from deeper understanding of your strengths and weaknesses.",
+
             strengths:[
-                "Growth potential"
+                "Strong growth potential"
             ],
+
             risks:[
                 "Lack of direction",
                 "Missed opportunities"
             ],
+
             recommendations:[
-                "Self evaluation practice",
-                "Goal clarity work"
+                "Practice self evaluation",
+                "Clarify personal goals"
             ],
+
             habits:[
-                "Strength listing",
-                "Learning review"
+                "List strengths weekly",
+                "Review learning"
             ]
+
         }
 
     },
@@ -431,62 +580,82 @@ window.sectionFeedback = {
 
         high:{
             title:"Strong Relationship Skills",
-            summary:"You demonstrate strong communication and relationship management abilities.",
+
+            summary:
+                "You communicate effectively and maintain healthy relationships.",
+
             strengths:[
                 "Clear communication",
-                "Listening skills",
+                "Good listening",
                 "Empathy"
             ],
+
             risks:[
                 "Emotional exhaustion"
             ],
+
             recommendations:[
-                "Maintain boundaries",
-                "Continue empathy balance"
+                "Maintain boundaries"
             ],
+
             habits:[
                 "Active listening",
                 "Healthy communication"
             ]
+
         },
 
         medium:{
             title:"Moderate Relationship Skills",
-            summary:"You show healthy interaction patterns with some growth opportunities.",
+
+            summary:
+                "You maintain healthy interactions but can improve conflict handling.",
+
             strengths:[
                 "Basic communication"
             ],
+
             risks:[
                 "Conflict discomfort"
             ],
+
             recommendations:[
                 "Practice conflict handling",
-                "Improve listening depth"
+                "Improve listening"
             ],
+
             habits:[
                 "Listening practice",
                 "Feedback conversations"
             ]
+
         },
 
         low:{
             title:"Relationship Skills Development",
-            summary:"You may sometimes struggle with communication or conflict situations.",
+
+            summary:
+                "You may sometimes struggle with communication or conflicts.",
+
             strengths:[
-                "Awareness opportunity"
+                "Growth opportunity"
             ],
+
             risks:[
                 "Communication gaps",
                 "Conflict avoidance"
             ],
+
             recommendations:[
                 "Practice communication",
                 "Learn conflict management"
             ],
+
             habits:[
                 "Conversation practice",
                 "Empathy exercises"
             ]
+
         }
 
     },
@@ -495,61 +664,82 @@ window.sectionFeedback = {
 
         high:{
             title:"Strong Emotional Stability",
-            summary:"You appear emotionally balanced and resilient in stressful situations.",
+
+            summary:
+                "You remain emotionally balanced even during stress.",
+
             strengths:[
                 "Resilience",
                 "Calm reactions",
                 "Recovery ability"
             ],
+
             risks:[
                 "Suppressing emotions"
             ],
+
             recommendations:[
                 "Maintain recovery habits"
             ],
+
             habits:[
                 "Recovery breaks",
                 "Stress reset routines"
             ]
+
         },
 
         medium:{
             title:"Moderate Emotional Stability",
-            summary:"You show general stability but may sometimes feel emotional pressure.",
+
+            summary:
+                "You show general stability but may sometimes feel emotional pressure.",
+
             strengths:[
                 "Basic resilience"
             ],
+
             risks:[
                 "Stress accumulation"
             ],
+
             recommendations:[
                 "Improve recovery time",
                 "Practice calming techniques"
             ],
+
             habits:[
                 "Relaxation breaks",
                 "Stress management"
             ]
+
         },
 
         low:{
             title:"Emotional Stability Needs Support",
-            summary:"You may experience emotional fluctuations under stress.",
+
+            summary:
+                "You may experience emotional fluctuations during stress.",
+
             strengths:[
                 "Growth opportunity"
             ],
+
             risks:[
                 "Mood swings",
                 "Stress overload"
             ],
+
             recommendations:[
                 "Improve coping strategies",
-                "Focus on recovery habits"
+                "Focus on recovery"
             ],
+
             habits:[
                 "Breathing exercises",
                 "Routine stability"
             ]
+
         }
 
     }
