@@ -1,457 +1,559 @@
 @extends('layouts.guest-new')
 
 @section('content')
+@php
 
-    @php
-        $assessment = \App\Models\Assessment::where('customer_id', auth()->id())
-            ->latest()
-            ->first();
+    $file = resource_path('views/assessment/result-partials/text.blade.php');
 
-        if (!$assessment) {
-            abort(404);
-        }
+    $levelMap = [];
+    $topicIcons = [];
+    $topicTips = [];
 
-        $level  = $assessment->overall_level;
-        $topics = $assessment->topic_scores ?? [];
-
-            // ✅ Always move Ikigai to the last position
-    if (array_key_exists('ikigai', $topics)) {
-        $ikigai = $topics['ikigai'];
-        unset($topics['ikigai']);
-        $topics['ikigai'] = $ikigai;
+    if (file_exists($file)) {
+    include_once $file;
     }
 
-        /* ---------------------------------------------
-           Overall Level UI (NON-CLINICAL)
-        --------------------------------------------- */
-        $levelMap = [
-            'Excellent' => [
-                'bg' => 'bg-emerald-50',
-                'text' => 'text-emerald-700',
-                'icon' => 'fa-face-smile-beam',
-                'title' => 'You’re doing great 🌟',
-                'message' => 'Your responses reflect strong balance, awareness, and emotional wellbeing. Keep nurturing these habits.'
-            ],
-            'Good' => [
-                'bg' => 'bg-lime-50',
-                'text' => 'text-lime-700',
-                'icon' => 'fa-face-smile',
-                'title' => 'You’re on a healthy path 🌱',
-                'message' => 'You’re doing well overall. With a little mindful attention, things can feel even better.'
-            ],
-            'Moderate' => [
-                'bg' => 'bg-amber-50',
-                'text' => 'text-amber-700',
-                'icon' => 'fa-face-meh',
-                'title' => 'Some areas need care 💛',
-                'message' => 'You may be experiencing imbalance in certain areas. Small, steady changes can make a big difference.'
-            ],
-            'Needs Attention' => [
-                'bg' => 'bg-orange-50',
-                'text' => 'text-orange-700',
-                'icon' => 'fa-face-frown',
-                'title' => 'It’s okay to pause and reflect 🤍',
-                'message' => 'Some areas may need extra care and support. You don’t have to figure it out alone.'
-            ],
-        ];
+    $assessment = \App\Models\Assessment::where('customer_id', auth()->id())
+    ->latest()
+    ->first();
 
-        $ui = $levelMap[$level] ?? $levelMap['Good'];
+    if (!$assessment) {
+    abort(404);
+    }
 
-        $topicIcons = [
-            'emotional_intelligence'=>'fa-brain',
-            'personality'=>'fa-user',
-            'slumber_score'=>'fa-bed',
-            'emotional_eating'=>'fa-utensils',
-            'entrepreneur_employee'=>'fa-briefcase',
-            'swot'=>'fa-chart-pie',
-            'interpersonal_skills'=>'fa-comments',
-            'emotional_stability'=>'fa-scale-balanced',
-            'relationship_health'=>'fa-heart'
-            ];
+    $level = $assessment->overall_level;
+    $topics = $assessment->topic_scores ?? [];
 
-        /* ---------------------------------------------
-           Personalised Tips Per Topic
-        --------------------------------------------- */
-        $topicTips = [
+    // Move Ikigai last
+    if (array_key_exists('ikigai', $topics)) {
+    $ikigai = $topics['ikigai'];
+    unset($topics['ikigai']);
+    $topics['ikigai'] = $ikigai;
+    }
 
-            'emotional_intelligence' => [
-                'Excellent' => 'You’re highly aware of your emotions. Continue reflecting or journaling to maintain this strength.',
-                'Good' => 'Pausing before reacting in stressful moments can deepen emotional control.',
-                'Moderate' => 'Try naming your emotions during the day to build awareness.',
-                'Needs Attention' => 'Mindfulness or guided reflection can help you understand emotions better.',
-            ],
+    $ui = $levelMap[$level] ?? ($levelMap['Good'] ?? []);
 
-            'personality' => [
-                'Excellent' => 'You show strong self-awareness. Keep embracing your natural strengths.',
-                'Good' => 'Observing your behavior patterns can bring useful insights.',
-                'Moderate' => 'Self-reflection exercises can help clarify your preferences.',
-                'Needs Attention' => 'Exploring personality frameworks may offer helpful direction.',
-            ],
 
-            'slumber_score' => [
-                'Excellent' => 'Your sleep habits are healthy. Keep your routine consistent.',
-                'Good' => 'Reducing screen time before bed may improve rest.',
-                'Moderate' => 'A fixed bedtime and calming routine can help.',
-                'Needs Attention' => 'Focus on sleep hygiene: dark, quiet, and consistent sleep timing.',
-            ],
+    //score
+    $total = 180;
 
-            'emotional_eating' => [
-                'Excellent' => 'You have good awareness around food and emotions.',
-                'Good' => 'Pause briefly before eating to check emotional vs physical hunger.',
-                'Moderate' => 'Identifying emotional triggers can reduce emotional eating.',
-                'Needs Attention' => 'Replacing emotional eating with alternative coping habits may help.',
-            ],
+    $score = (int) ($assessment->overall_score ?? 0);
 
-            'entrepreneur_employee' => [
-                'Excellent' => 'You show strong decision confidence. Keep trusting your instincts.',
-                'Good' => 'Balancing risk and stability can support growth.',
-                'Moderate' => 'Clarifying long-term goals may guide your career choices.',
-                'Needs Attention' => 'Reflecting on responsibility and uncertainty can bring clarity.',
-            ],
+    $overallPercentage = $total > 0
+        ? round(($score / $total) * 100)
+        : 0;
 
-            'swot' => [
-                'Excellent' => 'You understand your strengths and opportunities well.',
-                'Good' => 'Revisiting goals regularly strengthens self-awareness.',
-                'Moderate' => 'Writing a simple personal SWOT can improve clarity.',
-                'Needs Attention' => 'Identifying one strength and one opportunity is a good start.',
-            ],
+    $overallPercentage = max(0,min(100,$overallPercentage));
 
-            'interpersonal_skills' => [
-                'Excellent' => 'Your communication skills are strong. Keep nurturing relationships.',
-                'Good' => 'Active listening can further improve interactions.',
-                'Moderate' => 'Practicing empathy during conversations may help.',
-                'Needs Attention' => 'Clear and calm communication can strengthen connections.',
-            ],
+@endphp
 
-            'emotional_stability' => [
-                'Excellent' => 'You manage stress very well. Maintain your coping strategies.',
-                'Good' => 'Short breaks and relaxation can help during busy days.',
-                'Moderate' => 'Stress-management techniques may improve balance.',
-                'Needs Attention' => 'Building daily calming routines can help regulate emotions.',
-            ],
+<div class="relative min-h-[75vh] flex items-center justify-center pt-20 pb-12
+bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden">
 
-            'ikigai' => [
-                'Excellent' => 'You have a strong sense of purpose. Keep aligning actions with values.',
-                'Good' => 'Reflecting on what energizes you can deepen fulfillment.',
-                'Moderate' => 'Exploring meaningful activities may bring clarity.',
-                'Needs Attention' => 'Small purpose-driven goals can help restore motivation.',
-            ],
-        ];
-    @endphp
+    <!-- Color mesh background -->
+    <div class="absolute inset-0 pointer-events-none">
 
-    <div class="min-h-[75vh] flex items-center justify-center pt-28 pb-12
-            bg-gradient-to-br from-[#FFF8ED] via-[#FFF3E0] to-[#FFF0D9]">
+        <div class="absolute -top-32 -left-32 w-[420px] h-[420px]
+bg-purple-300 rounded-full blur-[120px] opacity-30">
+        </div>
 
-        <div class="max-w-5xl w-full px-4">
+        <div class="absolute top-40 -right-32 w-[420px] h-[420px]
+bg-sky-300 rounded-full blur-[120px] opacity-30"></div>
 
-            <div class="bg-white/90 backdrop-blur-xl border border-[#FFD18A]
-                    rounded-3xl shadow-2xl p-10">
+        <div class="absolute bottom-0 left-1/4 w-[420px] h-[420px]
+bg-pink-300 rounded-full blur-[120px] opacity-30">
+        </div>
 
-                {{-- Header --}}
-                <div class="text-center mb-10">
-                    <div class="w-20 h-20 mx-auto mb-4 rounded-2xl
-                            bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
-                            flex items-center justify-center shadow-xl">
-                        <i class="fa-solid {{ $ui['icon'] }} text-white text-3xl"></i>
-                    </div>
+        <div class="absolute bottom-20 right-1/3 w-[350px] h-[350px]
+bg-emerald-300 rounded-full blur-[120px] opacity-25">
+        </div>
 
-                    <h1 class="text-3xl font-black mb-2
-                           bg-gradient-to-r from-[#F79C23] to-[#d88410]
-                           bg-clip-text text-transparent">
-                        Your Assessment Summary
-                    </h1>
+    </div>
 
-                    <p class="text-sm text-gray-500">
-                        Based on your recent responses
-                    </p>
-                </div>
+    <div class="relative max-w-5xl w-full px-4">
 
-                <div class="bg-gradient-to-r from-[#FFF7ED] to-[#FFF1DC]
-                        border border-[#FFD18A] rounded-2xl p-6 mb-10">
+        <div class="bg-white/85 backdrop-blur-xl
+border border-white/40
+rounded-3xl
+shadow-[0_25px_70px_rgba(0,0,0,0.08)]
+p-10">
 
-                    <div class="flex items-center justify-between">
+            <!-- Header -->
+            <div class="text-center mb-14 relative">
 
-                        <div>
-                            <div class="text-xs text-[#B7791F] font-semibold uppercase">
-                                Overall Wellbeing Score
-                            </div>
+                <!-- Glow ring -->
+                <div class="absolute left-1/2 -translate-x-1/2 -top-6
+    w-40 h-40 bg-gradient-to-br from-purple-300 via-indigo-300 to-sky-300
+    rounded-full blur-3xl opacity-30"></div>
 
-                            <div class="text-3xl font-bold text-[#7A4A12] mt-1">
-                                {{ $assessment->overall_percentage ?? 68 }}%
-                            </div>
+                <!-- Icon container -->
+                <div class="relative w-24 h-24 mx-auto mb-6 rounded-3xl
 
-                            <div class="text-sm text-gray-600 mt-1">
-                                Based on all assessment areas
-                            </div>
+    bg-gradient-to-br
+    from-purple-500
+    via-indigo-500
+    to-sky-500
 
-                        </div>
+    flex items-center justify-center
 
-                        <div class="w-16 h-16 rounded-2xl
-        bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
-        flex items-center justify-center shadow-md">
+    shadow-[0_20px_50px_rgba(99,102,241,0.35)]
 
-                            <i class="fa-solid fa-chart-simple text-white text-xl"></i>
+    border border-white/40">
 
-                        </div>
+                    <!-- Inner shine -->
+                    <div class="absolute inset-0 rounded-3xl
+        bg-white/10 backdrop-blur-sm"></div>
 
-                    </div>
-
-                    <div class="w-full h-3 bg-[#FFE2A8] rounded-full mt-5">
-
-                        <div class="h-3 rounded-full
-        bg-gradient-to-r from-[#F79C23] to-[#FFB84D]"
-                             style="width:{{ $assessment->overall_percentage ?? 68 }}%">
-                        </div>
-
-                    </div>
+                    <i class="relative fa-solid {{ $ui['icon'] }}
+        text-white text-4xl"></i>
 
                 </div>
 
-                {{-- Overall Level --}}
-                <div class="flex justify-center mb-8">
-                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                             text-sm font-semibold {{ $ui['bg'] }} {{ $ui['text'] }}
-                             border border-current/20">
-                    <span class="w-2 h-2 rounded-full bg-current"></span>
-                    Overall Level: {{ $level }}
-                </span>
-                </div>
+                <!-- Title -->
+                <h1 class="text-4xl font-black mb-3
 
-                {{-- Overall Message --}}
-                <div class="text-center mb-12">
-                    <h2 class="text-xl font-bold text-[#7A4A12] mb-3">
-                        {{ $ui['title'] }}
-                    </h2>
+    bg-gradient-to-r
+    from-purple-600
+    via-indigo-600
+    to-sky-500
 
-                    <p class="text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                        {{ $ui['message'] }}
-                    </p>
-                </div>
+    bg-clip-text text-transparent">
 
-                {{-- Topic-wise Results + Tips --}}
-                <div class="grid sm:grid-cols-2 gap-6 mb-12">
+                    Your Assessment Summary
 
-                    @foreach($topics as $topic => $data)
+                </h1>
 
-                        {{-- 🌸 IKIGAI SPECIAL RESULT --}}
-                        @if($topic === 'ikigai')
+                <!-- Decorative divider -->
+                <div class="flex items-center justify-center gap-3 mb-3">
 
-                            <div class="bg-gradient-to-br from-[#FFF7ED] to-[#FFF0D9]
-                                border border-[#FFD18A]
-                                rounded-2xl p-8 text-center
-                                shadow-sm">
+                    <div class="h-[2px] w-16
+        bg-gradient-to-r from-transparent to-purple-400"></div>
 
-                                <div class="w-14 h-14 mx-auto mb-3 rounded-2xl
-                    bg-gradient-to-br from-[#F79C23] to-[#FFB84D]
-                    flex items-center justify-center shadow-md">
-                                    <i class="fa-solid fa-compass text-white text-xl"></i>
-                                </div>
+                    <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
 
-                                <h3 class="font-bold text-[#7A4A12] text-lg mb-2">
-                                    Ikigai Insight
-                                </h3>
-
-                                <p class="text-sm text-[#7A5A2E] leading-relaxed max-w-sm mx-auto">
-                                    Ikigai is deeply personal and unfolds over time.
-                                    Your responses are being thoughtfully reviewed, and your
-                                    personalized Ikigai insight will be shared with you via email.
-                                </p>
-
-                                <p class="text-xs text-[#8A6A3E] mt-3">
-                                    🌱 Reflection takes time — clarity arrives gently.
-                                </p>
-
-                            </div>
-
-                        @else
-
-                            {{-- ✅ NORMAL TOPIC RESULT --}}
-                            <div class="bg-white border border-[#FFE2A8]
-                                rounded-2xl p-6
-                                shadow-sm hover:shadow-lg
-                                transition-all duration-300
-                                hover:-translate-y-1">
-
-                                <div class="flex items-center gap-3 mb-2">
-
-                                    <div class="w-10 h-10 rounded-xl
-                                    bg-[#FFF3D6]
-                                    flex items-center justify-center">
-
-                                        <i class="fa-solid {{ $topicIcons[$topic] ?? 'fa-circle' }} text-[#F79C23] text-sm"></i>
-
-                                    </div>
-
-                                    <h3 class="font-bold text-[#7A4A12] capitalize">
-                                        {{ ucwords(str_replace('_',' ',$topic)) }}
-                                    </h3>
-
-                                </div>
-
-                                <div class="flex items-center justify-between text-sm mb-2">
-                                    <span class="
-                                            text-xs font-semibold px-2 py-1 rounded-full
-
-                                            @if($data['level']=='Excellent')
-                                            bg-emerald-100 text-emerald-700
-                                            @elseif($data['level']=='Good')
-                                            bg-blue-100 text-blue-700
-                                            @elseif($data['level']=='Moderate')
-                                            bg-amber-100 text-amber-700
-                                            @else
-                                            bg-orange-100 text-orange-700
-                                            @endif
-
-                                            ">
-
-                                            {{ $data['level'] }}
-
-                                    </span>
-
-                                    <span class="font-semibold text-[#F79C23]">
-                    {{ $data['percentage'] }}%
-                </span>
-                                </div>
-
-                                <div class="w-full h-2 rounded-full bg-[#FFE2A8] mb-3">
-                                    <div class="h-2 rounded-full bg-gradient-to-r
-                        from-[#F79C23] to-[#FFB84D]"
-                                         style="width: {{ $data['percentage'] }}%">
-                                    </div>
-                                </div>
-
-                                <p class="text-sm text-[#7A5A2E] leading-relaxed">
-                                    💡 {{ $topicTips[$topic][$data['level']] ?? 'Small mindful steps can create positive change.' }}
-                                </p>
-                            </div>
-
-                        @endif
-
-                    @endforeach
+                    <div class="h-[2px] w-16
+        bg-gradient-to-l from-transparent to-sky-400"></div>
 
                 </div>
 
-                {{-- Note --}}
-                <div class="bg-[#FFF3D6] border border-[#FFD18A]
-                        rounded-2xl p-5 text-sm text-[#7A5A2E] mb-8">
-                    ✨ This assessment is a self-reflection tool, not a medical diagnosis.
-                    It helps you understand patterns and areas for growth.
-                </div>
+                <!-- Subtitle -->
+                <p class="text-gray-500 text-sm tracking-wide">
 
-                {{-- Actions --}}
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('therapists.index') }}"
-                       class="flex-1 inline-flex justify-center items-center gap-2
-                          px-6 py-4 rounded-2xl font-bold text-white
-                          bg-gradient-to-r from-[#F79C23] to-[#FF9F40]
-                          shadow-lg hover:shadow-xl
-                            transition-all duration-300
-                            hover:-translate-y-0.5">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        Explore Guidance
-                    </a>
+                    Based on your recent responses
 
-                    <a href="{{ route('assessment.create') }}"
-                       class="flex-1 inline-flex justify-center items-center gap-2
-                          px-6 py-4 rounded-2xl font-semibold
-                          border border-[#F79C23]/60 text-[#F79C23]
-                          hover:bg-[#FFF3D6] transition">
-                        <i class="fa-solid fa-rotate-right"></i>
-                        Retake Assessment
-                    </a>
+                </p>
+
+                <!-- Optional badge -->
+                <div class="mt-5">
+
+        <span class="inline-flex items-center gap-2
+
+        px-4 py-2 rounded-full
+
+        bg-gradient-to-r
+        from-indigo-50
+        to-purple-50
+
+        text-indigo-700
+        text-xs font-semibold
+
+        border border-indigo-100">
+
+            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+
+            Personalized Growth Insights
+
+        </span>
+
                 </div>
 
             </div>
+
+            <!-- Score -->
+            <div class="relative overflow-hidden
+
+bg-gradient-to-br
+from-purple-50
+via-indigo-50
+to-sky-50
+
+border border-white/60
+rounded-3xl
+p-8
+mb-12
+
+shadow-[0_20px_60px_rgba(99,102,241,0.15)]">
+
+                <!-- decorative glow -->
+                <div class="absolute -top-20 -right-20 w-64 h-64
+    bg-purple-300 rounded-full blur-3xl opacity-20"></div>
+
+                <div class="absolute -bottom-20 -left-20 w-64 h-64
+    bg-sky-300 rounded-full blur-3xl opacity-20"></div>
+
+                <div class="relative flex items-center justify-between">
+
+                    <div>
+
+                        <div class="text-xs text-indigo-600
+            font-bold uppercase tracking-widest">
+
+                            Overall Wellbeing Score
+
+                        </div>
+
+                        <div class="text-6xl font-black mt-2
+
+            bg-gradient-to-r
+            from-purple-600
+            via-indigo-600
+            to-sky-500
+
+            bg-clip-text text-transparent">
+
+                            {{ $overallPercentage }}%
+
+                        </div>
+
+                        <div class="text-gray-500 mt-2 text-sm">
+                            Based on all assessment areas
+                        </div>
+
+                    </div>
+
+                    <!-- Score icon -->
+                    <div class="relative">
+
+                        <div class="absolute inset-0
+            bg-gradient-to-br from-purple-400 to-indigo-400
+            rounded-3xl blur-xl opacity-30"></div>
+
+                        <div class="relative w-20 h-20 rounded-3xl
+
+            bg-gradient-to-br
+            from-purple-500
+            via-indigo-500
+            to-sky-500
+
+            flex items-center justify-center
+
+            shadow-[0_10px_30px_rgba(99,102,241,0.4)]
+
+            border border-white/40">
+
+                            <i class="fa-solid fa-chart-simple
+                text-white text-2xl"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Progress bar -->
+                <div class="mt-8">
+
+                    <div class="flex justify-between text-xs text-gray-500 mb-2">
+
+                        <span>0%</span>
+
+                        <span class="font-semibold text-indigo-600">
+                {{ $overallPercentage }}%
+            </span>
+
+                        <span>100%</span>
+
+                    </div>
+
+                    <div class="w-full h-5
+
+        bg-white/70
+        rounded-full
+        backdrop-blur
+
+        shadow-inner">
+
+                        <div class="h-5 rounded-full
+
+            bg-gradient-to-r
+            from-purple-500
+            via-indigo-500
+            via-blue-500
+            to-sky-400
+
+            shadow-[0_0_20px_rgba(99,102,241,0.5)]
+
+            transition-all duration-1000 ease-out"
+
+                             style="width: {{ $overallPercentage }}%;">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Level -->
+            <div class="flex justify-center mb-10">
+
+                <span class="inline-flex items-center gap-3
+px-6 py-3 rounded-2xl
+
+text-sm font-bold
+
+{{ $ui['bg'] }} {{ $ui['text'] }}
+
+border border-current/20
+shadow-sm">
+
+                    <span class="w-3 h-3 rounded-full
+bg-current animate-pulse"></span>
+
+                    Overall Level : {{ $level }}
+
+                </span>
+
+            </div>
+
+            <!-- Message -->
+            <div class="text-center mb-14">
+
+                <h2 class="text-2xl font-bold
+text-gray-800 mb-4">
+
+                    {{ $ui['title'] }}
+
+                </h2>
+
+                <p class="text-gray-600
+leading-relaxed max-w-2xl mx-auto">
+
+                    {{ $ui['message'] }}
+
+                </p>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-4 mb-10">
+
+                <div class="h-[2px] flex-1
+bg-gradient-to-r
+from-transparent
+via-purple-300
+to-transparent"></div>
+
+                <div class="text-purple-500
+font-semibold text-sm">
+
+                    Your Growth Areas
+
+                </div>
+
+                <div class="h-[2px] flex-1
+bg-gradient-to-r
+from-transparent
+via-indigo-300
+to-transparent"></div>
+
+            </div>
+
+            <!-- Topics -->
+            <div class="grid sm:grid-cols-2 gap-7 mb-12">
+
+                @foreach ($topics as $topic => $data)
+                @php
+
+                $color = $topicColors[$topic] ?? [
+                'bg' => 'from-gray-50 to-gray-100',
+                'icon' => 'from-gray-400 to-gray-600',
+                'text' => 'text-gray-800',
+                'progress' => 'from-gray-400 to-gray-600',
+                ];
+
+                @endphp
+
+                @if ($topic === 'ikigai')
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50
+border border-indigo-100
+rounded-3xl p-8 text-center shadow-md">
+
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl
+
+bg-gradient-to-br from-indigo-500 to-purple-500
+
+flex items-center justify-center
+shadow-[0_10px_25px_rgba(99,102,241,0.35)]">
+
+                        <i class="fa-solid fa-compass text-white text-xl"></i>
+
+                    </div>
+
+                    <h3 class="font-bold text-indigo-800 mb-2">
+                        Ikigai Insight
+                    </h3>
+
+                    <p class="text-indigo-700 text-sm">
+                        Your personalized Ikigai insight will be shared via email.
+                    </p>
+
+                </div>
+                @else
+                <div class="bg-gradient-to-br {{ $color['bg'] }}
+
+border border-white/60
+rounded-3xl
+p-7
+
+shadow-sm
+hover:shadow-xl
+
+transition-all duration-300
+
+hover:-translate-y-1
+hover:scale-[1.02]">
+
+                    <div class="flex items-center gap-4 mb-4">
+
+                        <div class="w-12 h-12 rounded-2xl
+
+bg-gradient-to-br {{ $color['icon'] }}
+
+flex items-center justify-center
+
+shadow-[0_8px_20px_rgba(0,0,0,0.15)]">
+
+                            <i class="fa-solid {{ $topicIcons[$topic] ?? 'fa-circle' }}
+text-white text-lg"></i>
+
+                        </div>
+
+                        <h3 class="font-bold {{ $color['text'] }} capitalize text-lg">
+
+                            {{ ucwords(str_replace('_', ' ', $topic)) }}
+
+                        </h3>
+
+                    </div>
+
+                    <div class="flex justify-between items-center mb-4">
+
+                        <span class="text-xs font-bold px-3 py-1 rounded-xl
+
+                                        @if ($data['level'] == 'Excellent') bg-emerald-100 text-emerald-700
+                                        @elseif($data['level'] == 'Good')
+                                        bg-blue-100 text-blue-700
+                                        @elseif($data['level'] == 'Moderate')
+                                        bg-amber-100 text-amber-700
+                                        @else
+                                        bg-red-100 text-red-600 @endif">
+
+                            {{ $data['level'] }}
+
+                        </span>
+
+                        <span class="font-bold {{ $color['text'] }}
+                                    bg-white/70 px-3 py-1 rounded-lg shadow-sm">
+
+                            {{ $data['percentage'] }}%
+
+                        </span>
+
+                    </div>
+
+                    <div class="w-full h-3 bg-white/60
+                                    rounded-full mb-4">
+
+                        <div class="h-3 rounded-full
+
+                                    bg-gradient-to-r {{ $color['progress'] }}
+
+                                    shadow-[0_0_10px_rgba(0,0,0,0.15)]
+
+                                    transition-all duration-700" style="width:{{ $data['percentage'] }}%">
+                        </div>
+
+                    </div>
+
+                    <p class="text-sm {{ $color['text'] }} leading-relaxed">
+
+                        💡 {{ $topicTips[$topic][$data['level']] ?? 'Small mindful steps help growth.' }}
+
+                    </p>
+
+                </div>
+                @endif
+                @endforeach
+
+            </div>
+
+            <!-- Note -->
+
+            <div class="bg-gradient-to-r
+                    from-purple-50
+                    to-indigo-50
+
+                    border border-indigo-100
+
+                    rounded-2xl
+                    p-6
+                    text-gray-700
+                    mb-10">
+
+                ✨ This assessment is a self-reflection tool.
+
+            </div>
+
+            <!-- Actions -->
+
+            <div class="flex flex-col sm:flex-row gap-5">
+
+                <a href="{{ route('therapists.index') }}" class="flex-1 flex justify-center items-center gap-3
+
+                        px-8 py-4 rounded-2xl font-bold text-white
+
+                        bg-gradient-to-r
+                        from-purple-500
+                        via-indigo-500
+                        to-sky-500
+
+                        shadow-lg hover:shadow-xl
+
+                        transition-all duration-300
+                        hover:-translate-y-1">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    Explore Guidance
+
+                </a>
+
+                <a href="{{ route('assessment.create') }}" class="flex-1 flex justify-center items-center gap-3
+
+                        px-8 py-4 rounded-2xl font-semibold
+
+                        border border-indigo-200
+                        text-indigo-600
+
+                        bg-white hover:bg-indigo-50">
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    Retake Assessment
+
+                </a>
+
+            </div>
+
         </div>
+
     </div>
 
-    <!-- 🎉 Celebration Confetti -->
-    <canvas id="confetti-canvas"
-            class="fixed inset-0 pointer-events-none z-50">
+</div>
 
-    </canvas>
 
-    <style>
-        #confetti-canvas {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const level = @json($level);
-
-            // Trigger only for positive results
-            if (!['Excellent', 'Good'].includes(level)) return;
-
-            const canvas = document.getElementById('confetti-canvas');
-            const ctx = canvas.getContext('2d');
-
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const colors = ['#F79C23', '#FFB84D', '#FFD18A', '#34D399', '#60A5FA'];
-
-            const confetti = [];
-
-            for (let i = 0; i < 120; i++) {
-                confetti.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height / 2,
-                    r: Math.random() * 6 + 4,
-                    d: Math.random() * 40 + 10,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    tilt: Math.random() * 10 - 10,
-                    tiltAngle: 0,
-                    tiltAngleIncrement: Math.random() * 0.1 + 0.04
-                });
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                confetti.forEach(c => {
-                    ctx.beginPath();
-                    ctx.fillStyle = c.color;
-                    ctx.moveTo(c.x + c.tilt, c.y);
-                    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-                update();
-            }
-
-            function update() {
-                confetti.forEach(c => {
-                    c.y += Math.cos(c.d) + 2;
-                    c.tiltAngle += c.tiltAngleIncrement;
-                    c.tilt = Math.sin(c.tiltAngle) * 15;
-
-                    if (c.y > canvas.height) {
-                        c.y = -10;
-                        c.x = Math.random() * canvas.width;
-                    }
-                });
-            }
-
-            let animationFrame;
-            function animate() {
-                draw();
-                animationFrame = requestAnimationFrame(animate);
-            }
-
-            animate();
-
-            // Stop animation after 4 seconds
-            setTimeout(() => {
-                cancelAnimationFrame(animationFrame);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }, 4000);
-
-        });
-    </script>
-
+<!-- 🎉 Celebration Confetti -->
+@include('assessment.result-partials.celebration-confetti')
 @endsection
-
-
-
