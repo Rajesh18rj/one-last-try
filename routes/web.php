@@ -54,6 +54,10 @@ Route::middleware(['auth'])->group(function () {
         return view('assessment.result');
     })->name('assessment.result');
 
+    Route::get('/assessment/{assessment}/download',
+        [AssessmentController::class,'downloadPdf'])
+        ->name('assessment.download');
+
 });
 
 Route::prefix('admin')

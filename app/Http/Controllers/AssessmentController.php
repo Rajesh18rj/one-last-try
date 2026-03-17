@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Assessment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class AssessmentController extends Controller
 {
@@ -78,9 +80,9 @@ class AssessmentController extends Controller
         Assessment::create([
             'customer_id'   => auth()->id(),
             'answers'       => $answers,
-            'topic_scores'  => $topicResults,   // ✅ FIX
+            'topic_scores'  => $topicResults,
             'overall_score' => $totalScore,
-            'overall_level' => $overallLevel,   // ✅ FIX
+            'overall_level' => $overallLevel,
             'status'        => 'completed',
             'taken_at'      => now(),
         ]);
@@ -88,6 +90,19 @@ class AssessmentController extends Controller
         return redirect()
             ->route('assessment.result')
             ->with('success', 'Assessment submitted successfully.');
+    }
+
+    public function downloadPdf($id)
+    {
+        $assessment = Assessment::findOrFail($id);
+
+        $data = [
+            'assessment'=>$assessment
+        ];
+
+        $pdf = Pdf::loadView('assessment.result-partials.result-pdf',$data);
+
+        return $pdf->download('assessment-result.pdf');
     }
 
 }

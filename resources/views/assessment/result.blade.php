@@ -506,42 +506,71 @@ text-white text-lg"></i>
 
             </div>
 
-            <!-- Actions -->
+            <!-- Download Section -->
 
-            <div class="flex flex-col sm:flex-row gap-5">
+            <div class="bg-gradient-to-r
+from-indigo-50
+via-purple-50
+to-sky-50
 
-                <a href="{{ route('therapists.index') }}" class="flex-1 flex justify-center items-center gap-3
+border border-indigo-100
+rounded-3xl
+p-8
+text-center
 
-                        px-8 py-4 rounded-2xl font-bold text-white
+shadow-lg">
 
-                        bg-gradient-to-r
-                        from-purple-500
-                        via-indigo-500
-                        to-sky-500
+                <div class="w-16 h-16 mx-auto mb-4
 
-                        shadow-lg hover:shadow-xl
+    bg-gradient-to-br
+    from-indigo-500
+    to-purple-500
 
-                        transition-all duration-300
-                        hover:-translate-y-1">
+    rounded-2xl
 
-                    <i class="fa-solid fa-user-doctor"></i>
+    flex items-center justify-center
 
-                    Explore Guidance
+    shadow-lg">
 
-                </a>
+                    <i class="fa-solid fa-file-pdf
+        text-white text-xl"></i>
 
-                <a href="{{ route('assessment.create') }}" class="flex-1 flex justify-center items-center gap-3
+                </div>
 
-                        px-8 py-4 rounded-2xl font-semibold
+                <h3 class="text-xl font-bold text-indigo-800 mb-2">
 
-                        border border-indigo-200
-                        text-indigo-600
+                    Download Your Result
 
-                        bg-white hover:bg-indigo-50">
+                </h3>
 
-                    <i class="fa-solid fa-rotate-right"></i>
+                <p class="text-gray-600 text-sm mb-6">
 
-                    Retake Assessment
+                    Save your assessment report as a PDF for future reference.
+
+                </p>
+
+                <a href="{{ route('assessment.download',$assessment->id) }}"
+
+                   class="inline-flex items-center gap-3
+
+       px-8 py-4 rounded-2xl
+
+       font-bold text-white
+
+       bg-gradient-to-r
+       from-purple-500
+       via-indigo-500
+       to-sky-500
+
+       shadow-lg hover:shadow-xl
+
+       transition-all duration-300
+
+       hover:-translate-y-1">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Download PDF
 
                 </a>
 
