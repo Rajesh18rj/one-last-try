@@ -79,95 +79,7 @@ shadow-[0_25px_70px_rgba(0,0,0,0.08)]
 p-10">
 
             <!-- Header -->
-            <div class="text-center mb-14 relative">
-
-                <!-- Glow ring -->
-                <div class="absolute left-1/2 -translate-x-1/2 -top-6
-    w-40 h-40 bg-gradient-to-br from-purple-300 via-indigo-300 to-sky-300
-    rounded-full blur-3xl opacity-30"></div>
-
-                <!-- Icon container -->
-                <div class="relative w-24 h-24 mx-auto mb-6 rounded-3xl
-
-    bg-gradient-to-br
-    from-purple-500
-    via-indigo-500
-    to-sky-500
-
-    flex items-center justify-center
-
-    shadow-[0_20px_50px_rgba(99,102,241,0.35)]
-
-    border border-white/40">
-
-                    <!-- Inner shine -->
-                    <div class="absolute inset-0 rounded-3xl
-        bg-white/10 backdrop-blur-sm"></div>
-
-                    <i class="relative fa-solid {{ $ui['icon'] }}
-        text-white text-4xl"></i>
-
-                </div>
-
-                <!-- Title -->
-                <h1 class="text-4xl font-black mb-3
-
-    bg-gradient-to-r
-    from-purple-600
-    via-indigo-600
-    to-sky-500
-
-    bg-clip-text text-transparent">
-
-                    Your Assessment Summary
-
-                </h1>
-
-                <!-- Decorative divider -->
-                <div class="flex items-center justify-center gap-3 mb-3">
-
-                    <div class="h-[2px] w-16
-        bg-gradient-to-r from-transparent to-purple-400"></div>
-
-                    <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
-
-                    <div class="h-[2px] w-16
-        bg-gradient-to-l from-transparent to-sky-400"></div>
-
-                </div>
-
-                <!-- Subtitle -->
-                <p class="text-gray-500 text-sm tracking-wide">
-
-                    Based on your recent responses
-
-                </p>
-
-                <!-- Optional badge -->
-                <div class="mt-5">
-
-        <span class="inline-flex items-center gap-2
-
-        px-4 py-2 rounded-full
-
-        bg-gradient-to-r
-        from-indigo-50
-        to-purple-50
-
-        text-indigo-700
-        text-xs font-semibold
-
-        border border-indigo-100">
-
-            <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-
-            Personalized Growth Insights
-
-        </span>
-
-                </div>
-
-            </div>
+                @include('assessment.result-partials.header-section')
 
             <!-- Score -->
             <div class="relative overflow-hidden
@@ -361,133 +273,7 @@ to-transparent"></div>
             </div>
 
             <!-- Topics -->
-            <div class="grid sm:grid-cols-2 gap-7 mb-12">
-
-                @foreach ($topics as $topic => $data)
-                @php
-
-                $color = $topicColors[$topic] ?? [
-                'bg' => 'from-gray-50 to-gray-100',
-                'icon' => 'from-gray-400 to-gray-600',
-                'text' => 'text-gray-800',
-                'progress' => 'from-gray-400 to-gray-600',
-                ];
-
-                @endphp
-
-                @if ($topic === 'ikigai')
-                <div class="bg-gradient-to-br from-indigo-50 to-purple-50
-border border-indigo-100
-rounded-3xl p-8 text-center shadow-md">
-
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl
-
-bg-gradient-to-br from-indigo-500 to-purple-500
-
-flex items-center justify-center
-shadow-[0_10px_25px_rgba(99,102,241,0.35)]">
-
-                        <i class="fa-solid fa-compass text-white text-xl"></i>
-
-                    </div>
-
-                    <h3 class="font-bold text-indigo-800 mb-2">
-                        Ikigai Insight
-                    </h3>
-
-                    <p class="text-indigo-700 text-sm">
-                        Your personalized Ikigai insight will be shared via email.
-                    </p>
-
-                </div>
-                @else
-                <div class="bg-gradient-to-br {{ $color['bg'] }}
-
-border border-white/60
-rounded-3xl
-p-7
-
-shadow-sm
-hover:shadow-xl
-
-transition-all duration-300
-
-hover:-translate-y-1
-hover:scale-[1.02]">
-
-                    <div class="flex items-center gap-4 mb-4">
-
-                        <div class="w-12 h-12 rounded-2xl
-
-bg-gradient-to-br {{ $color['icon'] }}
-
-flex items-center justify-center
-
-shadow-[0_8px_20px_rgba(0,0,0,0.15)]">
-
-                            <i class="fa-solid {{ $topicIcons[$topic] ?? 'fa-circle' }}
-text-white text-lg"></i>
-
-                        </div>
-
-                        <h3 class="font-bold {{ $color['text'] }} capitalize text-lg">
-
-                            {{ ucwords(str_replace('_', ' ', $topic)) }}
-
-                        </h3>
-
-                    </div>
-
-                    <div class="flex justify-between items-center mb-4">
-
-                        <span class="text-xs font-bold px-3 py-1 rounded-xl
-
-                                        @if ($data['level'] == 'Excellent') bg-emerald-100 text-emerald-700
-                                        @elseif($data['level'] == 'Good')
-                                        bg-blue-100 text-blue-700
-                                        @elseif($data['level'] == 'Moderate')
-                                        bg-amber-100 text-amber-700
-                                        @else
-                                        bg-red-100 text-red-600 @endif">
-
-                            {{ $data['level'] }}
-
-                        </span>
-
-                        <span class="font-bold {{ $color['text'] }}
-                                    bg-white/70 px-3 py-1 rounded-lg shadow-sm">
-
-                            {{ $data['percentage'] }}%
-
-                        </span>
-
-                    </div>
-
-                    <div class="w-full h-3 bg-white/60
-                                    rounded-full mb-4">
-
-                        <div class="h-3 rounded-full
-
-                                    bg-gradient-to-r {{ $color['progress'] }}
-
-                                    shadow-[0_0_10px_rgba(0,0,0,0.15)]
-
-                                    transition-all duration-700" style="width:{{ $data['percentage'] }}%">
-                        </div>
-
-                    </div>
-
-                    <p class="text-sm {{ $color['text'] }} leading-relaxed">
-
-                        💡 {{ $topicTips[$topic][$data['level']] ?? 'Small mindful steps help growth.' }}
-
-                    </p>
-
-                </div>
-                @endif
-                @endforeach
-
-            </div>
+                @include('assessment.result-partials.topics-section')
 
             <!-- Note -->
 
@@ -549,30 +335,33 @@ shadow-lg">
 
                 </p>
 
-                <a href="{{ route('assessment.download',$assessment->id) }}"
+                <button
+                    type="button"
+                    data-url="{{ route('assessment.download',$assessment->id) }}"
+                    id="downloadBtn"
 
-                   class="inline-flex items-center gap-3
+                    class="inline-flex items-center gap-3
+px-8 py-4 rounded-2xl
+font-bold text-white
+bg-gradient-to-r
+from-purple-500
+via-indigo-500
+to-sky-500
+shadow-lg transition-all duration-300">
 
-       px-8 py-4 rounded-2xl
+                    <i class="fa-solid fa-download" id="downloadIcon"></i>
 
-       font-bold text-white
+                    <span id="downloadText">
+Download PDF
+</span>
 
-       bg-gradient-to-r
-       from-purple-500
-       via-indigo-500
-       to-sky-500
+                    <i class="fa-solid fa-spinner fa-spin hidden"
+                       id="downloadLoader"></i>
 
-       shadow-lg hover:shadow-xl
+                    <i class="fa-solid fa-check hidden"
+                       id="downloadSuccess"></i>
 
-       transition-all duration-300
-
-       hover:-translate-y-1">
-
-                    <i class="fa-solid fa-download"></i>
-
-                    Download PDF
-
-                </a>
+                </button>
 
             </div>
 
@@ -585,4 +374,87 @@ shadow-lg">
 
 <!-- 🎉 Celebration Confetti -->
 @include('assessment.result-partials.celebration-confetti')
+
+<!-- Script for Download -->
+<script>
+
+    document.addEventListener('DOMContentLoaded',function(){
+
+        const btn = document.getElementById('downloadBtn');
+
+        btn.addEventListener('click',function(){
+
+            const text = document.getElementById('downloadText');
+            const icon = document.getElementById('downloadIcon');
+            const loader = document.getElementById('downloadLoader');
+            const success = document.getElementById('downloadSuccess');
+
+            const url = btn.dataset.url;
+
+            // Preparing
+            text.textContent="Preparing PDF...";
+
+            icon.style.display="none";
+
+            loader.style.display="inline-block";
+
+            btn.disabled=true;
+
+
+            setTimeout(()=>{
+
+                // Downloading
+                text.textContent="Downloading...";
+
+                // hidden iframe download (no white page)
+                let iframe=document.getElementById('pdfDownloadFrame');
+
+                if(!iframe){
+
+                    iframe=document.createElement('iframe');
+
+                    iframe.style.display='none';
+
+                    iframe.id='pdfDownloadFrame';
+
+                    document.body.appendChild(iframe);
+
+                }
+
+                iframe.src=url;
+
+            },800);
+
+
+            setTimeout(()=>{
+
+                // Success
+                loader.style.display="none";
+
+                success.style.display="inline-block";
+
+                text.textContent="Downloaded ✓";
+
+            },2500);
+
+
+            setTimeout(()=>{
+
+                // Reset
+                text.textContent="Download again";
+
+                success.style.display="none";
+
+                icon.style.display="inline-block";
+
+                btn.disabled=false;
+
+            },4500);
+
+        });
+
+    });
+
+</script>
+
 @endsection

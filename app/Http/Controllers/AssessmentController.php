@@ -92,6 +92,19 @@ class AssessmentController extends Controller
             ->with('success', 'Assessment submitted successfully.');
     }
 
+//    public function downloadPdf($id)
+//    {
+//        $assessment = Assessment::findOrFail($id);
+//
+//        $data = [
+//            'assessment'=>$assessment
+//        ];
+//
+//        $pdf = Pdf::loadView('assessment.result-partials.result-pdf',$data);
+//
+//        return $pdf->download('assessment-result.pdf');
+//    }
+
     public function downloadPdf($id)
     {
         $assessment = Assessment::findOrFail($id);
@@ -100,9 +113,19 @@ class AssessmentController extends Controller
             'assessment'=>$assessment
         ];
 
-        $pdf = Pdf::loadView('assessment.result-partials.result-pdf',$data);
+        $pdf = Pdf::loadView(
+            'assessment.result-partials.result-pdf',
+            $data
+        );
 
-        return $pdf->download('assessment-result.pdf');
+        return response(
+            $pdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="assessment-result.pdf"',
+            ]
+        );
     }
 
 }

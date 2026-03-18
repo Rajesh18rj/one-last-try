@@ -740,104 +740,105 @@ window.sectionFeedback = {
                 "Routine stability"
             ]
 
-        },
+        }
 
-        relationship_health:{
+    },
 
-            high:{
-                title:"Healthy Relationship Patterns",
+    relationship_health:{
 
-                summary:
-                    "You appear to maintain healthy and supportive relationships. You communicate well, respect boundaries, and build trust with others.",
+        high:{
+            title:"Healthy Relationship Patterns",
 
-                strengths:[
-                    "Good emotional connection",
-                    "Healthy communication",
-                    "Respect for boundaries",
-                    "Trust building ability"
-                ],
+            summary:
+                "You appear to maintain healthy and supportive relationships. You communicate well, respect boundaries, and build trust with others.",
 
-                risks:[
-                    "Taking too much responsibility for others",
-                    "Emotional dependency risk"
-                ],
+            strengths:[
+                "Good emotional connection",
+                "Healthy communication",
+                "Respect for boundaries",
+                "Trust building ability"
+            ],
 
-                recommendations:[
-                    "Maintain communication habits",
-                    "Continue setting healthy boundaries",
-                    "Balance giving and receiving support"
-                ],
+            risks:[
+                "Taking too much responsibility for others",
+                "Emotional dependency risk"
+            ],
 
-                habits:[
-                    "Regular honest conversations",
-                    "Express appreciation",
-                    "Practice active listening"
-                ]
+            recommendations:[
+                "Maintain communication habits",
+                "Continue setting healthy boundaries",
+                "Balance giving and receiving support"
+            ],
 
-            },
-
-            medium:{
-                title:"Balanced Relationship Patterns",
-
-                summary:
-                    "You maintain generally healthy relationships but may sometimes struggle with communication or emotional expression.",
-
-                strengths:[
-                    "Basic communication skills",
-                    "Willingness to maintain relationships"
-                ],
-
-                risks:[
-                    "Avoiding difficult conversations",
-                    "Emotional misunderstandings"
-                ],
-
-                recommendations:[
-                    "Improve communication clarity",
-                    "Express needs more openly",
-                    "Handle disagreements constructively"
-                ],
-
-                habits:[
-                    "Check in with close people",
-                    "Practice open communication",
-                    "Improve listening skills"
-                ]
-
-            },
-
-            low:{
-                title:"Relationship Growth Opportunity",
-
-                summary:
-                    "You may sometimes find it difficult to maintain emotional connection or communication in relationships. This can improve with awareness.",
-
-                strengths:[
-                    "Opportunity for relationship growth"
-                ],
-
-                risks:[
-                    "Communication gaps",
-                    "Difficulty trusting others",
-                    "Conflict avoidance"
-                ],
-
-                recommendations:[
-                    "Practice open communication",
-                    "Build trust gradually",
-                    "Learn healthy conflict resolution"
-                ],
-
-                habits:[
-                    "Practice expressing feelings",
-                    "Listen without interrupting",
-                    "Spend quality time with trusted people"
-                ]
-
-            }
+            habits:[
+                "Regular honest conversations",
+                "Express appreciation",
+                "Practice active listening"
+            ]
 
         },
 
-    }
+        medium:{
+            title:"Balanced Relationship Patterns",
+
+            summary:
+                "You maintain generally healthy relationships but may sometimes struggle with communication or emotional expression.",
+
+            strengths:[
+                "Basic communication skills",
+                "Willingness to maintain relationships"
+            ],
+
+            risks:[
+                "Avoiding difficult conversations",
+                "Emotional misunderstandings"
+            ],
+
+            recommendations:[
+                "Improve communication clarity",
+                "Express needs more openly",
+                "Handle disagreements constructively"
+            ],
+
+            habits:[
+                "Check in with close people",
+                "Practice open communication",
+                "Improve listening skills"
+            ]
+
+        },
+
+        low:{
+            title:"Relationship Growth Opportunity",
+
+            summary:
+                "You may sometimes find it difficult to maintain emotional connection or communication in relationships. This can improve with awareness.",
+
+            strengths:[
+                "Opportunity for relationship growth"
+            ],
+
+            risks:[
+                "Communication gaps",
+                "Difficulty trusting others",
+                "Conflict avoidance"
+            ],
+
+            recommendations:[
+                "Practice open communication",
+                "Build trust gradually",
+                "Learn healthy conflict resolution"
+            ],
+
+            habits:[
+                "Practice expressing feelings",
+                "Listen without interrupting",
+                "Spend quality time with trusted people"
+            ]
+
+        }
+
+    },
+
 
 };
