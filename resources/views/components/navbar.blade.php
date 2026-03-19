@@ -29,12 +29,14 @@
                     </a>
                 </li>
 
+                @if(!auth()->check() || auth()->user()->canTakeAssessment())
                 <li>
                     <a href="{{ route('assessments.index') }}"
                        class="{{ request()->is('assessment*') ? $activeClasses : '' }} {{ $linkClasses }}">
                         Take Assessment
                     </a>
                 </li>
+                @endif
 
 {{--                <li>--}}
 {{--                    <a href="{{ route('therapists.index') }}"--}}
@@ -44,7 +46,7 @@
 {{--                </li>--}}
                 <li>
                     <a href="#"
-                       class="{{ request()->is('prgrams') ? $activeClasses : '' }} {{ $linkClasses }}">
+                       class="{{ request()->is('programs') ? $activeClasses : '' }} {{ $linkClasses }}">
                         Programs
                     </a>
                 </li>
@@ -161,11 +163,19 @@
     </div>
     <div class="px-8 py-2 flex flex-col space-y-6">
         <a href="/" class="font-semibold text-gray-900 {{ request()->is('/') ? 'text-yellow-600' : '' }}">Home</a>
-        <a href="{{ route('assessments.index') }}" class="text-gray-700 {{ request()->is('assessment*') ? 'text-yellow-600' : '' }}">Assessment</a>
+
+        @if(!auth()->check() || auth()->user()->canTakeAssessment())
+            <a href="{{ route('assessments.index') }}" class="text-gray-700 {{ request()->is('assessment*') ? 'text-yellow-600' : '' }}">Assessment</a>
+        @endif
+
         <a href="#" class="text-gray-700 {{ request()->is('programs*') ? 'text-yellow-600' : '' }}">Programs</a>
+
         {{--        <a href="/therapists" class="text-gray-700 {{ request()->is('therapists') ? 'text-yellow-600' : '' }}">Find a Therapist</a>--}}
+
         <a href="#" class="text-gray-700 {{ request()->is('about') ? 'text-yellow-600' : '' }}">About Us</a>
+
         <a href="#" class="text-gray-700 {{ request()->is('contact') ? 'text-yellow-600' : '' }}">Contact Us</a>
+
         @auth
             <div class="relative">
                 <!-- Trigger -->

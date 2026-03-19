@@ -46,6 +46,10 @@ Route::get('/assessments', function () {
     return view('assessment.index');
 })->name('assessments.index');
 
+Route::get('/assessment/create',
+    [AssessmentController::class,'create'])
+    ->name('assessment.create');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('assessment', [AssessmentController::class, 'create'])->name('assessment.create');
     Route::post('assessment', [AssessmentController::class, 'store'])->name('assessment.store');

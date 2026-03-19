@@ -222,17 +222,17 @@
             <!-- FOOTER -->
             <div class="mt-8 flex justify-end gap-4">
 
-                <button type="button"
-                        id="closeResultModal"
+{{--                <button type="button"--}}
+{{--                        id="closeResultModal"--}}
 
-                        class="px-6 py-3 rounded-xl
-                       bg-gray-100 hover:bg-gray-200
-                       text-gray-700 font-semibold
-                       transition">
+{{--                        class="px-6 py-3 rounded-xl--}}
+{{--                       bg-gray-100 hover:bg-gray-200--}}
+{{--                       text-gray-700 font-semibold--}}
+{{--                       transition">--}}
 
-                    Close
+{{--                    Close--}}
 
-                </button>
+{{--                </button>--}}
 
 
                 <button type="button"

@@ -20,7 +20,7 @@
             </p>
 
             <!-- CTA Button -->
-            <a href="{{ route('assessments.index') }}"
+            <a href="{{ route('assessment.create') }}"
                class="inline-flex items-center justify-center gap-3 bg-[#f7921e] text-white px-6 py-2.5 rounded-full font-semibold shadow-md
                hover:bg-[#df7d0e] transition-all duration-200 text-sm md:text-base">
                 Start My Assessment →

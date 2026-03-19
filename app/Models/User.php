@@ -65,4 +65,13 @@ class User extends Authenticatable
         return $this->hasMany(TherapySession::class, 'therapist_id');
     }
 
+    public function canTakeAssessment()
+    {
+        return !in_array($this->role, ['admin','therapist']);
+    }
+
+    public function isAdminOrTherapist()
+    {
+        return in_array($this->role,['admin','therapist']);
+    }
 }

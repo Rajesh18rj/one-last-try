@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <link
             rel="stylesheet"
@@ -33,6 +35,49 @@
     <!-- Footer Section --->
     @include('components.footer-main')
     @include('components.footer-sub')
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '{{ session('success') }}',
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+            @endif
+
+            @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: '{{ session('error') }}',
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true
+            });
+            @endif
+
+            @if ($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: '{{ $errors->first() }}',
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true
+            });
+            @endif
+
+        });
+    </script>
 
     </body>
 </html>

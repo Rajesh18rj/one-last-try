@@ -12,11 +12,28 @@ class AssessmentController extends Controller
 {
     public function create()
     {
+
+        if(Auth::check() && Auth::user()->isAdminOrTherapist()){
+
+            $role = ucfirst(Auth::user()->role);
+
+            return redirect()->route('welcome')
+                ->with('error',"You are logged in as {$role}. Only customers can take assessment.");
+        }
+
         return view('assessment.create');
     }
 
     public function store(Request $request)
     {
+        if(Auth::check() && Auth::user()->isAdminOrTherapist()){
+
+            $role = ucfirst(Auth::user()->role);
+
+            return redirect()->route('welcome')
+                ->with('error',"You are logged in as {$role}. Only customers can take assessment.");
+        }
+
         $data = $request->validate([
             'answers' => 'required|array',
             'answers.*' => 'required|array',
