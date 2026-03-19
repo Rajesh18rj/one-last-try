@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
+
                 // other sections
                 panel.querySelector('.section-submit')?.classList.remove('hidden');
             }
@@ -263,20 +264,105 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-        // 👉 Ikigai: skip modal but go next
+// 👉 Ikigai validation + skip modal
         if (sectionKey === 'ikigai') {
+
+            const inputs = activePanel.querySelectorAll(
+                'input[name^="answers[ikigai]"]'
+            );
+
+            let valid = true;
+            let firstEmpty = null;
+            let missing = [];
+
+            inputs.forEach(input => {
+
+                if(input.value.trim()===""){
+
+                    valid=false;
+
+                    input.classList.add(
+                        '!ring-2',
+                        '!ring-red-400'
+                    );
+
+                    const label = input.closest('.ikigai-circle')
+                        ?.querySelector('p')
+                        ?.innerText || "Field";
+
+                    missing.push(label);
+
+                    if(!firstEmpty){
+                        firstEmpty=input;
+                    }
+
+                }
+                else{
+
+                    input.classList.remove(
+                        '!ring-2',
+                        '!ring-red-400'
+                    );
+
+                }
+
+            });
+
+
+            if(!valid){
+
+                Swal.fire({
+
+                    icon:'error',
+
+                    title:'Incomplete Ikigai',
+
+                    html:`
+<div style="text-align:left">
+
+<p style="margin-bottom:8px">
+Please complete:
+</p>
+
+<ul style="margin-left:15px">
+
+${missing.map(m=>`<li>• ${m}</li>`).join("")}
+
+</ul>
+
+</div>
+`,
+
+                    confirmButtonColor:'#f97316'
+
+                });
+
+                firstEmpty?.focus();
+
+                return;
+
+            }
+
+
+            /* Continue normally */
 
             const panels = [...document.querySelectorAll('.section-panel')];
             const index = panels.indexOf(activePanel);
 
             if (index === panels.length - 1) {
+
                 setMainTab('#tab-submit');
+
             } else {
+
                 setMainTab('#tab-questions');
+
                 setSectionTab('#' + panels[index + 1].id);
+
             }
 
             return;
+
         }
 
 
