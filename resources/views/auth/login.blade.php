@@ -1,125 +1,412 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="mb-6 text-center">
-        <span class="text-[#F79C23] hover:text-[#d88410]"><i class="fa-solid fa-user-doctor"></i></span>
-        <span class="ml-1 text-sm text-gray-600">Are you a therapist?</span>
+    <x-auth-session-status class="mb-5" :status="session('status')" />
 
-        <a href="{{ route('therapist.login') }}"
-           class="ml-1 inline-flex items-center gap-2 text-sm font-semibold text-[#F79C23]
-              hover:text-[#d88410] transition">
-            Login here
-        </a>
-    </div>
+    <div class="max-w-md mx-auto">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+        <!-- Header -->
+        <div class="text-center mb-7">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <div class="w-20 h-20 mx-auto mb-2
 
-        <!-- Password -->
-        <div class="mt-4 relative">
-            <x-input-label for="password" :value="__('Password')" />
+rounded-3xl
 
-            <div class="relative">
-                <x-text-input id="password"
-                              class="block mt-1 w-full pr-10"
-                              type="password"
-                              name="password"
-                              required
-                              autocomplete="current-password" />
+bg-gradient-to-br
+from-indigo-50
+to-blue-100
 
-                <!-- Eye Icon -->
-                <span
-                    onclick="togglePassword()"
-                    class="absolute inset-y-0 right-2 flex items-center cursor-pointer text-gray-500"
-                >
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477
-                      0 8.268 2.943 9.542 7-1.274
-                      4.057-5.065 7-9.542 7-4.477
-                      0-8.268-2.943-9.542-7z" />
-            </svg>
-        </span>
+flex items-center justify-center
+
+shadow-md
+border border-indigo-100">
+
+                <i class="fa-solid fa-user
+text-3xl
+text-indigo-600"></i>
+
             </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <h2 class="text-2xl font-semibold text-gray-800 tracking-tight">
+                User Login
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Access your account dashboard
+            </p>
+
         </div>
 
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        <!-- Card -->
+        <div class="bg-white
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+border border-gray-100
+
+shadow-lg
+shadow-gray-200/60
+
+rounded-3xl
+
+p-8
+
+transition duration-300
+hover:-translate-y-[2px]">
+
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+
+                <!-- Email -->
+                <div>
+
+                    <x-input-label
+                        for="email"
+                        :value="__('Email')"
+                        class="text-gray-600 font-medium text-sm"/>
+
+                    <div class="relative mt-2">
+
+                        <i class="fa-solid fa-envelope
+
+absolute left-4 top-4
+text-gray-400 text-sm"></i>
+
+                        <x-text-input id="email"
+
+                                      class="block w-full
+
+pl-11
+h-11
+
+rounded-xl
+
+border-gray-200
+
+focus:border-indigo-500
+focus:ring-2
+focus:ring-indigo-500/20
+
+transition"
+
+                                      type="email"
+                                      name="email"
+                                      :value="old('email')"
+
+                                      placeholder="Enter your email"
+
+                                      required />
+
+                    </div>
+
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                </div>
+
+
+
+                <!-- Password -->
+                <div class="mt-6">
+
+                    <x-input-label
+                        for="password"
+                        :value="__('Password')"
+                        class="text-gray-600 font-medium text-sm"/>
+
+                    <div class="relative mt-2">
+
+                        <i class="fa-solid fa-lock
+
+absolute left-4 top-4
+text-gray-400 text-sm"></i>
+
+                        <x-text-input id="password"
+
+                                      class="block w-full
+
+pl-11 pr-11
+
+h-11
+
+rounded-xl
+
+border-gray-200
+
+focus:border-indigo-500
+focus:ring-2
+focus:ring-indigo-500/20
+
+transition"
+
+                                      type="password"
+                                      name="password"
+
+                                      placeholder="Enter password"
+
+                                      required />
+
+
+                        <span onclick="togglePassword()"
+
+                              class="absolute right-4 top-3.5
+
+cursor-pointer
+
+text-gray-400
+hover:text-indigo-600
+
+transition">
+
+<svg id="eyeIcon"
+     xmlns="http://www.w3.org/2000/svg"
+
+     class="h-5 w-5"
+
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor">
+
+<path stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+
+<path stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+
+      d="M2.458 12C3.732 7.943 7.523 5 12 5
+c4.477 0 8.268 2.943 9.542 7
+-1.274 4.057-5.065 7-9.542
+7-4.477 0-8.268-2.943-9.542-7z"/>
+
+</svg>
+
+</span>
+
+                    </div>
+
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
+                </div>
+
+
+
+                <!-- Remember -->
+                <div class="flex items-center justify-between mt-6">
+
+                    <label class="flex items-center gap-2">
+
+                        <input id="remember_me"
+
+                               type="checkbox"
+
+                               class="rounded-md
+border-gray-300
+
+text-indigo-600
+
+focus:ring-indigo-500/30"
+
+                               name="remember">
+
+                        <span class="text-sm text-gray-600">
+Remember me
+</span>
+
+                    </label>
+
+
+                    @if (Route::has('password.request'))
+
+                        <a class="text-sm
+
+text-gray-500
+
+hover:text-indigo-600
+
+transition"
+
+                           href="{{ route('password.request') }}">
+
+                            Forgot password?
+
+                        </a>
+
+                    @endif
+
+                </div>
+
+
+
+                <!-- Button -->
+                <div class="mt-7">
+
+                    <x-primary-button
+
+                        class="w-full justify-center
+
+h-11
+
+rounded-xl
+
+bg-gradient-to-r
+from-indigo-600
+to-blue-600
+
+hover:from-indigo-700
+hover:to-blue-700
+
+shadow-md
+hover:shadow-lg
+
+active:scale-[0.98]
+
+transition duration-300">
+
+                        {{ __('Log in') }}
+
+                    </x-primary-button>
+
+                </div>
+
+
+                <!-- Register -->
+                <div class="text-center mt-4 mb-4 ">
+
+<span class="text-sm text-gray-500">
+Don’t have an account?
+</span>
+
+                    <a href="{{ route('register') }}"
+
+                       class="ml-1 text-sm
+
+font-semibold
+
+text-indigo-600
+
+hover:text-indigo-700
+
+transition">
+
+                        Register
+
+                    </a>
+
+                </div>
+
+            </form>
+
+            <!-- Therapist link -->
+            <div class="mb-1
+
+bg-gradient-to-r
+from-orange-50
+to-amber-50
+
+border border-orange-100
+
+rounded-2xl
+
+p-4
+
+flex items-center justify-between
+
+transition duration-300
+
+hover:shadow-md">
+
+                <!-- Left -->
+                <div class="flex items-center gap-3">
+
+                    <div class="w-10 h-10
+
+        rounded-xl
+
+        bg-white
+
+        border border-orange-100
+
+        flex items-center justify-center
+
+        shadow-sm">
+
+                        <i class="fa-solid fa-user-doctor
+            text-orange-500 text-sm"></i>
+
+                    </div>
+
+                    <div class="text-left">
+
+                        <p class="text-sm font-semibold text-gray-800">
+                            Are you Therapist ?
+                        </p>
+
+                        <p class="text-xs text-gray-500">
+                            Sign in as a therapist
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right -->
+                <a href="{{ route('therapist.login') }}"
+
+                   class="inline-flex items-center gap-2
+
+    text-sm font-semibold
+
+    text-orange-600
+
+    hover:text-orange-700
+
+    hover:gap-3
+
+    transition-all duration-200">
+
+                    Login
+
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+
                 </a>
-            @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            </div>
+
         </div>
 
-        <!-- Register link -->
-        <div class="text-center mt-4">
-            <span class="text-sm text-gray-600">
-                Don’t have an account?
-            </span>
-            <a href="{{ route('register') }}"
-               class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 hover:underline">
-                Register here
-            </a>
-        </div>
-    </form>
+
+
+    </div>
+
+
 
     <script>
-        function togglePassword() {
-            const input = document.getElementById("password");
-            const icon = document.getElementById("eyeIcon");
 
-            if (input.type === "password") {
-                input.type = "text";
-                icon.innerHTML = `
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M13.875 18.825A10.05 10.05 0 0112
-            19c-4.477 0-8.268-2.943-9.542-7
-            0.666-2.135 2.014-3.986 3.771-5.2m3.323-1.482A9.95
-            9.95 0 0112 5c4.477 0 8.268 2.943 9.542
-            7-.38 1.213-.982 2.333-1.773
-            3.287M15 12a3 3 0 11-6 0 3
-            3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 3l18 18" />`;
-            } else {
-                input.type = "password";
-                icon.innerHTML = `
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M15 12a3 3 0 11-6 0 3
-            3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M2.458 12C3.732 7.943 7.523
-            5 12 5c4.477 0 8.268 2.943 9.542
-            7-1.274 4.057-5.065 7-9.542
-            7-4.477 0-8.268-2.943-9.542-7z" />`;
+        function togglePassword(){
+
+            const input =
+                document.getElementById("password");
+
+            const icon =
+                document.getElementById("eyeIcon");
+
+            if(input.type==="password"){
+
+                input.type="text";
+
             }
+            else{
+
+                input.type="password";
+
+            }
+
         }
+
     </script>
 
 </x-guest-layout>

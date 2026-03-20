@@ -37,17 +37,47 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+//    public function authenticate(): void
+//    {
+//        $this->ensureIsNotRateLimited();
+//
+//        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+//            RateLimiter::hit($this->throttleKey());
+//
+//            throw ValidationException::withMessages([
+//                'email' => trans('auth.failed'),
+//            ]);
+//        }
+//
+//        RateLimiter::clear($this->throttleKey());
+//    }
+
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $user = \App\Models\User::where('email', $this->email)->first();
+
+        // Check if user exists
+        if (!$user || !\Hash::check($this->password, $user->password)) {
+
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
+
+        // 🚨 Block therapist login here
+        if ($user->role === 'therapist') {
+
+            throw ValidationException::withMessages([
+                'email' => 'This is customer login. Please login from Therapist login.',
+            ]);
+        }
+
+        // Normal login
+        Auth::login($user, $this->boolean('remember'));
 
         RateLimiter::clear($this->throttleKey());
     }

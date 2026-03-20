@@ -1,7 +1,7 @@
 @extends('layouts.therapist-layout')
 
 @section('content')
-    <div class="min-h-screen bg-[#FFF8ED]">
+    <div class="min-h-screen bg-[#FFF8ED] font-['DM_Sans']">
 
         <!-- ================= MOBILE HEADER ================= -->
         <header class="lg:hidden flex items-center justify-between px-4 h-20
